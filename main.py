@@ -125,6 +125,7 @@ class GourmetRecommendationSystem:
     def _load_expert_pairings(self) -> Dict:
         """Load expert pairing recommendations"""
         return {
+            # Turkish Cuisine Expanded
             "Adana Kebab": [
                 ("Gordon Ramsay", "🍷 Zinfandel", "Baharatlı etin yoğunluğu ile mükemmel uyum", 95),
                 ("Mehmet Gürs", "🥃 Rakı", "Geleneksel Türk içeceği, kebap ile klasik ikili", 98),
@@ -135,11 +136,68 @@ class GourmetRecommendationSystem:
                 ("Mehmet Gürs", "🥃 Rakı", "Yoğurt sosuyla birlikte klasik Turkish pairing", 96),
                 ("Somer Sivrioğlu", "🍺 Red Ale", "Et ve domates sosuna uygun", 90)
             ],
+            "Döner Kebab": [
+                ("Vedat Milor", "🍺 Turkish Lager", "Günlük kebap için pratik içecek", 87),
+                ("Mehmet Gürs", "🥃 Rakı", "Her türlü kebap ile uyumlu", 90),
+                ("Somer Sivrioğlu", "🍷 Grenache", "Et aromasını güzelleştirir", 85)
+            ],
+            "Köfte": [
+                ("Mehmet Gürs", "🥃 Rakı", "Ev yemeği klasiği ile geleneksel", 92),
+                ("Vedat Milor", "🍺 Pilsner", "Hafif ve köfteye uygun", 86),
+                ("Maksut Aşkar", "🍷 Turkish Red", "Yerel et, yerel şarap", 89)
+            ],
             "Manti": [
                 ("Vedat Milor", "🍷 Riesling", "Yoğurt sosuna mükemmel asidite", 92),
                 ("Mehmet Gürs", "🥃 Rakı", "Türk mantısı ile geleneksel içecek", 95),
                 ("Maksut Aşkar", "🍺 Wheat Beer", "Hamur işine uygun hafif bira", 87)
             ],
+            "Lahmacun": [
+                ("Mehmet Gürs", "🥃 Rakı", "Türk pizza ile geleneksel içecek", 96),
+                ("Vedat Milor", "🍷 Grenache", "Baharatlı ete uygun", 91),
+                ("Maksut Aşkar", "🍺 Turkish Beer", "Yerel lezzet ile yerel içecek", 89)
+            ],
+            "Çiğ Köfte": [
+                ("Vedat Milor", "🥃 Rakı", "Baharatlı çiğ köfte ile mükemmel", 94),
+                ("Mehmet Gürs", "🍺 Wheat Beer", "Hafif ve ferahlatıcı", 87),
+                ("Somer Sivrioğlu", "🍷 Sauvignon Blanc", "Asidite baharatları dengeler", 85)
+            ],
+            "Dolma": [
+                ("Maksut Aşkar", "🍷 Turkish White", "Zeytinyağlı ile beyaz şarap", 90),
+                ("Vedat Milor", "🥃 Rakı", "Geleneksel meze ile", 88),
+                ("Mehmet Gürs", "🍷 Vermouth", "Otlu dolma ile otlu içecek", 85)
+            ],
+            "Balık Ekmek": [
+                ("Mehmet Gürs", "🍺 Turkish Lager", "Sokak lezzeti ile pratik", 89),
+                ("Vedat Milor", "🍷 Turkish White", "Taze balık ile beyaz şarap", 92),
+                ("Somer Sivrioğlu", "🥃 Rakı", "Balık rakı klasik ikili", 95)
+            ],
+            "Börek": [
+                ("Maksut Aşkar", "🥃 Turkish Tea", "Kahvaltı böreği ile çay", 85),
+                ("Vedat Milor", "🍷 Prosecco", "Hamurlu yiyecek ile köpüklü", 87),
+                ("Mehmet Gürs", "🍺 Wheat Beer", "Peynirli börek ile uyumlu", 84)
+            ],
+            "Menemen": [
+                ("Vedat Milor", "🥃 Turkish Tea", "Kahvaltı klasiği", 90),
+                ("Mehmet Gürs", "🍷 Rosé", "Domates ile uyumlu pembe şarap", 85),
+                ("Somer Sivrioğlu", "🍺 Light Beer", "Kahvaltı için hafif", 82)
+            ],
+            "Pide": [
+                ("Mehmet Gürs", "🥃 Rakı", "Peynirli pide ile geleneksel", 90),
+                ("Vedat Milor", "🍺 Turkish Beer", "Fırın lezzeti ile soğuk bira", 86),
+                ("Maksut Aşkar", "🍷 Turkish Red", "Etli pide ile kırmızı şarap", 88)
+            ],
+            "Künefe": [
+                ("Mehmet Gürs", "☕ Turkish Coffee", "Tatlı ile türk kahvesi geleneksel", 96),
+                ("Vedat Milor", "🍷 Moscato", "Peynirli tatlı ile tatlı şarap", 92),
+                ("Somer Sivrioğlu", "🥃 Cognac", "Zengin tatlı ile brandy", 89)
+            ],
+            "Lokum": [
+                ("Vedat Milor", "☕ Turkish Coffee", "İstanbul klasiği", 98),
+                ("Mehmet Gürs", "🍷 Port Wine", "Tatlı ile tatlı şarap", 90),
+                ("Maksut Aşkar", "🥃 Cognac", "Osmanlı tatlısı ile Fransız brandisi", 87)
+            ],
+
+            # International Cuisine
             "Beef Wellington": [
                 ("Gordon Ramsay", "🍷 Cabernet Sauvignon", "Signature yemeğim için favori şarabım", 98),
                 ("Joël Robuchon", "🍷 Bordeaux", "Klasik Fransız eşleştirmesi", 96),
@@ -160,6 +218,56 @@ class GourmetRecommendationSystem:
                 ("Joël Robuchon", "🍷 Barbera", "Domates ve fesleğen ile uyumlu", 90),
                 ("Gordon Ramsay", "🍺 Italian Lager", "Pizza ile klasik kombinasyon", 87)
             ],
+            "Carbonara": [
+                ("Massimo Bottura", "🍷 Frascati", "Roma klasiği ile Roma şarabı", 94),
+                ("Gordon Ramsay", "🍷 Chardonnay", "Krema ile mükemmel uyum", 91),
+                ("Joël Robuchon", "🍾 Prosecco", "Zengin pasta ile köpüklü", 88)
+            ],
+            "Risotto Milanese": [
+                ("Massimo Bottura", "🍷 Barolo", "İtalyan mantarı ile mükemmel", 96),
+                ("Joël Robuchon", "🍷 White Burgundy", "Kremalı risotto için ideal", 93),
+                ("Gordon Ramsay", "🍷 Pinot Grigio", "Hafif ve uyumlu", 88)
+            ],
+            "Tiramisu": [
+                ("Massimo Bottura", "🥃 Grappa", "İtalyan tatlısı ile İtalyan brandisi", 95),
+                ("Joël Robuchon", "� Moscato d'Asti", "Kahveli tatlı ile tatlı şarap", 92),
+                ("Gordon Ramsay", "☕ Espresso", "Kahve ile kahve", 89)
+            ],
+            "Paella": [
+                ("Gordon Ramsay", "🍷 Tempranillo", "İspanyol pilavı ile İspanyol şarabı", 93),
+                ("Joël Robuchon", "🍷 Albariño", "Deniz ürünleri ile beyaz şarap", 95),
+                ("Daniel Boulud", "🍾 Cava", "Özel günler için köpüklü", 90)
+            ],
+            "Fish and Chips": [
+                ("Gordon Ramsay", "� English Bitter", "İngiliz klasiği ile İngiliz birası", 90),
+                ("Joël Robuchon", "� Muscadet", "Kızarmış balık ile mineral şarap", 87),
+                ("Daniel Boulud", "� Champagne", "Yağlı yemek ile asidite", 85)
+            ],
+            "Ramen": [
+                ("Jiro Ono", "🍺 Japanese Lager", "Geleneksel ramen eşleştirmesi", 88),
+                ("Gordon Ramsay", "🍶 Sake", "Umami ile umami", 90),
+                ("Joël Robuchon", "� Beaujolais", "Zengin et suyu ile hafif şarap", 86)
+            ],
+            "Tempura": [
+                ("Jiro Ono", "🍶 Sake", "Kızarmış yiyecek ile temiz içecek", 92),
+                ("Gordon Ramsay", "🍾 Champagne", "Yağlı yemek ile köpüklü", 89),
+                ("Joël Robuchon", "🍺 Japanese Beer", "Hafif ve ferahlatıcı", 85)
+            ],
+            "Butter Chicken": [
+                ("Gordon Ramsay", "🍷 Gewürztraminer", "Baharatlı krema ile aromatik şarap", 90),
+                ("Joël Robuchon", "🍺 IPA", "Baharatları dengeleyen acı", 87),
+                ("Daniel Boulud", "🍷 Riesling", "Tatlılık baharatları yumuşatır", 92)
+            ],
+            "Tacos al Pastor": [
+                ("Gordon Ramsay", "🍺 Mexican Lager", "Sokak yemeği ile basit bira", 85),
+                ("Joël Robuchon", "🍸 Margarita", "Meksika klasik kombinasyonu", 92),
+                ("Daniel Boulud", "🍷 Tempranillo", "Baharatlı et ile İspanyol şarabı", 88)
+            ],
+            "BBQ Ribs": [
+                ("Gordon Ramsay", "🍷 Zinfandel", "Barbekü ile mükemmel Amerikan eşleştirmesi", 94),
+                ("Joël Robuchon", "🥃 Bourbon", "Tatlı sos ile vanilya notaları", 91),
+                ("Daniel Boulud", "🍺 Porter", "Tütsü ile tütsü", 88)
+            ],
             "Chocolate Lava Cake": [
                 ("Gordon Ramsay", "🍷 Port Wine", "Çikolata ile mükemmel tatlı eşleştirmesi", 96),
                 ("Joël Robuchon", "🥃 Cognac", "Zengin çikolata için ideal", 94),
@@ -168,27 +276,17 @@ class GourmetRecommendationSystem:
             "Grilled Salmon": [
                 ("Gordon Ramsay", "🍷 Pinot Noir", "Somon ile klasik eşleştirme", 94),
                 ("Jiro Ono", "🍶 Sake", "Balık ile geleneksel Japon içeceği", 92),
-                ("Daniel Boulud", "🍷 Chardonnay", "Izgara balık için mükemmel", 90)
+                ("Daniel Boulud", "� Chardonnay", "Izgara balık için mükemmel", 90)
             ],
             "Oysters": [
-                ("Joël Robuchon", "🍾 Chablis", "İstiridye ile klasik Fransız eşleştirmesi", 98),
+                ("Joël Robuchon", "� Chablis", "İstiridye ile klasik Fransız eşleştirmesi", 98),
                 ("Gordon Ramsay", "🍾 Champagne", "Deniz ürünleri için mükemmel", 95),
                 ("Daniel Boulud", "🍷 Muscadet", "Mineral ve taze", 92)
             ],
-            "Mushroom Risotto": [
-                ("Massimo Bottura", "🍷 Barolo", "İtalyan mantarı ile mükemmel", 96),
-                ("Joël Robuchon", "🍷 White Burgundy", "Kremalı risotto için ideal", 93),
-                ("Gordon Ramsay", "🍷 Pinot Grigio", "Hafif ve uyumlu", 88)
-            ],
             "Caesar Salad": [
                 ("Gordon Ramsay", "🍷 Sauvignon Blanc", "Taze salata için ideal asidite", 90),
-                ("Daniel Boulud", "🍾 Pinot Grigio", "Hafif ve ferahlatıcı", 87),
+                ("Daniel Boulud", "� Pinot Grigio", "Hafif ve ferahlatıcı", 87),
                 ("Joël Robuchon", "🍺 Wheat Beer", "Salata ile hafif içecek", 85)
-            ],
-            "Lahmacun": [
-                ("Mehmet Gürs", "🥃 Rakı", "Türk pizza ile geleneksel içecek", 96),
-                ("Vedat Milor", "🍷 Grenache", "Baharatlı ete uygun", 91),
-                ("Maksut Aşkar", "🍺 Turkish Beer", "Yerel lezzet ile yerel içecek", 89)
             ],
             "Baklava": [
                 ("Mehmet Gürs", "☕ Turkish Coffee", "Geleneksel Türk tatlısı ile türk kahvesi", 97),
@@ -228,77 +326,91 @@ class AIFoodAlcoholMatcher:
     
     def _load_food_database(self) -> List[Food]:
         """Load comprehensive food database"""
-        foods = [
-            # Turkish Cuisine
-            Food(1, "Adana Kebab", "Turkish", ["spicy", "smoky", "salty"], 8, "tender", "grilled", 
-                 ["lamb", "spices"], [], "mid-range", "hot"),
-            Food(2, "İskender Kebab", "Turkish", ["savory", "rich", "salty"], 7, "tender", "grilled",
-                 ["lamb", "yogurt", "tomato"], [], "mid-range", "hot"),
-            Food(3, "Manti", "Turkish", ["savory", "rich"], 6, "tender", "boiled",
-                 ["beef", "dough", "yogurt"], [], "mid-range", "hot"),
-            Food(4, "Lahmacun", "Turkish", ["spicy", "savory"], 7, "crispy", "baked",
-                 ["lamb", "vegetables", "spices"], [], "budget", "hot"),
-            Food(5, "Baklava", "Turkish", ["sweet", "rich"], 8, "crispy", "baked",
-                 ["phyllo", "nuts", "honey"], ["vegetarian"], "mid-range", "room-temp"),
-            
-            # International Cuisine
-            Food(6, "Beef Wellington", "British", ["rich", "savory", "umami"], 9, "tender", "roasted",
-                 ["beef", "mushroom", "pastry"], [], "premium", "hot"),
-            Food(7, "Sushi Omakase", "Japanese", ["fresh", "umami", "delicate"], 8, "tender", "raw",
-                 ["fish", "rice", "seaweed"], [], "premium", "cold"),
-            Food(8, "Coq au Vin", "French", ["rich", "savory", "complex"], 8, "tender", "braised",
-                 ["chicken", "wine", "herbs"], [], "premium", "hot"),
-            Food(9, "Margherita Pizza", "Italian", ["savory", "rich"], 6, "crispy", "baked",
-                 ["tomato", "mozzarella", "basil"], ["vegetarian"], "budget", "hot"),
-            Food(10, "Chocolate Lava Cake", "French", ["sweet", "rich"], 9, "creamy", "baked",
-                  ["chocolate", "butter", "eggs"], ["vegetarian"], "mid-range", "hot"),
-            
-            # Seafood
-            Food(11, "Grilled Salmon", "International", ["rich", "smoky"], 6, "tender", "grilled",
-                 ["salmon", "herbs"], [], "premium", "hot"),
-            Food(12, "Oysters", "French", ["briny", "fresh", "mineral"], 7, "tender", "raw",
-                 ["oysters"], [], "premium", "cold"),
-            
-            # Vegetarian Options
-            Food(13, "Mushroom Risotto", "Italian", ["rich", "earthy", "creamy"], 7, "creamy", "stirred",
-                 ["rice", "mushrooms", "cheese"], ["vegetarian"], "mid-range", "hot"),
-            Food(14, "Caesar Salad", "American", ["fresh", "salty", "tangy"], 5, "crispy", "raw",
-                 ["lettuce", "cheese", "croutons"], ["vegetarian"], "budget", "cold"),
-        ]
-        return foods
+        # Import the expanded database
+        try:
+            from expanded_database import get_expanded_food_database
+            return get_expanded_food_database()
+        except ImportError:
+            print("⚠️ Genişletilmiş veri tabanı yüklenemedi, temel veri tabanı kullanılıyor...")
+            # Fallback to basic database if expanded database is not available
+            foods = [
+                # Turkish Cuisine
+                Food(1, "Adana Kebab", "Turkish", ["spicy", "smoky", "salty"], 8, "tender", "grilled", 
+                     ["lamb", "spices"], [], "mid-range", "hot"),
+                Food(2, "İskender Kebab", "Turkish", ["savory", "rich", "salty"], 7, "tender", "grilled",
+                     ["lamb", "yogurt", "tomato"], [], "mid-range", "hot"),
+                Food(3, "Manti", "Turkish", ["savory", "rich"], 6, "tender", "boiled",
+                     ["beef", "dough", "yogurt"], [], "mid-range", "hot"),
+                Food(4, "Lahmacun", "Turkish", ["spicy", "savory"], 7, "crispy", "baked",
+                     ["lamb", "vegetables", "spices"], [], "budget", "hot"),
+                Food(5, "Baklava", "Turkish", ["sweet", "rich"], 8, "crispy", "baked",
+                     ["phyllo", "nuts", "honey"], ["vegetarian"], "mid-range", "room-temp"),
+                
+                # International Cuisine
+                Food(6, "Beef Wellington", "British", ["rich", "savory", "umami"], 9, "tender", "roasted",
+                     ["beef", "mushroom", "pastry"], [], "premium", "hot"),
+                Food(7, "Sushi Omakase", "Japanese", ["fresh", "umami", "delicate"], 8, "tender", "raw",
+                     ["fish", "rice", "seaweed"], [], "premium", "cold"),
+                Food(8, "Coq au Vin", "French", ["rich", "savory", "complex"], 8, "tender", "braised",
+                     ["chicken", "wine", "herbs"], [], "premium", "hot"),
+                Food(9, "Margherita Pizza", "Italian", ["savory", "rich"], 6, "crispy", "baked",
+                     ["tomato", "mozzarella", "basil"], ["vegetarian"], "budget", "hot"),
+                Food(10, "Chocolate Lava Cake", "French", ["sweet", "rich"], 9, "creamy", "baked",
+                      ["chocolate", "butter", "eggs"], ["vegetarian"], "mid-range", "hot"),
+                
+                # Seafood
+                Food(11, "Grilled Salmon", "International", ["rich", "smoky"], 6, "tender", "grilled",
+                     ["salmon", "herbs"], [], "premium", "hot"),
+                Food(12, "Oysters", "French", ["briny", "fresh", "mineral"], 7, "tender", "raw",
+                     ["oysters"], [], "premium", "cold"),
+                
+                # Vegetarian Options
+                Food(13, "Mushroom Risotto", "Italian", ["rich", "earthy", "creamy"], 7, "creamy", "stirred",
+                     ["rice", "mushrooms", "cheese"], ["vegetarian"], "mid-range", "hot"),
+                Food(14, "Caesar Salad", "American", ["fresh", "salty", "tangy"], 5, "crispy", "raw",
+                     ["lettuce", "cheese", "croutons"], ["vegetarian"], "budget", "cold"),
+            ]
+            return foods
     
     def _load_alcohol_database(self) -> List[Alcohol]:
         """Load comprehensive alcohol database"""
-        alcohols = [
-            # Turkish Alcohols
-            Alcohol(1, "Rakı", "spirits", "anise", 45.0, ["anise", "herbal"], "full", 1, 2, 0, "mid-range", "Turkey", None),
-            Alcohol(2, "Turkish Red Wine (Kalecik Karası)", "wine", "red", 13.5, ["fruity", "earthy"], "medium", 3, 6, 6, "mid-range", "Turkey", 2020),
-            
-            # Wines
-            Alcohol(3, "Cabernet Sauvignon", "wine", "red", 14.0, ["dark fruit", "oak", "tannins"], "full", 2, 5, 8, "premium", "France", 2019),
-            Alcohol(4, "Chardonnay", "wine", "white", 13.0, ["citrus", "oak", "butter"], "medium", 4, 7, 2, "premium", "France", 2021),
-            Alcohol(5, "Pinot Noir", "wine", "red", 12.5, ["red fruit", "earthy"], "light", 3, 6, 4, "premium", "France", 2020),
-            Alcohol(6, "Sauvignon Blanc", "wine", "white", 12.0, ["citrus", "grass", "mineral"], "light", 2, 8, 1, "mid-range", "New Zealand", 2022),
-            Alcohol(7, "Champagne", "wine", "sparkling", 12.5, ["citrus", "yeast", "mineral"], "light", 3, 8, 2, "premium", "France", 2018),
-            
-            # Beers
-            Alcohol(8, "IPA", "beer", "ale", 6.5, ["hoppy", "bitter", "citrus"], "medium", 2, 4, 0, "budget", "USA", None),
-            Alcohol(9, "Pilsner", "beer", "lager", 4.8, ["crisp", "light", "malty"], "light", 3, 5, 0, "budget", "Czech Republic", None),
-            Alcohol(10, "Stout", "beer", "ale", 5.5, ["roasted", "chocolate", "coffee"], "full", 1, 3, 0, "mid-range", "Ireland", None),
-            
-            # Spirits & Cocktails
-            Alcohol(11, "Single Malt Whiskey", "spirits", "whiskey", 40.0, ["smoky", "vanilla", "oak"], "full", 2, 3, 0, "premium", "Scotland", None),
-            Alcohol(12, "Gin & Tonic", "cocktail", "gin-based", 8.0, ["juniper", "citrus", "bitter"], "light", 3, 6, 0, "mid-range", "International", None),
-            Alcohol(13, "Manhattan", "cocktail", "whiskey-based", 25.0, ["sweet", "bitter", "strong"], "full", 6, 4, 0, "premium", "USA", None),
-            Alcohol(14, "Mojito", "cocktail", "rum-based", 10.0, ["mint", "lime", "sweet"], "light", 7, 7, 0, "mid-range", "Cuba", None),
-            
-            # Sake & Asian Spirits
-            Alcohol(15, "Junmai Sake", "sake", "pure rice", 15.5, ["rice", "floral", "clean"], "light", 4, 5, 0, "premium", "Japan", None),
-            
-            # Dessert Wines
-            Alcohol(16, "Port Wine", "wine", "fortified", 20.0, ["sweet", "rich", "dark fruit"], "full", 8, 4, 7, "premium", "Portugal", None),
-        ]
-        return alcohols
+        # Import the expanded database
+        try:
+            from expanded_database import get_expanded_alcohol_database
+            return get_expanded_alcohol_database()
+        except ImportError:
+            print("⚠️ Genişletilmiş alkol veri tabanı yüklenemedi, temel veri tabanı kullanılıyor...")
+            # Fallback to basic database if expanded database is not available
+            alcohols = [
+                # Turkish Alcohols
+                Alcohol(1, "Rakı", "spirits", "anise", 45.0, ["anise", "herbal"], "full", 1, 2, 0, "mid-range", "Turkey", None),
+                Alcohol(2, "Turkish Red Wine (Kalecik Karası)", "wine", "red", 13.5, ["fruity", "earthy"], "medium", 3, 6, 6, "mid-range", "Turkey", 2020),
+                
+                # Wines
+                Alcohol(3, "Cabernet Sauvignon", "wine", "red", 14.0, ["dark fruit", "oak", "tannins"], "full", 2, 5, 8, "premium", "France", 2019),
+                Alcohol(4, "Chardonnay", "wine", "white", 13.0, ["citrus", "oak", "butter"], "medium", 4, 7, 2, "premium", "France", 2021),
+                Alcohol(5, "Pinot Noir", "wine", "red", 12.5, ["red fruit", "earthy"], "light", 3, 6, 4, "premium", "France", 2020),
+                Alcohol(6, "Sauvignon Blanc", "wine", "white", 12.0, ["citrus", "grass", "mineral"], "light", 2, 8, 1, "mid-range", "New Zealand", 2022),
+                Alcohol(7, "Champagne", "wine", "sparkling", 12.5, ["citrus", "yeast", "mineral"], "light", 3, 8, 2, "premium", "France", 2018),
+                
+                # Beers
+                Alcohol(8, "IPA", "beer", "ale", 6.5, ["hoppy", "bitter", "citrus"], "medium", 2, 4, 0, "budget", "USA", None),
+                Alcohol(9, "Pilsner", "beer", "lager", 4.8, ["crisp", "light", "malty"], "light", 3, 5, 0, "budget", "Czech Republic", None),
+                Alcohol(10, "Stout", "beer", "ale", 5.5, ["roasted", "chocolate", "coffee"], "full", 1, 3, 0, "mid-range", "Ireland", None),
+                
+                # Spirits & Cocktails
+                Alcohol(11, "Single Malt Whiskey", "spirits", "whiskey", 40.0, ["smoky", "vanilla", "oak"], "full", 2, 3, 0, "premium", "Scotland", None),
+                Alcohol(12, "Gin & Tonic", "cocktail", "gin-based", 8.0, ["juniper", "citrus", "bitter"], "light", 3, 6, 0, "mid-range", "International", None),
+                Alcohol(13, "Manhattan", "cocktail", "whiskey-based", 25.0, ["sweet", "bitter", "strong"], "full", 6, 4, 0, "premium", "USA", None),
+                Alcohol(14, "Mojito", "cocktail", "rum-based", 10.0, ["mint", "lime", "sweet"], "light", 7, 7, 0, "mid-range", "Cuba", None),
+                
+                # Sake & Asian Spirits
+                Alcohol(15, "Junmai Sake", "sake", "pure rice", 15.5, ["rice", "floral", "clean"], "light", 4, 5, 0, "premium", "Japan", None),
+                
+                # Dessert Wines
+                Alcohol(16, "Port Wine", "wine", "fortified", 20.0, ["sweet", "rich", "dark fruit"], "full", 8, 4, 7, "premium", "Portugal", None),
+            ]
+            return alcohols
     
     def _load_pairing_rules(self) -> Dict:
         """Load AI pairing rules and weights"""

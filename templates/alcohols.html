@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}İçecekler - Ne Yenir?{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-top: 100px;">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold text-white mb-3">
+                    🍷 Tüm İçecekler
+                </h1>
+                <p class="lead text-white-50">
+                    Alkollü içecek koleksiyonumuzu keşfedin ve favorilerinizi bulun
+                </p>
+            </div>
+
+            <!-- Alcohols Grid -->
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-wine"></i> İçecek Koleksiyonu ({{ alcohols|length }} içecek)
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row g-4" id="alcoholsGrid">
+                        {% for alcohol in alcohols %}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="card alcohol-card h-100">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <h5 class="card-title mb-1">
+                                            {% if alcohol.type == 'Wine' %}🍷
+                                            {% elif alcohol.type == 'Beer' %}🍺
+                                            {% elif alcohol.type == 'Whiskey' %}🥃
+                                            {% elif alcohol.type == 'Vodka' %}🍸
+                                            {% elif alcohol.type == 'Gin' %}🍸
+                                            {% elif alcohol.type == 'Rum' %}🥃
+                                            {% elif alcohol.type == 'Tequila' %}🍹
+                                            {% elif alcohol.type == 'Brandy' %}🥃
+                                            {% elif alcohol.type == 'Cognac' %}🥃
+                                            {% elif alcohol.type == 'Champagne' %}🍾
+                                            {% elif alcohol.type == 'Cocktail' %}🍹
+                                            {% else %}🍷
+                                            {% endif %}
+                                            {{ alcohol.name }}
+                                        </h5>
+                                        <span class="badge bg-secondary">{{ alcohol.type }}</span>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <h6 class="text-muted mb-2">Lezzet Notları:</h6>
+                                        <div class="d-flex flex-wrap gap-1">
+                                            {% for note in alcohol.flavor_notes %}
+                                            <span class="badge bg-light text-dark">{{ note }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
+                                    <div class="row g-2 mb-3">
+                                        <div class="col-6">
+                                            <small class="text-muted d-block">
+                                                <i class="bi bi-thermometer text-info"></i> Alkol Oranı
+                                            </small>
+                                            <div class="progress" style="height: 8px;">
+                                                <div class="progress-bar bg-info"
+                                                    style="width: {{ (alcohol.alcohol_content / 50) * 100 }}%"></div>
+                                            </div>
+                                            <small>{{ alcohol.alcohol_content }}%</small>
+                                        </div>
+                                        <div class="col-6">
+                                            <small class="text-muted d-block">
+                                                <i class="bi bi-cash text-success"></i> Fiyat Aralığı
+                                            </small>
+                                            <span class="badge 
+                                                {% if alcohol.price_range == '$' %}bg-success
+                                                {% elif alcohol.price_range == '$$' %}bg-warning
+                                                {% else %}bg-danger
+                                                {% endif %}">
+                                                {{ alcohol.price_range }}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {% if alcohol.region %}
+                                    <div class="mb-3">
+                                        <small class="text-muted">
+                                            <i class="bi bi-geo-alt"></i> {{ alcohol.region }}
+                                        </small>
+                                    </div>
+                                    {% endif %}
+
+                                    <div class="d-grid">
+                                        <a href="{{ url_for('recommend') }}" class="btn btn-outline-primary">
+                                            <i class="bi bi-search"></i> Eşleştirmeler Gör
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .alcohol-card {
+        transition: all 0.3s ease;
+    }
+
+    .alcohol-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .progress {
+        border-radius: 10px;
+    }
+
+    .progress-bar {
+        border-radius: 10px;
+    }
+</style>
+{% endblock %}

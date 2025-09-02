@@ -7,17 +7,17 @@
     <div class="row">
         <div class="col-lg-8 mx-auto">
             <div class="text-center mb-5">
-                <h1 class="display-4 fw-bold text-white mb-3">
+                <h1 class="display-4 fw-bold text-black mb-3">
                     🍽️ Yemeğinizi Seçin
                 </h1>
-                <p class="lead text-white-50">
+                <p class="lead text-black-50">
                     Bir yemek seçin ve AI ile gurme uzmanlarından içecek önerileri alın
                 </p>
             </div>
 
             <!-- Food Selection -->
             <div class="card">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header bg-primary text-black">
                     <h4 class="mb-0">
                         <i class="bi bi-search"></i> Yemek Seçimi
                     </h4>
@@ -72,7 +72,7 @@
 <div class="modal fade" id="recommendationsModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
+            <div class="modal-header bg-primary text-black">
                 <h5 class="modal-title">
                     <i class="bi bi-lightbulb"></i> <span id="selectedFoodName"></span> için AI Önerileri
                 </h5>
@@ -161,7 +161,7 @@
         if (data.ai_recommendations && data.ai_recommendations.length > 0) {
             html += `
             <div class="mb-5">
-                <h4 class="text-white mb-3">
+                <h4 class="text-black mb-3">
                     <i class="bi bi-robot text-info"></i> 🤖 AI Önerileri
                 </h4>
                 <div class="row g-3">
@@ -176,18 +176,18 @@
                     <div class="recommendation-card">
                         <div class="d-flex justify-content-between align-items-start mb-3">
                             <div class="flex-grow-1">
-                                <h5 class="text-white mb-1">
+                                <h5 class="text-black mb-1">
                                     ${alcoholIcon} ${rec.name}
                                 </h5>
-                                <p class="text-light mb-2">
+                                <p class="text-black mb-2">
                                     ${rec.type.charAt(0).toUpperCase() + rec.type.slice(1)} • ${rec.subtype} • ${rec.region}
                                 </p>
-                                <small class="text-light opacity-75">
+                                <small class="text-black opacity-75">
                                     ${rec.alcohol_content}% ABV • ${rec.price_range} • ${rec.body} body
                                 </small>
                             </div>
                             <div class="text-end">
-                                <div class="score-badge bg-${scoreColor} text-white px-3 py-2 rounded-pill">
+                                <div class="score-badge bg-${scoreColor} text-black px-3 py-2 rounded-pill">
                                     ${rec.score}/100
                                 </div>
                             </div>
@@ -199,7 +199,7 @@
                             </div>
                         </div>
                         
-                        <p class="text-light mb-3">
+                        <p class="text-black mb-3">
                             ${rec.explanation}
                         </p>
                         
@@ -231,7 +231,7 @@
         if (data.expert_recommendations && data.expert_recommendations.length > 0) {
             html += `
             <div class="mb-4">
-                <h4 class="text-white mb-3">
+                <h4 class="text-black mb-3">
                     <i class="bi bi-person-badge text-warning"></i> 👨‍🍳 Gurme Uzmanı Önerileri
                 </h4>
                 <div class="row g-3">
@@ -247,18 +247,18 @@
                     <div class="recommendation-card border-warning">
                         <div class="d-flex justify-content-between align-items-start mb-3">
                             <div class="flex-grow-1">
-                                <h5 class="text-white mb-1">
+                                <h5 class="text-black mb-1">
                                     ${rec.name}
                                 </h5>
                                 <p class="text-warning mb-2">
                                     👨‍🍳 ${expertInfo.name || 'Expert'} (${expertInfo.country || ''}) ${stars}
                                 </p>
-                                <small class="text-light opacity-75">
+                                <small class="text-black opacity-75">
                                     ${expertInfo.bio || ''}
                                 </small>
                             </div>
                             <div class="text-end">
-                                <div class="score-badge bg-${scoreColor} text-white px-3 py-2 rounded-pill">
+                                <div class="score-badge bg-${scoreColor} text-black px-3 py-2 rounded-pill">
                                     ${rec.score}/100
                                 </div>
                             </div>
@@ -270,7 +270,7 @@
                             </div>
                         </div>
                         
-                        <p class="text-light mb-3">
+                        <p class="text-black mb-3">
                             ${rec.explanation}
                         </p>
                         
@@ -283,7 +283,7 @@
                         ` : ''}
                         
                         ${expertInfo.famous_for ? `
-                        <div class="text-light opacity-75 small mb-2">
+                        <div class="text-black opacity-75 small mb-2">
                             <strong>Ünlü olduğu alanlar:</strong> ${expertInfo.famous_for.join(', ')}
                         </div>
                         ` : ''}
@@ -296,7 +296,7 @@
         }
 
         if (!data.ai_recommendations?.length && !data.expert_recommendations?.length) {
-            html = '<div class="text-center text-light"><p>Bu yemek için henüz öneri bulunmamaktadır.</p></div>';
+            html = '<div class="text-center text-black"><p>Bu yemek için henüz öneri bulunmamaktadır.</p></div>';
         }
 
         content.innerHTML = html;

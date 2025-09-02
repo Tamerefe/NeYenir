@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+
+{% block title %}Trend Eşleştirmeler - Ne Yenir?{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-top: 100px;">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold text-white mb-3">
+                    🔥 Trend Eşleştirmeler
+                </h1>
+                <p class="lead text-white-50">
+                    En popüler yemek ve alkol eşleştirmelerini keşfedin
+                </p>
+            </div>
+
+            <!-- Trending Pairings Grid -->
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-fire"></i> Popüler Eşleştirmeler ({{ pairings|length }} adet)
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row g-4" id="trendingGrid">
+                        {% for pairing in pairings %}
+                        <div class="col-lg-6 col-md-6">
+                            <div class="card trending-card h-100">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <div class="pairing-badge">
+                                            <span class="badge bg-danger">
+                                                <i class="bi bi-fire"></i> Trend #{{ loop.index }}
+                                            </span>
+                                        </div>
+                                        <div class="popularity-score">
+                                            <small class="text-muted">Popülerlik</small>
+                                            <div class="progress" style="height: 6px; width: 60px;">
+                                                <div class="progress-bar bg-success"
+                                                    style="width: {{ ((20 - loop.index + 1) / 20) * 100 }}%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="pairing-content">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="food-section">
+                                                    <h6 class="text-muted mb-2">
+                                                        <i class="bi bi-egg-fried"></i> Yemek
+                                                    </h6>
+                                                    <h5 class="mb-2">
+                                                        {% if pairing.food.cuisine_type == 'Turkish' %}🇹🇷
+                                                        {% elif pairing.food.cuisine_type == 'French' %}🇫🇷
+                                                        {% elif pairing.food.cuisine_type == 'Italian' %}🇮🇹
+                                                        {% elif pairing.food.cuisine_type == 'Japanese' %}🇯🇵
+                                                        {% elif pairing.food.cuisine_type == 'British' %}🇬🇧
+                                                        {% elif pairing.food.cuisine_type == 'American' %}🇺🇸
+                                                        {% elif pairing.food.cuisine_type == 'Chinese' %}🇨🇳
+                                                        {% elif pairing.food.cuisine_type == 'Indian' %}🇮🇳
+                                                        {% elif pairing.food.cuisine_type == 'Mexican' %}🇲🇽
+                                                        {% elif pairing.food.cuisine_type == 'Spanish' %}🇪🇸
+                                                        {% elif pairing.food.cuisine_type == 'Greek' %}🇬🇷
+                                                        {% else %}🌍
+                                                        {% endif %}
+                                                        {{ pairing.food.name }}
+                                                    </h5>
+                                                    <span class="badge bg-light text-dark">
+                                                        {{ pairing.food.cuisine_type }}
+                                                    </span>
+                                                    <div class="mt-2">
+                                                        <small class="text-muted">
+                                                            <i class="bi bi-fire"></i> {{ pairing.food.intensity }}/10
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="alcohol-section">
+                                                    <h6 class="text-muted mb-2">
+                                                        <i class="bi bi-wine"></i> İçecek
+                                                    </h6>
+                                                    <h5 class="mb-2">
+                                                        {% if pairing.alcohol.type == 'Wine' %}🍷
+                                                        {% elif pairing.alcohol.type == 'Beer' %}🍺
+                                                        {% elif pairing.alcohol.type == 'Whiskey' %}🥃
+                                                        {% elif pairing.alcohol.type == 'Vodka' %}🍸
+                                                        {% elif pairing.alcohol.type == 'Gin' %}🍸
+                                                        {% elif pairing.alcohol.type == 'Rum' %}🥃
+                                                        {% elif pairing.alcohol.type == 'Tequila' %}🍹
+                                                        {% elif pairing.alcohol.type == 'Brandy' %}🥃
+                                                        {% elif pairing.alcohol.type == 'Cognac' %}🥃
+                                                        {% elif pairing.alcohol.type == 'Champagne' %}🍾
+                                                        {% elif pairing.alcohol.type == 'Cocktail' %}🍹
+                                                        {% else %}🍷
+                                                        {% endif %}
+                                                        {{ pairing.alcohol.name }}
+                                                    </h5>
+                                                    <span class="badge bg-secondary">
+                                                        {{ pairing.alcohol.type }}
+                                                    </span>
+                                                    <div class="mt-2">
+                                                        <small class="text-muted">
+                                                            <i class="bi bi-thermometer"></i> {{
+                                                            pairing.alcohol.alcohol_content }}%
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-3">
+
+                                    <div class="pairing-score text-center">
+                                        <div class="row g-2">
+                                            <div class="col-4">
+                                                <div class="score-item">
+                                                    <div class="score-value text-primary fw-bold">
+                                                        {{ "%.1f"|format(pairing.compatibility_score) }}
+                                                    </div>
+                                                    <small class="text-muted">Uyumluluk</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="score-item">
+                                                    <div class="score-value text-success fw-bold">
+                                                        {{ pairing.popularity_count }}
+                                                    </div>
+                                                    <small class="text-muted">Beğeni</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="score-item">
+                                                    <div class="score-value text-warning fw-bold">
+                                                        ★ {{ "%.1f"|format(pairing.average_rating or 0) }}
+                                                    </div>
+                                                    <small class="text-muted">Puan</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-grid mt-3">
+                                        <a href="{{ url_for('recommend') }}#food-{{ pairing.food.name|replace(' ', '-') }}"
+                                            class="btn btn-outline-primary">
+                                            <i class="bi bi-search"></i> Bu Eşleştirmeyi Dene
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    {% if not pairings %}
+                    <div class="text-center py-5">
+                        <i class="bi bi-search display-1 text-muted"></i>
+                        <h4 class="text-muted mt-3">Henüz trend eşleştirme bulunamadı</h4>
+                        <p class="text-muted">İlk eşleştirmeleri oluşturmak için öneriler sayfasını ziyaret edin.</p>
+                        <a href="{{ url_for('recommend') }}" class="btn btn-primary">
+                            <i class="bi bi-lightbulb"></i> Öneriler Al
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .trending-card {
+        transition: all 0.3s ease;
+        border-left: 4px solid var(--primary-color);
+    }
+
+    .trending-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid var(--accent-color);
+    }
+
+    .pairing-badge .badge {
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.05);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .score-item {
+        padding: 0.5rem;
+        border-radius: 8px;
+        background: rgba(var(--bs-primary-rgb), 0.05);
+    }
+
+    .score-value {
+        font-size: 1.25rem;
+        line-height: 1;
+    }
+
+    .progress {
+        border-radius: 10px;
+    }
+
+    .progress-bar {
+        border-radius: 10px;
+    }
+
+    .food-section,
+    .alcohol-section {
+        padding: 0.5rem;
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.02);
+    }
+</style>
+{% endblock %}

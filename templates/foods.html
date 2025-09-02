@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}Yemekler - Ne Yenir?{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-top: 100px;">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold text-white mb-3">
+                    🍽️ Tüm Yemekler
+                </h1>
+                <p class="lead text-white-50">
+                    Geniş yemek koleksiyonumuzu keşfedin ve favorilerinizi bulun
+                </p>
+            </div>
+
+            <!-- Foods Grid -->
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-collection"></i> Yemek Koleksiyonu ({{ foods|length }} yemek)
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row g-4" id="foodsGrid">
+                        {% for food in foods %}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="card food-card h-100">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <h5 class="card-title mb-1">
+                                            {% if food.cuisine_type == 'Turkish' %}🇹🇷
+                                            {% elif food.cuisine_type == 'French' %}🇫🇷
+                                            {% elif food.cuisine_type == 'Italian' %}🇮🇹
+                                            {% elif food.cuisine_type == 'Japanese' %}🇯🇵
+                                            {% elif food.cuisine_type == 'British' %}🇬🇧
+                                            {% elif food.cuisine_type == 'American' %}🇺🇸
+                                            {% elif food.cuisine_type == 'Chinese' %}🇨🇳
+                                            {% elif food.cuisine_type == 'Indian' %}🇮🇳
+                                            {% elif food.cuisine_type == 'Mexican' %}🇲🇽
+                                            {% elif food.cuisine_type == 'Spanish' %}🇪🇸
+                                            {% elif food.cuisine_type == 'Greek' %}🇬🇷
+                                            {% else %}🌍
+                                            {% endif %}
+                                            {{ food.name }}
+                                        </h5>
+                                        <span class="badge bg-secondary">{{ food.cuisine_type }}</span>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <h6 class="text-muted mb-2">Lezzet Profili:</h6>
+                                        <div class="d-flex flex-wrap gap-1">
+                                            {% for flavor in food.flavor_profile %}
+                                            <span class="badge bg-light text-dark">{{ flavor }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
+                                    <div class="row g-2 mb-3">
+                                        <div class="col-6">
+                                            <small class="text-muted d-block">
+                                                <i class="bi bi-fire text-danger"></i> Yoğunluk
+                                            </small>
+                                            <div class="progress" style="height: 8px;">
+                                                <div class="progress-bar bg-danger"
+                                                    style="width: {{ food.intensity * 10 }}%"></div>
+                                            </div>
+                                            <small>{{ food.intensity }}/10</small>
+                                        </div>
+                                        <div class="col-6">
+                                            <small class="text-muted d-block">
+                                                <i class="bi bi-cash text-success"></i> Fiyat Aralığı
+                                            </small>
+                                            <span class="badge 
+                                                {% if food.price_range == '$' %}bg-success
+                                                {% elif food.price_range == '$$' %}bg-warning
+                                                {% else %}bg-danger
+                                                {% endif %}">
+                                                {{ food.price_range }}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-grid">
+                                        <a href="{{ url_for('recommend') }}#food-{{ food.name|replace(' ', '-') }}"
+                                            class="btn btn-outline-primary">
+                                            <i class="bi bi-search"></i> Öneriler Al
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .food-card {
+        transition: all 0.3s ease;
+    }
+
+    .food-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .progress {
+        border-radius: 10px;
+    }
+
+    .progress-bar {
+        border-radius: 10px;
+    }
+</style>
+{% endblock %}

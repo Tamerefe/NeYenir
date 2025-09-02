@@ -159,3 +159,6 @@ def logout():
 def not_found(error):
     """404 error handler with logo"""
     return render_template('404.html'), 404
+
+if __name__ == '__main__':
+    app.run(debug=True, host='127.0.0.1', port=5000)
