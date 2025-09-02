@@ -1,0 +1,371 @@
+{% extends "base.html" %}
+
+{% block title %}Profil Oluştur - AI Yemek & Alkol Eşleştirme{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-top: 100px;">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold text-white mb-3">
+                    👤 Profilinizi Oluşturun
+                </h1>
+                <p class="lead text-white-50">
+                    İçecek önerilerinizi kişiselleştirmemize yardımcı olun
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-person-plus"></i> Kişisel Bilgiler
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form id="profileForm">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">İsim</label>
+                                <input type="text" class="form-control" id="name" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Yaş</label>
+                                <input type="number" class="form-control" id="age" min="18" max="120" required>
+                                <div class="form-text">18 yaş ve üzeri olmalıdır</div>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Alkol Toleransı</label>
+                                <div class="row g-2">
+                                    <div class="col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="tolerance" id="low"
+                                                value="low">
+                                            <label class="form-check-label" for="low">
+                                                <strong>Düşük</strong><br>
+                                                <small class="text-muted">Maksimum 1-2 kadeh</small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="tolerance" id="medium"
+                                                value="medium" checked>
+                                            <label class="form-check-label" for="medium">
+                                                <strong>Orta</strong><br>
+                                                <small class="text-muted">Rahatça 3-4 kadeh</small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="tolerance" id="high"
+                                                value="high">
+                                            <label class="form-check-label" for="high">
+                                                <strong>Yüksek</strong><br>
+                                                <small class="text-muted">5+ kadeh</small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Tercih Edilen Lezzetler</label>
+                                <div class="row g-2">
+                                    <div class="col-md-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="sweet" value="sweet">
+                                            <label class="form-check-label" for="sweet">🍯 Tatlı</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="salty" value="salty">
+                                            <label class="form-check-label" for="salty">🧂 Tuzlu</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="sour" value="sour">
+                                            <label class="form-check-label" for="sour">🍋 Ekşi</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="bitter" value="bitter">
+                                            <label class="form-check-label" for="bitter">☕ Acı</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="umami" value="umami">
+                                            <label class="form-check-label" for="umami">🍄 Umami</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="spicy" value="spicy">
+                                            <label class="form-check-label" for="spicy">🌶️ Baharatlı</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="smoky" value="smoky">
+                                            <label class="form-check-label" for="smoky">🔥 Dumanlı</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="fruity" value="fruity">
+                                            <label class="form-check-label" for="fruity">🍇 Meyveli</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Bütçe Tercihi</label>
+                                <select class="form-select" id="budget">
+                                    <option value="budget">💰 Bütçe dostu</option>
+                                    <option value="mid-range" selected>💸 Orta seviye</option>
+                                    <option value="premium">💎 Premium</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Favori Mutfaklar (İsteğe bağlı)</label>
+                                <div class="row g-2">
+                                    <div class="col-md-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="turkish"
+                                                value="Turkish">
+                                            <label class="form-check-label" for="turkish">🇹🇷 Türk</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="italian"
+                                                value="Italian">
+                                            <label class="form-check-label" for="italian">🇮🇹 İtalyan</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="french" value="French">
+                                            <label class="form-check-label" for="french">🇫🇷 Fransız</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="japanese"
+                                                value="Japanese">
+                                            <label class="form-check-label" for="japanese">🇯🇵 Japon</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="american"
+                                                value="American">
+                                            <label class="form-check-label" for="american">🇺🇸 Amerikan</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="british"
+                                                value="British">
+                                            <label class="form-check-label" for="british">🇬🇧 İngiliz</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Diyet Kısıtlamaları (İsteğe bağlı)</label>
+                                <div class="row g-2">
+                                    <div class="col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="vegetarian"
+                                                value="vegetarian">
+                                            <label class="form-check-label" for="vegetarian">🥬 Vejetaryen</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="vegan" value="vegan">
+                                            <label class="form-check-label" for="vegan">🌱 Vegan</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="glutenfree"
+                                                value="gluten-free">
+                                            <label class="form-check-label" for="glutenfree">🌾 Glutensiz</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="bi bi-check-circle"></i> Profilimi Oluştur
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <p class="text-white-50">
+                    <i class="bi bi-shield-check"></i> Verileriniz güvendedir ve yalnızca önerileri iyileştirmek için
+                    kullanılır
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">
+                    <i class="bi bi-check-circle"></i> Profil Oluşturuldu!
+                </h5>
+            </div>
+            <div class="modal-body text-center">
+                <div class="mb-3">
+                    <i class="bi bi-person-check display-1 text-success"></i>
+                </div>
+                <h5>AI Yemek & Alkol Eşleştirme'ye Hoş Geldiniz!</h5>
+                <p class="text-muted">Kişiselleştirilmiş profiliniz başarıyla oluşturuldu.
+                    Artık tercihlerinize göre özelleştirilmiş öneriler alabilirsiniz.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="{{ url_for('recommend') }}" class="btn btn-primary">
+                    İlk Önerilerimi Al
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('profileForm');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const name = formData.get('name') || document.getElementById('name').value;
+            const age = formData.get('age') || document.getElementById('age').value;
+
+            if (!name || !age) {
+                alert('Lütfen adınızı ve yaşınızı girin.');
+                return;
+            }
+
+            if (age < 18) {
+                alert('Bu hizmeti kullanmak için 18 yaş ve üzeri olmalısınız.');
+                return;
+            }
+
+            // Get alcohol tolerance
+            const tolerance = document.querySelector('input[name="tolerance"]:checked').value;
+
+            // Get preferred flavors
+            const flavorCheckboxes = document.querySelectorAll('input[type="checkbox"][value*="sweet"], input[type="checkbox"][value*="salty"], input[type="checkbox"][value*="sour"], input[type="checkbox"][value*="bitter"], input[type="checkbox"][value*="umami"], input[type="checkbox"][value*="spicy"], input[type="checkbox"][value*="smoky"], input[type="checkbox"][value*="fruity"]');
+            const preferredFlavors = Array.from(flavorCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+
+            // Get budget preference
+            const budget = document.getElementById('budget').value;
+
+            // Get favorite cuisines
+            const cuisineCheckboxes = document.querySelectorAll('input[type="checkbox"][value*="Turkish"], input[type="checkbox"][value*="Italian"], input[type="checkbox"][value*="French"], input[type="checkbox"][value*="Japanese"], input[type="checkbox"][value*="American"], input[type="checkbox"][value*="British"]');
+            const favoriteCuisines = Array.from(cuisineCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+
+            // Get dietary restrictions
+            const dietaryCheckboxes = document.querySelectorAll('input[type="checkbox"][value*="vegetarian"], input[type="checkbox"][value*="vegan"], input[type="checkbox"][value*="gluten-free"]');
+            const dietaryRestrictions = Array.from(dietaryCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+
+            const profileData = {
+                name: name,
+                age: parseInt(age),
+                alcohol_tolerance: tolerance,
+                preferred_flavors: preferredFlavors,
+                budget_preference: budget,
+                favorite_cuisines: favoriteCuisines,
+                dietary_restrictions: dietaryRestrictions,
+                disliked_alcohols: []
+            };
+
+            // Disable submit button
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Profil Oluşturuluyor...';
+
+            fetch('/create_profile', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(profileData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                        successModal.show();
+                    } else {
+                        alert('Profil oluşturulurken hata oluştu. Lütfen tekrar deneyin.');
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Profil oluşturulurken hata oluştu. Lütfen tekrar deneyin.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                });
+        });
+
+        // Form validation
+        const nameInput = document.getElementById('name');
+        const ageInput = document.getElementById('age');
+
+        nameInput.addEventListener('input', function () {
+            if (this.value.length < 2) {
+                this.setCustomValidity('İsim en az 2 karakter olmalıdır');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+
+        ageInput.addEventListener('input', function () {
+            if (this.value < 18) {
+                this.setCustomValidity('18 yaş ve üzeri olmalısınız');
+            } else if (this.value > 120) {
+                this.setCustomValidity('Lütfen geçerli bir yaş girin');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+    });
+</script>
+{% endblock %}

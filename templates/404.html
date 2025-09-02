@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Sayfa Bulunamadı - Ne Yenir?{% endblock %}
+
+{% block content %}
+<div class="container text-center" style="padding-top: 150px; padding-bottom: 100px;">
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <div class="mb-4">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Ne Yenir Logo"
+                    class="mb-3 hero-logo"
+                    style="height: 120px; width: 120px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); opacity: 0.7;">
+            </div>
+
+            <h1 class="display-1 fw-bold text-white mb-4">404</h1>
+
+            <h2 class="text-white mb-3">
+                Aradığınız Sayfa Bulunamadı
+            </h2>
+
+            <p class="text-white-50 lead mb-4">
+                Üzgünüz, aradığınız sayfa mevcut değil veya taşınmış olabilir.
+                Ana sayfaya dönebilir veya önerilerimizi keşfedebilirsiniz.
+            </p>
+
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg">
+                    <i class="bi bi-house"></i> Ana Sayfa
+                </a>
+                <a href="{{ url_for('recommend') }}" class="btn btn-outline-light btn-lg">
+                    <i class="bi bi-lightbulb"></i> Öneriler Al
+                </a>
+            </div>
+
+            <div class="mt-5">
+                <p class="text-white-50 small">
+                    <i class="bi bi-info-circle"></i>
+                    Sorun devam ederse lütfen sistem yöneticisiyle iletişime geçin.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

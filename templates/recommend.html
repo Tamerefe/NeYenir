@@ -1,0 +1,453 @@
+{% extends "base.html" %}
+
+{% block title %}Öneriler Al - Ne Yenir?{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-top: 100px;">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold text-white mb-3">
+                    🍽️ Yemeğinizi Seçin
+                </h1>
+                <p class="lead text-white-50">
+                    Bir yemek seçin ve AI ile gurme uzmanlarından içecek önerileri alın
+                </p>
+            </div>
+
+            <!-- Food Selection -->
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-search"></i> Yemek Seçimi
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3" id="foodGrid">
+                        {% for food in foods %}
+                        <div class="col-lg-6">
+                            <div class="card food-item-card h-100" style="cursor: pointer;"
+                                data-food-name="{{ food.name }}"
+                                onclick="selectFood('{{ food.name }}', '{{ food.cuisine_type }}', {{ food.intensity }})">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h5 class="card-title mb-1">
+                                            {% if food.cuisine_type == 'Turkish' %}🇹🇷
+                                            {% elif food.cuisine_type == 'French' %}🇫🇷
+                                            {% elif food.cuisine_type == 'Italian' %}🇮🇹
+                                            {% elif food.cuisine_type == 'Japanese' %}🇯🇵
+                                            {% elif food.cuisine_type == 'British' %}🇬🇧
+                                            {% elif food.cuisine_type == 'American' %}🇺🇸
+                                            {% else %}🌍
+                                            {% endif %}
+                                            {{ food.name }}
+                                        </h5>
+                                        <span class="cuisine-badge">{{ food.cuisine_type }}</span>
+                                    </div>
+
+                                    <p class="text-muted small mb-2">
+                                        {{ food.flavor_profile|join(', ') }}
+                                    </p>
+
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">
+                                            <i class="bi bi-fire"></i> Yoğunluk: {{ food.intensity }}/10
+                                        </small>
+                                        <small class="text-muted">
+                                            <i class="bi bi-tag"></i> {{ food.price_range }}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recommendations Modal -->
+<div class="modal fade" id="recommendationsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">
+                    <i class="bi bi-lightbulb"></i> <span id="selectedFoodName"></span> için AI Önerileri
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="loading-spinner" id="loadingSpinner">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Yükleniyor...</span>
+                    </div>
+                    <p class="mt-3">AI mükemmel eşleştirmeleri analiz ediyor...</p>
+                </div>
+
+                <div id="recommendationsContent" style="display: none;">
+                    <!-- Recommendations will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Rating Modal -->
+<div class="modal fade" id="ratingModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Bu Eşleştirmeyi Oyla</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <h6 id="ratingPairText"></h6>
+                <div class="rating-input my-4">
+                    <i class="bi bi-star rating-star" data-rating="1"></i>
+                    <i class="bi bi-star rating-star" data-rating="2"></i>
+                    <i class="bi bi-star rating-star" data-rating="3"></i>
+                    <i class="bi bi-star rating-star" data-rating="4"></i>
+                    <i class="bi bi-star rating-star" data-rating="5"></i>
+                </div>
+                <p class="text-muted">Bu eşleştirmeyi oylamak için yıldızlara tıklayın</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button type="button" class="btn btn-primary" id="submitRating">Oyumu Gönder</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let selectedFood = '';
+    let selectedAlcohol = '';
+    let currentRating = 0;
+
+    function selectFood(foodName, cuisine, intensity) {
+        selectedFood = foodName;
+        document.getElementById('selectedFoodName').textContent = foodName;
+
+        // Show modal and loading spinner
+        const modal = new bootstrap.Modal(document.getElementById('recommendationsModal'));
+        modal.show();
+
+        document.getElementById('loadingSpinner').style.display = 'block';
+        document.getElementById('recommendationsContent').style.display = 'none';
+
+        // Fetch recommendations
+        fetch(`/api/recommendations/${foodName.replace(/ /g, '-')}`)
+            .then(response => response.json())
+            .then(data => {
+                displayRecommendations(data);
+                document.getElementById('loadingSpinner').style.display = 'none';
+                document.getElementById('recommendationsContent').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('loadingSpinner').innerHTML = '<p class="text-danger">Öneriler yüklenirken hata oluştu</p>';
+            });
+    }
+
+    function displayRecommendations(data) {
+        const content = document.getElementById('recommendationsContent');
+        let html = '';
+
+        // AI Recommendations Section
+        if (data.ai_recommendations && data.ai_recommendations.length > 0) {
+            html += `
+            <div class="mb-5">
+                <h4 class="text-white mb-3">
+                    <i class="bi bi-robot text-info"></i> 🤖 AI Önerileri
+                </h4>
+                <div class="row g-3">
+            `;
+
+            data.ai_recommendations.forEach((rec, index) => {
+                const alcoholIcon = getAlcoholIcon(rec.type);
+                const scoreColor = getScoreColor(rec.score);
+
+                html += `
+                <div class="col-12">
+                    <div class="recommendation-card">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div class="flex-grow-1">
+                                <h5 class="text-white mb-1">
+                                    ${alcoholIcon} ${rec.name}
+                                </h5>
+                                <p class="text-light mb-2">
+                                    ${rec.type.charAt(0).toUpperCase() + rec.type.slice(1)} • ${rec.subtype} • ${rec.region}
+                                </p>
+                                <small class="text-light opacity-75">
+                                    ${rec.alcohol_content}% ABV • ${rec.price_range} • ${rec.body} body
+                                </small>
+                            </div>
+                            <div class="text-end">
+                                <div class="score-badge bg-${scoreColor} text-white px-3 py-2 rounded-pill">
+                                    ${rec.score}/100
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: ${rec.score}%"></div>
+                            </div>
+                        </div>
+                        
+                        <p class="text-light mb-3">
+                            ${rec.explanation}
+                        </p>
+                        
+                        <div class="d-flex gap-2 flex-wrap">
+                            ${rec.flavor_profile.map(flavor =>
+                    `<span class="badge bg-secondary">${flavor}</span>`
+                ).join('')}
+                        </div>
+                        
+                        <div class="mt-3">
+                            <button class="btn btn-outline-success btn-sm me-2" 
+                                    onclick="showRatingModal('${rec.name}')">
+                                <i class="bi bi-star"></i> Eşleştirmeyi Oyla
+                            </button>
+                            <button class="btn btn-outline-info btn-sm"
+                                    onclick="showDetails('${rec.name}')">
+                                <i class="bi bi-info-circle"></i> Detaylar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            });
+
+            html += '</div></div>';
+        }
+
+        // Expert Recommendations Section
+        if (data.expert_recommendations && data.expert_recommendations.length > 0) {
+            html += `
+            <div class="mb-4">
+                <h4 class="text-white mb-3">
+                    <i class="bi bi-person-badge text-warning"></i> 👨‍🍳 Gurme Uzmanı Önerileri
+                </h4>
+                <div class="row g-3">
+            `;
+
+            data.expert_recommendations.forEach((rec, index) => {
+                const expertInfo = rec.expert || {};
+                const stars = expertInfo.michelin_stars > 0 ? '⭐'.repeat(expertInfo.michelin_stars) : '🏆';
+                const scoreColor = getScoreColor(rec.score);
+
+                html += `
+                <div class="col-12">
+                    <div class="recommendation-card border-warning">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div class="flex-grow-1">
+                                <h5 class="text-white mb-1">
+                                    ${rec.name}
+                                </h5>
+                                <p class="text-warning mb-2">
+                                    👨‍🍳 ${expertInfo.name || 'Expert'} (${expertInfo.country || ''}) ${stars}
+                                </p>
+                                <small class="text-light opacity-75">
+                                    ${expertInfo.bio || ''}
+                                </small>
+                            </div>
+                            <div class="text-end">
+                                <div class="score-badge bg-${scoreColor} text-white px-3 py-2 rounded-pill">
+                                    ${rec.score}/100
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="score-bar">
+                                <div class="score-fill bg-warning" style="width: ${rec.score}%"></div>
+                            </div>
+                        </div>
+                        
+                        <p class="text-light mb-3">
+                            ${rec.explanation}
+                        </p>
+                        
+                        ${expertInfo.speciality ? `
+                        <div class="d-flex gap-2 flex-wrap mb-3">
+                            ${expertInfo.speciality.map(spec =>
+                    `<span class="badge bg-warning text-dark">${spec}</span>`
+                ).join('')}
+                        </div>
+                        ` : ''}
+                        
+                        ${expertInfo.famous_for ? `
+                        <div class="text-light opacity-75 small mb-2">
+                            <strong>Ünlü olduğu alanlar:</strong> ${expertInfo.famous_for.join(', ')}
+                        </div>
+                        ` : ''}
+                    </div>
+                </div>
+                `;
+            });
+
+            html += '</div></div>';
+        }
+
+        if (!data.ai_recommendations?.length && !data.expert_recommendations?.length) {
+            html = '<div class="text-center text-light"><p>Bu yemek için henüz öneri bulunmamaktadır.</p></div>';
+        }
+
+        content.innerHTML = html;
+    }
+
+    function getAlcoholIcon(type) {
+        const icons = {
+            'wine': '🍷',
+            'beer': '🍺',
+            'spirits': '🥃',
+            'cocktail': '🍸',
+            'sake': '🍶'
+        };
+        return icons[type] || '🥂';
+    }
+
+    function getScoreColor(score) {
+        if (score >= 80) return 'success';
+        if (score >= 70) return 'info';
+        if (score >= 60) return 'warning';
+        return 'secondary';
+    }
+
+    function rateThisPairing(alcoholName) {
+        selectedAlcohol = alcoholName;
+        document.getElementById('ratingPairText').textContent = `${selectedFood} + ${alcoholName}`;
+
+        // Reset rating
+        currentRating = 0;
+        document.querySelectorAll('.rating-star').forEach(star => {
+            star.classList.remove('bi-star-fill');
+            star.classList.add('bi-star');
+        });
+
+        const ratingModal = new bootstrap.Modal(document.getElementById('ratingModal'));
+        ratingModal.show();
+    }
+
+    // Rating system
+    document.addEventListener('DOMContentLoaded', function () {
+        const ratingStars = document.querySelectorAll('.rating-star');
+
+        ratingStars.forEach(star => {
+            star.addEventListener('click', function () {
+                currentRating = parseInt(this.dataset.rating);
+                updateStars();
+            });
+
+            star.addEventListener('mouseover', function () {
+                const hoverRating = parseInt(this.dataset.rating);
+                updateStars(hoverRating);
+            });
+        });
+
+        document.querySelector('.rating-input').addEventListener('mouseleave', function () {
+            updateStars();
+        });
+
+        document.getElementById('submitRating').addEventListener('click', function () {
+            if (currentRating > 0) {
+                submitRating();
+            } else {
+                alert('Lütfen önce bir puan verin!');
+            }
+        });
+    });
+
+    function updateStars(hoverRating = null) {
+        const rating = hoverRating || currentRating;
+        document.querySelectorAll('.rating-star').forEach((star, index) => {
+            if (index < rating) {
+                star.classList.remove('bi-star');
+                star.classList.add('bi-star-fill');
+            } else {
+                star.classList.remove('bi-star-fill');
+                star.classList.add('bi-star');
+            }
+        });
+    }
+
+    function submitRating() {
+        fetch('/api/rate_pairing', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                food_name: selectedFood,
+                alcohol_name: selectedAlcohol,
+                rating: currentRating
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    bootstrap.Modal.getInstance(document.getElementById('ratingModal')).hide();
+                    alert('Oyunuz için teşekkürler! Geri bildiriminiz önerilerimizi geliştirmeye yardımcı oluyor.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Oy gönderilirken hata oluştu. Lütfen tekrar deneyin.');
+            });
+    }
+
+    // Food card hover effects
+    document.addEventListener('DOMContentLoaded', function () {
+        const foodCards = document.querySelectorAll('.food-item-card');
+
+        foodCards.forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-5px)';
+                this.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.1)';
+            });
+        });
+    });
+</script>
+
+<style>
+    .food-item-card {
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    .food-item-card:hover {
+        border-color: var(--primary-color);
+    }
+
+    .rating-star {
+        font-size: 2rem;
+        color: #ddd;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin: 0 5px;
+    }
+
+    .rating-star:hover,
+    .rating-star.bi-star-fill {
+        color: #ffc107;
+        transform: scale(1.1);
+    }
+
+    .score-badge {
+        font-weight: bold;
+        font-size: 0.9rem;
+        min-width: 80px;
+    }
+</style>
+{% endblock %}

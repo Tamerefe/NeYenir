@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yemekler - Ne Yenir?</title>
+    <link rel="icon" type="image/png" href="static/images/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8B5CF6;
+            --secondary-color: #06B6D4;
+            --accent-color: #F59E0B;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .food-card {
+            cursor: pointer;
+            height: 100%;
+        }
+
+        .food-emoji {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header {
+            padding: 100px 0 60px;
+            color: white;
+            text-align: center;
+        }
+
+        .navbar-brand img {
+            height: 40px;
+            width: 40px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="static/images/logo.png" alt="Logo" class="me-2">
+                <span class="fw-bold">Ne Yenir?</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-house"></i> Ana Sayfa
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="foods.html">
+                            <i class="bi bi-egg-fried"></i> Yemekler
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="drinks.html">
+                            <i class="bi bi-cup"></i> İçecekler
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="recommendations.html">
+                            <i class="bi bi-lightbulb"></i> Öneriler
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">
+                            <i class="bi bi-info-circle"></i> Hakkında
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main style="padding-top: 76px;">
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="display-4 fw-bold mb-3">🍽️ Yemek Seçenekleri</h1>
+                <p class="lead">Kapsamlı yemek veritabanımızdan favorinizi seçin ve mükemmel içecek eşleştirmeleri
+                    keşfedin</p>
+            </div>
+        </section>
+
+        <!-- Foods Section -->
+        <section class="py-5">
+            <div class="container">
+                <div class="row g-4">
+                    <!-- Turkish Foods -->
+                    <div class="col-12 mb-4">
+                        <h2 class="text-white mb-4">🇹🇷 Türk Mutfağı</h2>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card food-card h-100 text-center p-4" onclick="showFoodDetails('Adana Kebap')">
+                            <div class="food-emoji">🌶️</div>
+                            <h5>Adana Kebap</h5>
+                            <p class="text-muted small">Baharatlı kıyma kebabı</p>
+                            <small class="text-primary">Öneriler için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card food-card h-100 text-center p-4" onclick="showFoodDetails('İskender')">
+                            <div class="food-emoji">🥩</div>
+                            <h5>İskender</h5>
+                            <p class="text-muted small">Döner, yoğurt ve tereyağı</p>
+                            <small class="text-primary">Öneriler için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card food-card h-100 text-center p-4" onclick="showFoodDetails('Manti')">
+                            <div class="food-emoji">🥟</div>
+                            <h5>Mantı</h5>
+                            <p class="text-muted small">Türk usulü börek</p>
+                            <small class="text-primary">Öneriler için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card food-card h-100 text-center p-4" onclick="showFoodDetails('Lahmacun')">
+                            <div class="food-emoji">🍕</div>
+                            <h5>Lahmacun</h5>
+                            <p class="text-muted small">İnce hamur üzerine kıymalı</p>
+                            <small class="text-primary">Öneriler için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <!-- International Foods -->
+                    <div class="col-12 mb-4 mt-5">
+                        <h2 class="text-white mb-4">🌍 Dünya Mutfağı</h2>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card food-card h-100 text-center p-4" onclick="showFoodDetails('Pizza Margherita')">
+                            <div class="food-emoji">🍕</div>
+                            <h5>Pizza Margherita</h5>
+                            <p class="text-muted small">İtalyan klasiği</p>
+                            <small class="text-primary">Öneriler için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card food-card h-100 text-center p-4" onclick="showFoodDetails('Steak')">
+                            <div class="food-emoji">🥩</div>
+                            <h5>Steak</h5>
+                            <p class="text-muted small">Premium dana eti</p>
+                            <small class="text-primary">Öneriler için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card food-card h-100 text-center p-4" onclick="showFoodDetails('Sushi')">
+                            <div class="food-emoji">🍣</div>
+                            <h5>Sushi</h5>
+                            <p class="text-muted small">Japon mutfağı</p>
+                            <small class="text-primary">Öneriler için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card food-card h-100 text-center p-4" onclick="showFoodDetails('Tacos')">
+                            <div class="food-emoji">🌮</div>
+                            <h5>Tacos</h5>
+                            <p class="text-muted small">Meksika lezzeti</p>
+                            <small class="text-primary">Öneriler için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card food-card h-100 text-center p-4" onclick="showFoodDetails('Pasta Carbonara')">
+                            <div class="food-emoji">🍝</div>
+                            <h5>Pasta Carbonara</h5>
+                            <p class="text-muted small">Kremalı İtalyan makarnası</p>
+                            <small class="text-primary">Öneriler için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card food-card h-100 text-center p-4" onclick="showFoodDetails('Paella')">
+                            <div class="food-emoji">🥘</div>
+                            <h5>Paella</h5>
+                            <p class="text-muted small">İspanyol pilavı</p>
+                            <small class="text-primary">Öneriler için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card food-card h-100 text-center p-4" onclick="showFoodDetails('Burger')">
+                            <div class="food-emoji">🍔</div>
+                            <h5>Burger</h5>
+                            <p class="text-muted small">Klasik Amerikan</p>
+                            <small class="text-primary">Öneriler için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card food-card h-100 text-center p-4" onclick="showFoodDetails('Ramen')">
+                            <div class="food-emoji">🍜</div>
+                            <h5>Ramen</h5>
+                            <p class="text-muted small">Japon çorbası</p>
+                            <small class="text-primary">Öneriler için tıklayın</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal for Food Details -->
+    <div class="modal fade" id="foodModal" tabindex="-1" aria-labelledby="foodModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="foodModalLabel">Yemek Detayları</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="foodModalBody">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                    <a href="recommendations.html" class="btn btn-primary">Tüm Önerileri Gör</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function showFoodDetails(foodName) {
+            // Sample food details - in a real app this would come from an API
+            const foodDetails = {
+                'Adana Kebap': {
+                    emoji: '🌶️',
+                    description: 'Geleneksel Türk mutfağının en sevilen lezzetlerinden biri. Baharatlı kıyma ile hazırlanır.',
+                    recommendations: ['Rakı', 'Kırmızı Şarap', 'Ayran', 'Şalgam']
+                },
+                'İskender': {
+                    emoji: '🥩',
+                    description: 'Döner, yoğurt ve tereyağı ile hazırlanan nefis Türk yemeği.',
+                    recommendations: ['Kırmızı Şarap', 'Rakı', 'Ayran', 'Türk Kahvesi']
+                },
+                'Pizza Margherita': {
+                    emoji: '🍕',
+                    description: 'İtalyan mutfağının klasik lezzeti. Domates, mozzarella ve fesleğen ile.',
+                    recommendations: ['Beyaz Şarap', 'Bira', 'İtalyan Kırmızı Şarap', 'Limonata']
+                },
+                'Steak': {
+                    emoji: '🥩',
+                    description: 'Premium dana etinden hazırlanan nefis steak.',
+                    recommendations: ['Kırmızı Şarap', 'Viski', 'Bira', 'Martinini']
+                }
+            };
+
+            const food = foodDetails[foodName] || {
+                emoji: '🍽️',
+                description: 'Bu yemek hakkında detaylı bilgi yakında eklenecek.',
+                recommendations: ['Çeşitli içecek önerileri mevcut']
+            };
+
+            const modalBody = document.getElementById('foodModalBody');
+            modalBody.innerHTML = `
+                <div class="text-center mb-4">
+                    <div style="font-size: 4rem;">${food.emoji}</div>
+                    <h3>${foodName}</h3>
+                </div>
+                <p class="lead">${food.description}</p>
+                <h5>Önerilen İçecekler:</h5>
+                <div class="row">
+                    ${food.recommendations.map(drink => `
+                        <div class="col-md-6 col-sm-12 mb-2">
+                            <span class="badge bg-primary">${drink}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            const modal = new bootstrap.Modal(document.getElementById('foodModal'));
+            modal.show();
+        }
+    </script>
+</body>
+
+</html>

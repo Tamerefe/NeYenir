@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+
+{% block title %}Ana Sayfa - Ne Yenir?{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="text-center mb-4">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Ne Yenir Logo"
+                        class="mb-3 hero-logo"
+                        style="height: 80px; width: 80px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                </div>
+                <h1 class="hero-title">
+                    Ne Yenir?
+                </h1>
+                <p class="hero-subtitle">
+                    AI ve gurme uzmanlarıyla yemeklerinize mükemmel içecek eşleştirmeleri keşfedin
+                </p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="{{ url_for('recommend') }}" class="btn btn-primary btn-lg">
+                        <i class="bi bi-lightbulb"></i> Öneriler Al
+                    </a>
+                    {% if not session.user_id %}
+                    <a href="{{ url_for('create_profile') }}" class="btn btn-outline-light btn-lg">
+                        <i class="bi bi-person-plus"></i> Profil Oluştur
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="card feature-card h-100">
+                    <div class="feature-icon">
+                        <i class="bi bi-robot"></i>
+                    </div>
+                    <h4>🤖 AI Destekli Eşleştirme</h4>
+                    <p class="text-muted">
+                        Gelişmiş AI sistemimiz lezzet profillerini, yoğunluk seviyelerini ve
+                        kültürel eşleştirmeleri analiz ederek yemekleriniz için mükemmel içecekleri önerir.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card feature-card h-100">
+                    <div class="feature-icon">
+                        <i class="bi bi-graph-up-arrow"></i>
+                    </div>
+                    <h4>👨‍🍳 Gurme Uzmanları</h4>
+                    <p class="text-muted">
+                        Dünya çapında ünlü şeflerin ve gurme uzmanlarının özel
+                        önerilerini AI önerileriyle birlikte keşfedin.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card feature-card h-100">
+                    <div class="feature-icon">
+                        <i class="bi bi-graph-up-arrow"></i>
+                    </div>
+                    <h4>📚 Kişiselleştirilmiş Öğrenme</h4>
+                    <p class="text-muted">
+                        Sistem puanlamalarınızdan ve tercihlerinizden öğrenerek
+                        giderek daha doğru ve kişiselleştirilmiş öneriler sunar.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card feature-card h-100">
+                    <div class="feature-icon">
+                        <i class="bi bi-globe"></i>
+                    </div>
+                    <h4>🌍 Global Mutfak</h4>
+                    <p class="text-muted">
+                        Türk kebaplarından Fransız mutfağına kadar, kapsamlı
+                        yemek veritabanımızla dünya çapında eşleştirmeler keşfedin.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Trending Pairings Section -->
+{% if trending_pairings %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 class="fw-bold mb-3">🔥 Trend Eşleştirmeler</h2>
+                <p class="text-muted">Topluluğumuzun en sevdiği yemek ve içecek kombinasyonları</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            {% for pairing in trending_pairings %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <h5 class="card-title text-primary">{{ pairing.food }}</h5>
+                                <h6 class="card-subtitle text-muted">+ {{ pairing.alcohol }}</h6>
+                            </div>
+                            <span class="badge bg-success">{{ pairing.votes }} oy</span>
+                        </div>
+
+                        <div class="rating-stars mb-2">
+                            {% for i in range(pairing.rating|int) %}
+                            ⭐
+                            {% endfor %}
+                            {% if pairing.rating % 1 != 0 %}
+                            ⭐
+                            {% endif %}
+                            <span class="ms-2 text-muted">{{ pairing.rating }}/5.0</span>
+                        </div>
+
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: {{ (pairing.rating / 5 * 100) }}%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="{{ url_for('trending') }}" class="btn btn-outline-primary">
+                Tüm Trend Eşleştirmeleri Görüntüle <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Statistics Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4 text-center">
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="display-4 text-primary fw-bold">{{ foods|length }}</div>
+                        <h5 class="text-muted">Yemek Türü</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="display-4 text-success fw-bold">{{ alcohols|length }}</div>
+                        <h5 class="text-muted">İçecek Seçeneği</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="display-4 text-warning fw-bold">AI</div>
+                        <h5 class="text-muted">Destekli</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="display-4 text-info fw-bold">7/24</div>
+                        <h5 class="text-muted">Erişilebilir</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="fw-bold mb-3">Mükemmel Eşleştirmeleri Keşfetmeye Hazır mısınız?</h2>
+                <p class="lead mb-4">
+                    AI'mıza güvenen binlerce yemek severin yemek deneyimlerini geliştirin
+                </p>
+                <a href="{{ url_for('recommend') }}" class="btn btn-light btn-lg">
+                    <i class="bi bi-rocket"></i> Keşfetmeye Başla
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Animate score bars on page load
+    document.addEventListener('DOMContentLoaded', function () {
+        const scoreBars = document.querySelectorAll('.score-fill');
+        scoreBars.forEach(bar => {
+            const width = bar.style.width;
+            bar.style.width = '0%';
+            setTimeout(() => {
+                bar.style.width = width;
+            }, 500);
+        });
+    });
+</script>
+{% endblock %}

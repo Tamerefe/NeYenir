@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İçecekler - Ne Yenir?</title>
+    <link rel="icon" type="image/png" href="static/images/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8B5CF6;
+            --secondary-color: #06B6D4;
+            --accent-color: #F59E0B;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .drink-card {
+            cursor: pointer;
+            height: 100%;
+        }
+
+        .drink-emoji {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header {
+            padding: 100px 0 60px;
+            color: white;
+            text-align: center;
+        }
+
+        .navbar-brand img {
+            height: 40px;
+            width: 40px;
+            border-radius: 8px;
+        }
+
+        .alcohol-level {
+            font-size: 0.8rem;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="static/images/logo.png" alt="Logo" class="me-2">
+                <span class="fw-bold">Ne Yenir?</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-house"></i> Ana Sayfa
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="foods.html">
+                            <i class="bi bi-egg-fried"></i> Yemekler
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="drinks.html">
+                            <i class="bi bi-cup"></i> İçecekler
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="recommendations.html">
+                            <i class="bi bi-lightbulb"></i> Öneriler
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">
+                            <i class="bi bi-info-circle"></i> Hakkında
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main style="padding-top: 76px;">
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="display-4 fw-bold mb-3">🍷 İçecek Seçenekleri</h1>
+                <p class="lead">Geniş içecek koleksiyonumuzdan yemeklerinize en uygun eşleştirmeleri bulun</p>
+            </div>
+        </section>
+
+        <!-- Drinks Section -->
+        <section class="py-5">
+            <div class="container">
+                <div class="row g-4">
+                    <!-- Wines -->
+                    <div class="col-12 mb-4">
+                        <h2 class="text-white mb-4">🍷 Şaraplar</h2>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card drink-card h-100 text-center p-4" onclick="showDrinkDetails('Kırmızı Şarap')">
+                            <div class="drink-emoji">🍷</div>
+                            <h5>Kırmızı Şarap</h5>
+                            <p class="text-muted small">Full-bodied, tannins</p>
+                            <div class="alcohol-level">Alkol: %12-15</div>
+                            <small class="text-primary">Detaylar için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card drink-card h-100 text-center p-4" onclick="showDrinkDetails('Beyaz Şarap')">
+                            <div class="drink-emoji">🥂</div>
+                            <h5>Beyaz Şarap</h5>
+                            <p class="text-muted small">Crisp, acidic</p>
+                            <div class="alcohol-level">Alkol: %11-13</div>
+                            <small class="text-primary">Detaylar için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card drink-card h-100 text-center p-4" onclick="showDrinkDetails('Rosé Şarap')">
+                            <div class="drink-emoji">🌹</div>
+                            <h5>Rosé Şarap</h5>
+                            <p class="text-muted small">Light, fruity</p>
+                            <div class="alcohol-level">Alkol: %11-13</div>
+                            <small class="text-primary">Detaylar için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card drink-card h-100 text-center p-4" onclick="showDrinkDetails('Şampanya')">
+                            <div class="drink-emoji">🍾</div>
+                            <h5>Şampanya</h5>
+                            <p class="text-muted small">Sparkling, celebratory</p>
+                            <div class="alcohol-level">Alkol: %12</div>
+                            <small class="text-primary">Detaylar için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <!-- Spirits -->
+                    <div class="col-12 mb-4 mt-5">
+                        <h2 class="text-white mb-4">🥃 Sert İçecekler</h2>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card drink-card h-100 text-center p-4" onclick="showDrinkDetails('Rakı')">
+                            <div class="drink-emoji">🥃</div>
+                            <h5>Rakı</h5>
+                            <p class="text-muted small">Türk milli içeceği</p>
+                            <div class="alcohol-level">Alkol: %45</div>
+                            <small class="text-primary">Detaylar için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card drink-card h-100 text-center p-4" onclick="showDrinkDetails('Viski')">
+                            <div class="drink-emoji">🥃</div>
+                            <h5>Viski</h5>
+                            <p class="text-muted small">Smoky, aged</p>
+                            <div class="alcohol-level">Alkol: %40-50</div>
+                            <small class="text-primary">Detaylar için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card drink-card h-100 text-center p-4" onclick="showDrinkDetails('Vodka')">
+                            <div class="drink-emoji">🍸</div>
+                            <h5>Vodka</h5>
+                            <p class="text-muted small">Clean, neutral</p>
+                            <div class="alcohol-level">Alkol: %40</div>
+                            <small class="text-primary">Detaylar için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card drink-card h-100 text-center p-4" onclick="showDrinkDetails('Gin')">
+                            <div class="drink-emoji">🍸</div>
+                            <h5>Gin</h5>
+                            <p class="text-muted small">Botanical, juniper</p>
+                            <div class="alcohol-level">Alkol: %40</div>
+                            <small class="text-primary">Detaylar için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <!-- Beer -->
+                    <div class="col-12 mb-4 mt-5">
+                        <h2 class="text-white mb-4">🍺 Biralar</h2>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card drink-card h-100 text-center p-4" onclick="showDrinkDetails('Lager')">
+                            <div class="drink-emoji">🍺</div>
+                            <h5>Lager</h5>
+                            <p class="text-muted small">Light, crisp</p>
+                            <div class="alcohol-level">Alkol: %4-5</div>
+                            <small class="text-primary">Detaylar için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card drink-card h-100 text-center p-4" onclick="showDrinkDetails('IPA')">
+                            <div class="drink-emoji">🍺</div>
+                            <h5>IPA</h5>
+                            <p class="text-muted small">Hoppy, bitter</p>
+                            <div class="alcohol-level">Alkol: %5-7</div>
+                            <small class="text-primary">Detaylar için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card drink-card h-100 text-center p-4" onclick="showDrinkDetails('Weizen')">
+                            <div class="drink-emoji">🍺</div>
+                            <h5>Weizen</h5>
+                            <p class="text-muted small">Wheat beer, smooth</p>
+                            <div class="alcohol-level">Alkol: %4-5</div>
+                            <small class="text-primary">Detaylar için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card drink-card h-100 text-center p-4" onclick="showDrinkDetails('Stout')">
+                            <div class="drink-emoji">🍺</div>
+                            <h5>Stout</h5>
+                            <p class="text-muted small">Dark, rich</p>
+                            <div class="alcohol-level">Alkol: %4-6</div>
+                            <small class="text-primary">Detaylar için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <!-- Non-Alcoholic -->
+                    <div class="col-12 mb-4 mt-5">
+                        <h2 class="text-white mb-4">🧊 Alkolsüz İçecekler</h2>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card drink-card h-100 text-center p-4" onclick="showDrinkDetails('Ayran')">
+                            <div class="drink-emoji">🥛</div>
+                            <h5>Ayran</h5>
+                            <p class="text-muted small">Geleneksel yoğurt içeceği</p>
+                            <div class="alcohol-level">Alkol: %0</div>
+                            <small class="text-primary">Detaylar için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card drink-card h-100 text-center p-4" onclick="showDrinkDetails('Şalgam')">
+                            <div class="drink-emoji">🥕</div>
+                            <h5>Şalgam</h5>
+                            <p class="text-muted small">Fermente havuç suyu</p>
+                            <div class="alcohol-level">Alkol: %0</div>
+                            <small class="text-primary">Detaylar için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card drink-card h-100 text-center p-4" onclick="showDrinkDetails('Türk Kahvesi')">
+                            <div class="drink-emoji">☕</div>
+                            <h5>Türk Kahvesi</h5>
+                            <p class="text-muted small">UNESCO kültür mirası</p>
+                            <div class="alcohol-level">Alkol: %0</div>
+                            <small class="text-primary">Detaylar için tıklayın</small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card drink-card h-100 text-center p-4" onclick="showDrinkDetails('Limonata')">
+                            <div class="drink-emoji">🍋</div>
+                            <h5>Limonata</h5>
+                            <p class="text-muted small">Taze ve serinletici</p>
+                            <div class="alcohol-level">Alkol: %0</div>
+                            <small class="text-primary">Detaylar için tıklayın</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal for Drink Details -->
+    <div class="modal fade" id="drinkModal" tabindex="-1" aria-labelledby="drinkModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="drinkModalLabel">İçecek Detayları</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="drinkModalBody">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                    <a href="recommendations.html" class="btn btn-primary">Eşleştirmeleri Gör</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function showDrinkDetails(drinkName) {
+            // Sample drink details
+            const drinkDetails = {
+                'Kırmızı Şarap': {
+                    emoji: '🍷',
+                    description: 'Full-bodied kırmızı şaraplar, tannin içeriği yüksek ve kompleks aromaya sahiptir. Et yemekleri ile mükemmel uyum sağlar.',
+                    pairings: ['Adana Kebap', 'İskender', 'Steak', 'Burger'],
+                    alcohol: '%12-15',
+                    profile: 'Full-bodied, Tannins, Dry'
+                },
+                'Beyaz Şarap': {
+                    emoji: '🥂',
+                    description: 'Hafif ve ferah beyaz şaraplar, yüksek asitlik ve taze meyve aromaları ile karakterize edilir.',
+                    pairings: ['Pizza Margherita', 'Sushi', 'Pasta Carbonara', 'Paella'],
+                    alcohol: '%11-13',
+                    profile: 'Light, Acidic, Crisp'
+                },
+                'Rakı': {
+                    emoji: '🥃',
+                    description: 'Türkiye\'nin milli içeceği. Anason aromalı ve su ile karıştırıldığında beyazlaşan eşsiz lezzeti.',
+                    pairings: ['Adana Kebap', 'İskender', 'Lahmacun', 'Mantı'],
+                    alcohol: '%45',
+                    profile: 'Anise, Strong, Traditional'
+                },
+                'Ayran': {
+                    emoji: '🥛',
+                    description: 'Geleneksel Türk yoğurt içeceği. Baharatlı ve ağır yemeklerle mükemmel denge sağlar.',
+                    pairings: ['Adana Kebap', 'Lahmacun', 'İskender', 'Mantı'],
+                    alcohol: '%0',
+                    profile: 'Creamy, Refreshing, Traditional'
+                }
+            };
+
+            const drink = drinkDetails[drinkName] || {
+                emoji: '🥤',
+                description: 'Bu içecek hakkında detaylı bilgi yakında eklenecek.',
+                pairings: ['Çeşitli yemek eşleştirmeleri mevcut'],
+                alcohol: 'Bilgi yok',
+                profile: 'Profil bilgisi yakında'
+            };
+
+            const modalBody = document.getElementById('drinkModalBody');
+            modalBody.innerHTML = `
+                <div class="text-center mb-4">
+                    <div style="font-size: 4rem;">${drink.emoji}</div>
+                    <h3>${drinkName}</h3>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <strong>Alkol Oranı:</strong> ${drink.alcohol}
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Profil:</strong> ${drink.profile}
+                    </div>
+                </div>
+                <p class="lead">${drink.description}</p>
+                <h5>Uyumlu Yemekler:</h5>
+                <div class="row">
+                    ${drink.pairings.map(food => `
+                        <div class="col-md-6 col-sm-12 mb-2">
+                            <span class="badge bg-success">${food}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            const modal = new bootstrap.Modal(document.getElementById('drinkModal'));
+            modal.show();
+        }
+    </script>
+</body>
+
+</html>

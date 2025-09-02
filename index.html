@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ana Sayfa - Ne Yenir? - AI Destekli Yemek & Alkol Eşleştirme</title>
+    <link rel="icon" type="image/png" href="static/images/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8B5CF6;
+            --secondary-color: #06B6D4;
+            --accent-color: #F59E0B;
+            --danger-color: #EF4444;
+            --success-color: #10B981;
+            --dark-color: #1F2937;
+            --light-color: #F9FAFB;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        .hero-section {
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            height: 100%;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .footer {
+            background: rgba(31, 41, 55, 0.95);
+            color: white;
+            padding: 3rem 0 2rem;
+            margin-top: 5rem;
+        }
+
+        .navbar-brand img {
+            height: 40px;
+            width: 40px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="static/images/logo.png" alt="Logo" class="me-2">
+                <span class="fw-bold">Ne Yenir?</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">
+                            <i class="bi bi-house"></i> Ana Sayfa
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="foods.html">
+                            <i class="bi bi-egg-fried"></i> Yemekler
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="drinks.html">
+                            <i class="bi bi-cup"></i> İçecekler
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="recommendations.html">
+                            <i class="bi bi-lightbulb"></i> Öneriler
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">
+                            <i class="bi bi-info-circle"></i> Hakkında
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main style="padding-top: 76px;">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="text-center mb-4">
+                            <img src="static/images/logo.png" alt="Ne Yenir Logo" class="mb-3 hero-logo"
+                                style="height: 80px; width: 80px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                        </div>
+                        <h1 class="hero-title">
+                            Ne Yenir?
+                        </h1>
+                        <p class="hero-subtitle">
+                            AI ve gurme uzmanlarıyla yemeklerinize mükemmel içecek eşleştirmeleri keşfedin
+                        </p>
+                        <div class="d-flex gap-3 justify-content-center flex-wrap">
+                            <a href="recommendations.html" class="btn btn-primary btn-lg">
+                                <i class="bi bi-lightbulb"></i> Öneriler Al
+                            </a>
+                            <a href="about.html" class="btn btn-outline-light btn-lg">
+                                <i class="bi bi-info-circle"></i> Daha Fazla Bilgi
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="py-5">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-lg-4">
+                        <div class="card feature-card h-100">
+                            <div class="feature-icon">
+                                <i class="bi bi-robot"></i>
+                            </div>
+                            <h4>🤖 AI Destekli Eşleştirme</h4>
+                            <p class="text-muted">
+                                Gelişmiş AI sistemimiz lezzet profillerini, yoğunluk seviyelerini ve
+                                kültürel eşleştirmeleri analiz ederek yemekleriniz için mükemmel içecekleri önerir.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card feature-card h-100">
+                            <div class="feature-icon">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <h4>👨‍🍳 Gurme Uzmanları</h4>
+                            <p class="text-muted">
+                                Dünya çapında ünlü şeflerin ve gurme uzmanlarının özel
+                                önerilerini AI önerileriyle birlikte keşfedin.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card feature-card h-100">
+                            <div class="feature-icon">
+                                <i class="bi bi-graph-up-arrow"></i>
+                            </div>
+                            <h4>📚 Kişiselleştirilmiş Öğrenme</h4>
+                            <p class="text-muted">
+                                Sistem puanlamalarınızdan ve tercihlerinizden öğrenerek
+                                giderek daha doğru ve kişiselleştirilmiş öneriler sunar.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card feature-card h-100">
+                            <div class="feature-icon">
+                                <i class="bi bi-globe"></i>
+                            </div>
+                            <h4>🌍 Global Mutfak</h4>
+                            <p class="text-muted">
+                                Türk kebaplarından Fransız mutfağına kadar, kapsamlı
+                                yemek veritabanımızla dünya çapında eşleştirmeler keşfedin.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card feature-card h-100">
+                            <div class="feature-icon">
+                                <i class="bi bi-shield-check"></i>
+                            </div>
+                            <h4>🔒 Güvenli & Hızlı</h4>
+                            <p class="text-muted">
+                                Modern web teknolojileri ile güvenli, hızlı ve
+                                kullanıcı dostu bir deneyim sunuyoruz.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card feature-card h-100">
+                            <div class="feature-icon">
+                                <i class="bi bi-phone"></i>
+                            </div>
+                            <h4>📱 Mobil Uyumlu</h4>
+                            <p class="text-muted">
+                                Responsive tasarım ile tüm cihazlardan
+                                mükemmel bir kullanım deneyimi yaşayın.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="py-5 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center mb-5">
+                        <h2 class="display-5 fw-bold">Sistemimizin Gücü</h2>
+                        <p class="lead text-muted">Kapsamlı veritabanımız ve gelişmiş AI ile mükemmel eşleştirmeler</p>
+                    </div>
+                </div>
+                <div class="row g-4 text-center">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="display-4 fw-bold text-primary mb-2">14+</div>
+                                <h5>Farklı Yemek</h5>
+                                <p class="text-muted">Türk ve dünya mutfağından</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="display-4 fw-bold text-primary mb-2">16+</div>
+                                <h5>Alkol Çeşidi</h5>
+                                <p class="text-muted">Şarap, bira, kokteyl ve daha fazlası</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="display-4 fw-bold text-primary mb-2">9</div>
+                                <h5>Dünya Çapında Uzman</h5>
+                                <p class="text-muted">Ünlü şeflerden öneriler</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="display-4 fw-bold text-primary mb-2">AI</div>
+                                <h5>Makine Öğrenmesi</h5>
+                                <p class="text-muted">Sürekli öğrenen algoritma</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="static/images/logo.png" alt="Logo"
+                            style="height: 40px; width: 40px; border-radius: 8px;" class="me-2">
+                        <h5 class="mb-0">Ne Yenir?</h5>
+                    </div>
+                    <p class="text-muted">
+                        AI ve gurme uzmanlarıyla desteklenen yemek-alkol eşleştirme sistemi.
+                        Lezzetli anları daha da özel kılmak için buradayız.
+                    </p>
+                </div>
+                <div class="col-lg-2 offset-lg-1">
+                    <h6 class="fw-bold mb-3">Sayfalar</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-muted text-decoration-none">Ana Sayfa</a></li>
+                        <li><a href="foods.html" class="text-muted text-decoration-none">Yemekler</a></li>
+                        <li><a href="drinks.html" class="text-muted text-decoration-none">İçecekler</a></li>
+                        <li><a href="recommendations.html" class="text-muted text-decoration-none">Öneriler</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-3">Hakkında</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="about.html" class="text-muted text-decoration-none">Proje Hakkında</a></li>
+                        <li><a href="https://github.com/Tamerefe/NeYenir"
+                                class="text-muted text-decoration-none">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h6 class="fw-bold mb-3">Teknoloji</h6>
+                    <p class="text-muted small">
+                        Flask, Python, Bootstrap 5, AI/ML, SQLite ile geliştirilmiştir.
+                    </p>
+                    <div>
+                        <a href="https://github.com/Tamerefe/NeYenir" class="text-muted me-3">
+                            <i class="bi bi-github" style="font-size: 1.5rem;"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="text-muted small mb-0">
+                        &copy; 2024 Ne Yenir? - AI Destekli Yemek & Alkol Eşleştirme Sistemi
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="text-muted small mb-0">
+                        Made with ❤️ using AI & Gourmet Expertise
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayfa Bulunamadı - Ne Yenir?</title>
+    <link rel="icon" type="image/png" href="static/images/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8B5CF6;
+            --secondary-color: #06B6D4;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        .navbar-brand img {
+            height: 40px;
+            width: 40px;
+            border-radius: 8px;
+        }
+
+        .error-container {
+            padding-top: 150px;
+            padding-bottom: 100px;
+        }
+
+        .error-logo {
+            height: 120px;
+            width: 120px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            opacity: 0.7;
+            margin-bottom: 2rem;
+        }
+
+        .error-404 {
+            font-size: 8rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="static/images/logo.png" alt="Logo" class="me-2">
+                <span class="fw-bold">Ne Yenir?</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-house"></i> Ana Sayfa
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="foods.html">
+                            <i class="bi bi-egg-fried"></i> Yemekler
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="drinks.html">
+                            <i class="bi bi-cup"></i> İçecekler
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="recommendations.html">
+                            <i class="bi bi-lightbulb"></i> Öneriler
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">
+                            <i class="bi bi-info-circle"></i> Hakkında
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Error Content -->
+    <div class="container text-center error-container">
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <div class="mb-4">
+                    <img src="static/images/logo.png" alt="Ne Yenir Logo" class="error-logo">
+                </div>
+
+                <h1 class="error-404">404</h1>
+
+                <h2 class="text-white mb-3">
+                    🍽️ Aradığınız Lezzet Bulunamadı
+                </h2>
+
+                <p class="text-white-50 lead mb-4">
+                    Üzgünüz, aradığınız sayfa mevcut değil veya taşınmış olabilir.
+                    Belki de yeni bir lezzet keşfetme zamanı gelmiştir?
+                </p>
+
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="index.html" class="btn btn-primary btn-lg">
+                        <i class="bi bi-house"></i> Ana Sayfa
+                    </a>
+                    <a href="recommendations.html" class="btn btn-outline-light btn-lg">
+                        <i class="bi bi-lightbulb"></i> Öneriler Al
+                    </a>
+                </div>
+
+                <div class="mt-5">
+                    <p class="text-white-50 small">
+                        Kaybolduğunuzda bile lezzetli bir yolculuktasınız! 🍷✨
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Navigation -->
+    <div class="container mt-5">
+        <div class="row g-3 justify-content-center">
+            <div class="col-md-2 col-sm-4 col-6">
+                <a href="foods.html" class="text-decoration-none">
+                    <div class="text-center text-white-50 p-3"
+                        style="background: rgba(255,255,255,0.1); border-radius: 12px; transition: all 0.3s ease;">
+                        <div style="font-size: 2rem;">🍽️</div>
+                        <small>Yemekler</small>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-2 col-sm-4 col-6">
+                <a href="drinks.html" class="text-decoration-none">
+                    <div class="text-center text-white-50 p-3"
+                        style="background: rgba(255,255,255,0.1); border-radius: 12px; transition: all 0.3s ease;">
+                        <div style="font-size: 2rem;">🍷</div>
+                        <small>İçecekler</small>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-2 col-sm-4 col-6">
+                <a href="recommendations.html" class="text-decoration-none">
+                    <div class="text-center text-white-50 p-3"
+                        style="background: rgba(255,255,255,0.1); border-radius: 12px; transition: all 0.3s ease;">
+                        <div style="font-size: 2rem;">💡</div>
+                        <small>Öneriler</small>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-2 col-sm-4 col-6">
+                <a href="about.html" class="text-decoration-none">
+                    <div class="text-center text-white-50 p-3"
+                        style="background: rgba(255,255,255,0.1); border-radius: 12px; transition: all 0.3s ease;">
+                        <div style="font-size: 2rem;">ℹ️</div>
+                        <small>Hakkında</small>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
