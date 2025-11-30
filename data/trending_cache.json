@@ -1,0 +1,430 @@
+{
+  "timestamp": "2025-11-30T17:23:48.353712",
+  "pairings": [
+    {
+      "food": {
+        "id": 62,
+        "name": "Samosas",
+        "cuisine_type": "Indian",
+        "intensity": 6,
+        "flavor_profile": [
+          "crispy",
+          "spicy"
+        ]
+      },
+      "alcohol": {
+        "id": 39,
+        "name": "Manhattan",
+        "type": "cocktail",
+        "alcohol_content": 25.0
+      },
+      "compatibility_score": 72.1,
+      "popularity_count": 144,
+      "average_rating": 4.0
+    },
+    {
+      "food": {
+        "id": 1,
+        "name": "Adana Kebap",
+        "cuisine_type": "Turkish",
+        "intensity": 8,
+        "flavor_profile": [
+          "spicy",
+          "smoky",
+          "salty"
+        ]
+      },
+      "alcohol": {
+        "id": 14,
+        "name": "Riesling (Mosel)",
+        "type": "wine",
+        "alcohol_content": 8.5
+      },
+      "compatibility_score": 98.2,
+      "popularity_count": 140,
+      "average_rating": 4.9
+    },
+    {
+      "food": {
+        "id": 38,
+        "name": "Prosciutto e Melone",
+        "cuisine_type": "Italian",
+        "intensity": 6,
+        "flavor_profile": [
+          "salty",
+          "sweet"
+        ]
+      },
+      "alcohol": {
+        "id": 45,
+        "name": "Bloody Mary",
+        "type": "cocktail",
+        "alcohol_content": 8.0
+      },
+      "compatibility_score": 70.0,
+      "popularity_count": 139,
+      "average_rating": 3.7
+    },
+    {
+      "food": {
+        "id": 5,
+        "name": "Köfte",
+        "cuisine_type": "Turkish",
+        "intensity": 6,
+        "flavor_profile": [
+          "savory",
+          "rich"
+        ]
+      },
+      "alcohol": {
+        "id": 19,
+        "name": "Port Wine (Vintage)",
+        "type": "wine",
+        "alcohol_content": 20.0
+      },
+      "compatibility_score": 52.6,
+      "popularity_count": 129,
+      "average_rating": 4.3
+    },
+    {
+      "food": {
+        "id": 22,
+        "name": "Lokum",
+        "cuisine_type": "Turkish",
+        "intensity": 7,
+        "flavor_profile": [
+          "sweet",
+          "perfumed"
+        ]
+      },
+      "alcohol": {
+        "id": 67,
+        "name": "Craft Ginger Beer",
+        "type": "soft drink",
+        "alcohol_content": 0.0
+      },
+      "compatibility_score": 61.4,
+      "popularity_count": 123,
+      "average_rating": 4.4
+    },
+    {
+      "food": {
+        "id": 42,
+        "name": "French Onion Soup",
+        "cuisine_type": "French",
+        "intensity": 7,
+        "flavor_profile": [
+          "savory",
+          "rich"
+        ]
+      },
+      "alcohol": {
+        "id": 25,
+        "name": "Belgian Dubbel",
+        "type": "beer",
+        "alcohol_content": 7.0
+      },
+      "compatibility_score": 51.2,
+      "popularity_count": 108,
+      "average_rating": 3.6
+    },
+    {
+      "food": {
+        "id": 23,
+        "name": "Greek Salad",
+        "cuisine_type": "Greek",
+        "intensity": 5,
+        "flavor_profile": [
+          "fresh",
+          "tangy",
+          "salty"
+        ]
+      },
+      "alcohol": {
+        "id": 24,
+        "name": "Wheat Beer (German)",
+        "type": "beer",
+        "alcohol_content": 5.2
+      },
+      "compatibility_score": 69.1,
+      "popularity_count": 95,
+      "average_rating": 4.2
+    },
+    {
+      "food": {
+        "id": 88,
+        "name": "French Toast",
+        "cuisine_type": "French",
+        "intensity": 7,
+        "flavor_profile": [
+          "sweet",
+          "rich"
+        ]
+      },
+      "alcohol": {
+        "id": 52,
+        "name": "Nigori Sake",
+        "type": "sake",
+        "alcohol_content": 15.0
+      },
+      "compatibility_score": 54.0,
+      "popularity_count": 91,
+      "average_rating": 3.7
+    },
+    {
+      "food": {
+        "id": 55,
+        "name": "Kung Pao Chicken",
+        "cuisine_type": "Chinese",
+        "intensity": 7,
+        "flavor_profile": [
+          "spicy",
+          "savory"
+        ]
+      },
+      "alcohol": {
+        "id": 14,
+        "name": "Riesling (Mosel)",
+        "type": "wine",
+        "alcohol_content": 8.5
+      },
+      "compatibility_score": 64.5,
+      "popularity_count": 88,
+      "average_rating": 4.0
+    },
+    {
+      "food": {
+        "id": 62,
+        "name": "Samosas",
+        "cuisine_type": "Indian",
+        "intensity": 6,
+        "flavor_profile": [
+          "crispy",
+          "spicy"
+        ]
+      },
+      "alcohol": {
+        "id": 59,
+        "name": "Vermouth Rosso",
+        "type": "fortified",
+        "alcohol_content": 15.0
+      },
+      "compatibility_score": 68.6,
+      "popularity_count": 83,
+      "average_rating": 4.6
+    },
+    {
+      "food": {
+        "id": 57,
+        "name": "Mapo Tofu",
+        "cuisine_type": "Chinese",
+        "intensity": 8,
+        "flavor_profile": [
+          "spicy",
+          "numbing"
+        ]
+      },
+      "alcohol": {
+        "id": 48,
+        "name": "Daiquiri",
+        "type": "cocktail",
+        "alcohol_content": 15.0
+      },
+      "compatibility_score": 65.0,
+      "popularity_count": 81,
+      "average_rating": 3.6
+    },
+    {
+      "food": {
+        "id": 90,
+        "name": "Grilled Salmon",
+        "cuisine_type": "International",
+        "intensity": 6,
+        "flavor_profile": [
+          "rich",
+          "smoky"
+        ]
+      },
+      "alcohol": {
+        "id": 25,
+        "name": "Belgian Dubbel",
+        "type": "beer",
+        "alcohol_content": 7.0
+      },
+      "compatibility_score": 52.9,
+      "popularity_count": 81,
+      "average_rating": 3.7
+    },
+    {
+      "food": {
+        "id": 87,
+        "name": "Pancakes",
+        "cuisine_type": "American",
+        "intensity": 6,
+        "flavor_profile": [
+          "sweet",
+          "fluffy"
+        ]
+      },
+      "alcohol": {
+        "id": 45,
+        "name": "Bloody Mary",
+        "type": "cocktail",
+        "alcohol_content": 8.0
+      },
+      "compatibility_score": 66.1,
+      "popularity_count": 68,
+      "average_rating": 3.5
+    },
+    {
+      "food": {
+        "id": 23,
+        "name": "Greek Salad",
+        "cuisine_type": "Greek",
+        "intensity": 5,
+        "flavor_profile": [
+          "fresh",
+          "tangy",
+          "salty"
+        ]
+      },
+      "alcohol": {
+        "id": 39,
+        "name": "Manhattan",
+        "type": "cocktail",
+        "alcohol_content": 25.0
+      },
+      "compatibility_score": 68.3,
+      "popularity_count": 58,
+      "average_rating": 4.3
+    },
+    {
+      "food": {
+        "id": 2,
+        "name": "İskender Kebap",
+        "cuisine_type": "Turkish",
+        "intensity": 7,
+        "flavor_profile": [
+          "savory",
+          "rich",
+          "salty"
+        ]
+      },
+      "alcohol": {
+        "id": 47,
+        "name": "Whiskey Sour",
+        "type": "cocktail",
+        "alcohol_content": 18.0
+      },
+      "compatibility_score": 68.4,
+      "popularity_count": 45,
+      "average_rating": 3.9
+    },
+    {
+      "food": {
+        "id": 99,
+        "name": "Vegetable Curry",
+        "cuisine_type": "Indian",
+        "intensity": 7,
+        "flavor_profile": [
+          "spicy",
+          "aromatic"
+        ]
+      },
+      "alcohol": {
+        "id": 40,
+        "name": "Mojito",
+        "type": "cocktail",
+        "alcohol_content": 10.0
+      },
+      "compatibility_score": 65.0,
+      "popularity_count": 42,
+      "average_rating": 4.0
+    },
+    {
+      "food": {
+        "id": 95,
+        "name": "Mushroom Risotto",
+        "cuisine_type": "Italian",
+        "intensity": 7,
+        "flavor_profile": [
+          "rich",
+          "earthy",
+          "creamy"
+        ]
+      },
+      "alcohol": {
+        "id": 10,
+        "name": "Pinot Noir (Oregon)",
+        "type": "wine",
+        "alcohol_content": 12.5
+      },
+      "compatibility_score": 57.0,
+      "popularity_count": 38,
+      "average_rating": 3.6
+    },
+    {
+      "food": {
+        "id": 56,
+        "name": "Sweet and Sour Pork",
+        "cuisine_type": "Chinese",
+        "intensity": 6,
+        "flavor_profile": [
+          "sweet",
+          "tangy"
+        ]
+      },
+      "alcohol": {
+        "id": 47,
+        "name": "Whiskey Sour",
+        "type": "cocktail",
+        "alcohol_content": 18.0
+      },
+      "compatibility_score": 51.8,
+      "popularity_count": 38,
+      "average_rating": 4.6
+    },
+    {
+      "food": {
+        "id": 100,
+        "name": "Avocado Toast",
+        "cuisine_type": "International",
+        "intensity": 5,
+        "flavor_profile": [
+          "fresh",
+          "creamy"
+        ]
+      },
+      "alcohol": {
+        "id": 11,
+        "name": "Sauvignon Blanc (Marlborough)",
+        "type": "wine",
+        "alcohol_content": 12.0
+      },
+      "compatibility_score": 68.2,
+      "popularity_count": 30,
+      "average_rating": 4.7
+    },
+    {
+      "food": {
+        "id": 12,
+        "name": "Karnıyarık",
+        "cuisine_type": "Turkish",
+        "intensity": 7,
+        "flavor_profile": [
+          "savory",
+          "rich"
+        ]
+      },
+      "alcohol": {
+        "id": 19,
+        "name": "Port Wine (Vintage)",
+        "type": "wine",
+        "alcohol_content": 20.0
+      },
+      "compatibility_score": 50.8,
+      "popularity_count": 17,
+      "average_rating": 3.8
+    }
+  ]
+}

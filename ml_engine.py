@@ -1,6 +1,6 @@
 """
-Advanced Machine Learning Module for Food-Alcohol Pairing
-Includes neural networks, collaborative filtering, and recommendation algorithms
+Yemek-Alkol Eşleştirmesi için Gelişmiş Makine Öğrenimi Modülü
+Sinir ağları, işbirlikçi filtreleme ve öneri algoritmalarını içerir
 """
 
 import numpy as np
@@ -18,14 +18,14 @@ import logging
 logger = logging.getLogger(__name__)
 
 class NeuralNetworkRecommender:
-    """Simple neural network for food-alcohol pairing predictions"""
+    """Yemek-alkol eşleştirme tahminleri için basit bir sinir ağı sınıfı"""
     
     def __init__(self, input_size: int = 20, hidden_size: int = 64, output_size: int = 1):
         self.input_size = input_size
         self.hidden_size = hidden_size
         self.output_size = output_size
         
-        # Initialize weights and biases
+        # Ağırlıkları ve bias'ları başlat
         self.W1 = np.random.randn(input_size, hidden_size) * 0.1
         self.b1 = np.zeros((1, hidden_size))
         self.W2 = np.random.randn(hidden_size, hidden_size) * 0.1
@@ -117,7 +117,7 @@ class NeuralNetworkRecommender:
         return predictions.flatten()
 
 class CollaborativeFilter:
-    """Collaborative filtering for user-based recommendations"""
+    """Kullanıcı tabanlı öneriler için işbirlikçi filtreleme sınıfı"""
     
     def __init__(self):
         self.user_item_matrix = None
@@ -206,7 +206,7 @@ class CollaborativeFilter:
         return max(1.0, min(5.0, predicted_rating))  # Clamp to 1-5 range
 
 class AdvancedFoodAlcoholMatcher:
-    """Advanced AI matcher combining multiple ML techniques"""
+    """Birden çok ML tekniğini birleştiren gelişmiş AI eşleştirici"""
     
     def __init__(self):
         self.neural_network = None
@@ -568,7 +568,7 @@ class AdvancedFoodAlcoholMatcher:
             logger.error(f"Error saving models: {e}")
     
     def load_models(self, filepath: str):
-        """Load trained models from disk"""
+        """Eğitilmiş modelleri diskten yükle"""
         try:
             with open(filepath, 'r') as f:
                 models_data = json.load(f)

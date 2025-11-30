@@ -15,7 +15,7 @@
                 </p>
             </div>
 
-            <!-- Foods Grid -->
+            <!-- Yemekler Izgara Düzeni -->
             <div class="card">
                 <div class="card-header bg-primary text-white">
                     <h4 class="mb-0">
@@ -45,14 +45,16 @@
                                             {% endif %}
                                             {{ food.name }}
                                         </h5>
-                                        <span class="badge bg-secondary">{{ food.cuisine_type }}</span>
+                                        <span class="badge bg-secondary">
+                                            {{ food.cuisine_type|translate_cuisine }}
+                                        </span>
                                     </div>
 
                                     <div class="mb-3">
                                         <h6 class="text-muted mb-2">Lezzet Profili:</h6>
                                         <div class="d-flex flex-wrap gap-1">
                                             {% for flavor in food.flavor_profile %}
-                                            <span class="badge bg-light text-dark">{{ flavor }}</span>
+                                            <span class="badge bg-light text-dark">{{ flavor|translate_flavor }}</span>
                                             {% endfor %}
                                         </div>
                                     </div>
@@ -73,11 +75,11 @@
                                                 <i class="bi bi-cash text-success"></i> Fiyat Aralığı
                                             </small>
                                             <span class="badge 
-                                                {% if food.price_range == '$' %}bg-success
-                                                {% elif food.price_range == '$$' %}bg-warning
+                                                {% if food.price_range == 'budget' %}bg-success
+                                                {% elif food.price_range == 'mid-range' %}bg-warning
                                                 {% else %}bg-danger
                                                 {% endif %}">
-                                                {{ food.price_range }}
+                                                {{ food.price_range|translate_price }}
                                             </span>
                                         </div>
                                     </div>

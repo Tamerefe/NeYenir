@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-NeYenir - AI Food & Alcohol Pairing System
-Startup script for running the application
+NeYenir - AI Destekli Yemek & Alkol Eşleştirme Sistemi
+Uygulamayı başlatmak için başlangıç betiği
 """
 
 import sys
@@ -11,7 +11,7 @@ import subprocess
 from pathlib import Path
 
 def check_dependencies():
-    """Check if all required packages are installed"""
+    """Gerekli tüm paketlerin yüklü olup olmadığını kontrol et"""
     required_packages = [
         'flask', 'numpy', 'sqlite3', 'sklearn'
     ]
@@ -28,56 +28,56 @@ def check_dependencies():
             missing_packages.append(package)
     
     if missing_packages:
-        print("❌ Missing required packages:")
+        print("❌ Eksik gerekli paketler:")
         for package in missing_packages:
             print(f"   - {package}")
-        print("\n📦 Install missing packages with:")
+        print("\n📦 Eksik paketleri şu komutla yükleyin:")
         print("   pip install -r requirements.txt")
         return False
     
-    print("✅ All dependencies are installed!")
+    print("✅ Tüm bağımlılıklar yüklü!")
     return True
 
 def run_console_app():
-    """Run the console version of the application"""
-    print("🍷 Starting AI Food & Alcohol Pairing System (Console)")
+    """Uygulamanın konsol sürümünü çalıştır"""
+    print("🍷 AI Destekli Yemek & Alkol Eşleştirme Sistemi Başlatılıyor (Konsol)")
     print("=" * 60)
     
     try:
         from main import main
         main()
     except KeyboardInterrupt:
-        print("\n\n👋 Thank you for using NeYenir!")
+        print("\n\n👋 NeYenir'i kullandığınız için teşekkürler!")
     except Exception as e:
-        print(f"❌ Error running console app: {e}")
+        print(f"❌ Konsol uygulaması çalıştırılırken hata: {e}")
 
 def run_web_app(host='localhost', port=5000, debug=True):
-    """Run the web version of the application"""
-    print(f"🌐 Starting AI Food & Alcohol Pairing System (Web)")
-    print(f"🔗 Server will be available at: http://{host}:{port}")
+    """Uygulamanın web sürümünü çalıştır"""
+    print(f"🌐 AI Destekli Yemek & Alkol Eşleştirme Sistemi Başlatılıyor (Web)")
+    print(f"🔗 Sunucu şu adreste kullanıma hazır olacak: http://{host}:{port}")
     print("=" * 60)
     
     try:
         from app import app
         app.run(host=host, port=port, debug=debug)
     except KeyboardInterrupt:
-        print("\n\n👋 Server stopped. Thank you for using NeYenir!")
+        print("\n\n👋 Sunucu durduruldu. NeYenir'i kullandığınız için teşekkürler!")
     except Exception as e:
-        print(f"❌ Error running web app: {e}")
+        print(f"❌ Web uygulaması çalıştırılırken hata: {e}")
 
 def setup_database():
-    """Initialize the database with sample data"""
-    print("🗄️ Setting up database...")
+    """Veritabanını örnek verilerle başlat"""
+    print("🗄️ Veritabanı kuruluyor...")
     
     try:
         from main import AIFoodAlcoholMatcher
         matcher = AIFoodAlcoholMatcher()
-        print("✅ Database initialized successfully!")
+        print("✅ Veritabanı başarıyla başlatıldı!")
     except Exception as e:
-        print(f"❌ Error setting up database: {e}")
+        print(f"❌ Veritabanı kurulurken hata: {e}")
 
 def show_system_info():
-    """Show system information and statistics"""
+    """Sistem bilgilerini ve istatistiklerini göster"""
     print("📊 AI Food & Alcohol Pairing System Information")
     print("=" * 60)
     
@@ -114,15 +114,15 @@ def show_system_info():
 
 def main():
     parser = argparse.ArgumentParser(
-        description="NeYenir - AI Food & Alcohol Pairing System",
+        description="NeYenir - AI Destekli Yemek & Alkol Eşleştirme Sistemi",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-Examples:
-  python run.py console          # Run console version
-  python run.py web             # Run web version (default)
-  python run.py web --port 8080 # Run web on port 8080
-  python run.py setup           # Initialize database
-  python run.py info            # Show system information
+Örnekler:
+  python run.py console          # Konsol sürümünü çalıştır
+  python run.py web             # Web sürümünü çalıştır (varsayılan)
+  python run.py web --port 8080 # Web sürümünü 8080 portunda çalıştır
+  python run.py setup           # Veritabanını başlat
+  python run.py info            # Sistem bilgilerini göster
         """
     )
     
@@ -131,35 +131,35 @@ Examples:
         nargs='?', 
         default='web',
         choices=['console', 'web', 'setup', 'info'],
-        help='Application mode (default: web)'
+        help='Uygulama modu (varsayılan: web)'
     )
     
     parser.add_argument(
         '--host',
         default='localhost',
-        help='Host to bind web server (default: localhost)'
+        help='Web sunucusunun bağlanacağı host (varsayılan: localhost)'
     )
     
     parser.add_argument(
         '--port',
         type=int,
         default=5000,
-        help='Port to bind web server (default: 5000)'
+        help='Web sunucusunun bağlanacağı port (varsayılan: 5000)'
     )
     
     parser.add_argument(
         '--no-debug',
         action='store_true',
-        help='Disable debug mode for web server'
+        help='Web sunucusu için debug modunu devre dışı bırak'
     )
     
     args = parser.parse_args()
     
-    print("🍷 NeYenir - AI Food & Alcohol Pairing System")
-    print("Version 2.0 - Advanced AI Edition")
+    print("🍷 NeYenir - AI Destekli Yemek & Alkol Eşleştirme Sistemi")
+    print("Sürüm 2.0 - Gelişmiş AI Sürümü")
     print("=" * 60)
     
-    # Check dependencies first
+    # Önce bağımlılıkları kontrol et
     if not check_dependencies():
         sys.exit(1)
     

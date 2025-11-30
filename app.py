@@ -6,20 +6,282 @@ Modern Flask web uygulaması ile responsive tasarım
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for, flash
 from main import AIFoodAlcoholMatcher, UserProfile
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 import secrets
+import random
+import os
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
 
-# Global matcher instance
+# Global eşleştirici örneği
 matcher = AIFoodAlcoholMatcher()
+
+# Çeviri sözlükleri
+FLAVOR_TRANSLATIONS = {
+    "spicy": "baharatlı", "sweet": "tatlı", "salty": "tuzlu", "sour": "ekşi",
+    "bitter": "acı", "umami": "umami", "rich": "zengin", "fresh": "taze",
+    "smoky": "dumanlı", "savory": "lezzetli", "acidic": "asitli", "mineral": "mineral",
+    "fruity": "meyveli", "floral": "çiçeksi", "earthy": "toprak", "creamy": "kremsi",
+    "crispy": "gevrek", "briny": "tuzlu", "delicate": "narin", "complex": "karmaşık",
+    "herbal": "bitkisel", "citrus": "narenciye", "dark fruit": "koyu meyve", 
+    "red fruit": "kırmızı meyve", "oak": "meşe", "tannins": "tanen",
+    "butter": "tereyağı", "grass": "çimen", "yeast": "maya", "hoppy": "şerbetçiotu",
+    "malty": "maltlı", "roasted": "kavrulmuş", "chocolate": "çikolata", 
+    "coffee": "kahve", "vanilla": "vanilya", "juniper": "ardıç", "mint": "nane",
+    "lime": "limon", "rice": "pirinç", "clean": "temiz", "anise": "anason",
+    "tangy": "buruk", "perfumed": "kokulu", "nutty": "fındıksı", "deep": "derin",
+    "garlicky": "sarımsaksı", "aromatic": "aromatik", "cinnamon": "tarçınlı",
+    "varied": "çeşitli", "cold": "soğuk", "fluffy": "kabarık", "luxurious": "lüks",
+    "buttery": "tereyağımsı", "hearty": "doyurucu"
+}
+
+PRICE_TRANSLATIONS = {
+    "budget": "ekonomik",
+    "mid-range": "orta",
+    "premium": "premium"
+}
+
+BODY_TRANSLATIONS = {
+    "light": "hafif",
+    "medium": "orta",
+    "full": "dolgun"
+}
+
+TYPE_TRANSLATIONS = {
+    "wine": "şarap",
+    "beer": "bira",
+    "spirits": "alkollü içki",
+    "cocktail": "kokteyl",
+    "sake": "sake"
+}
+
+SUBTYPE_TRANSLATIONS = {
+    "red": "kırmızı",
+    "white": "beyaz",
+    "sparkling": "köpüklü",
+    "rosé": "roze",
+    "dessert": "tatlı",
+    "fortified": "takviyeli",
+    "ale": "ale",
+    "lager": "lager",
+    "stout": "stout",
+    "ipa": "IPA",
+    "pilsner": "pilsner",
+    "wheat beer": "buğday birası",
+    "whiskey": "viski",
+    "gin": "cin",
+    "vodka": "votka",
+    "rum": "rom",
+    "tequila": "tekila",
+    "brandy": "kanyak",
+    "cognac": "kanyak",
+    "anise": "anason",
+    "gin-based": "cin bazlı",
+    "whiskey-based": "viski bazlı",
+    "rum-based": "rom bazlı",
+    "pure rice": "saf pirinç"
+}
+
+REGION_TRANSLATIONS = {
+    "turkey": "Türkiye",
+    "france": "Fransa",
+    "italy": "İtalya",
+    "spain": "İspanya",
+    "portugal": "Portekiz",
+    "germany": "Almanya",
+    "usa": "ABD",
+    "united states": "ABD",
+    "new zealand": "Yeni Zelanda",
+    "australia": "Avustralya",
+    "chile": "Şili",
+    "argentina": "Arjantin",
+    "south africa": "Güney Afrika",
+    "japan": "Japonya",
+    "china": "Çin",
+    "scotland": "İskoçya",
+    "ireland": "İrlanda",
+    "mexico": "Meksika",
+    "cuba": "Küba",
+    "jamaica": "Jamaika",
+    "international": "Uluslararası",
+    "czech republic": "Çek Cumhuriyeti",
+    "england": "İngiltere",
+    "uk": "Birleşik Krallık"
+}
+
+CUISINE_TRANSLATIONS = {
+    "turkish": "Türk",
+    "french": "Fransız",
+    "italian": "İtalyan",
+    "japanese": "Japon",
+    "chinese": "Çin",
+    "american": "Amerikan",
+    "mexican": "Meksika",
+    "indian": "Hint",
+    "thai": "Tayland",
+    "greek": "Yunan",
+    "spanish": "İspanyol",
+    "british": "İngiliz",
+    "german": "Alman",
+    "korean": "Kore",
+    "vietnamese": "Vietnam",
+    "lebanese": "Lübnan",
+    "moroccan": "Fas",
+    "brazilian": "Brezilya",
+    "argentinian": "Arjantin",
+    "international": "Uluslararası",
+    "mediterranean": "Akdeniz",
+    "middle eastern": "Orta Doğu",
+    "asian": "Asya"
+}
+
+# Jinja2 filtreleri
+@app.template_filter('translate_flavor')
+def translate_flavor(flavor):
+    """Lezzet notalarını Türkçeye çevir"""
+    return FLAVOR_TRANSLATIONS.get(flavor.lower(), flavor)
+
+@app.template_filter('translate_price')
+def translate_price(price):
+    """Fiyat aralığını Türkçeye çevir"""
+    return PRICE_TRANSLATIONS.get(price.lower(), price)
+
+@app.template_filter('translate_body')
+def translate_body(body):
+    """Gövde türünü Türkçeye çevir"""
+    return BODY_TRANSLATIONS.get(body.lower(), body)
+
+@app.template_filter('translate_type')
+def translate_type(alcohol_type):
+    """Alkol türünü Türkçeye çevir"""
+    return TYPE_TRANSLATIONS.get(alcohol_type.lower(), alcohol_type)
+
+@app.template_filter('translate_subtype')
+def translate_subtype(subtype):
+    """Alkol alt türünü Türkçeye çevir"""
+    return SUBTYPE_TRANSLATIONS.get(subtype.lower(), subtype)
+
+@app.template_filter('translate_region')
+def translate_region(region):
+    """Bölge/ülke ismini Türkçeye çevir"""
+    return REGION_TRANSLATIONS.get(region.lower(), region)
+
+@app.template_filter('translate_cuisine')
+def translate_cuisine(cuisine):
+    """Şöğün türünü Türkçeye çevir"""
+    return CUISINE_TRANSLATIONS.get(cuisine.lower(), cuisine)
+
+# Haftalık trend önbelleği fonksiyonları
+TRENDING_CACHE_FILE = 'data/trending_cache.json'
+TRENDING_CACHE_DAYS = 7
+
+def load_trending_cache():
+    """Önbellek dosyasından trend verileri yükle"""
+    if not os.path.exists(TRENDING_CACHE_FILE):
+        return None
+    
+    try:
+        with open(TRENDING_CACHE_FILE, 'r', encoding='utf-8') as f:
+            cache = json.load(f)
+            
+        # Zaman damgasını kontrol et
+        cache_date = datetime.fromisoformat(cache['timestamp'])
+        age_days = (datetime.now() - cache_date).days
+        
+        # Eğer 7 günden eskiyse geçersiz
+        if age_days >= TRENDING_CACHE_DAYS:
+            return None
+            
+        return cache['pairings']
+    except Exception as e:
+        print(f"⚠️ Önbellek yüklenirken hata: {e}")
+        return None
+
+def save_trending_cache(pairings):
+    """Önbellek dosyasına trend verileri kaydet"""
+    os.makedirs('data', exist_ok=True)
+    
+    cache = {
+        'timestamp': datetime.now().isoformat(),
+        'pairings': pairings
+    }
+    
+    try:
+        with open(TRENDING_CACHE_FILE, 'w', encoding='utf-8') as f:
+            json.dump(cache, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"⚠️ Önbellek kaydedilirken hata: {e}")
+
+def get_weekly_trending_pairings(count=20):
+    """
+    Haftalık rastgele trend eşleştirmeler al.
+    Önbellek varsa ve geçerliyse onu kullan, yoksa yeni rastgele seçim yap.
+    """
+    # Önbellekten yükle
+    cached = load_trending_cache()
+    if cached is not None:
+        print("✅ Önbellekten haftalık trendler yüklendi")
+        return cached[:count]
+    
+    # Yeni rastgele trendler oluştur
+    print("🔄 Yeni haftalık trendler oluşturuluyor...")
+    
+    # Tüm olasi eşleştirmeleri oluştur
+    all_pairings = []
+    foods = matcher.foods
+    alcohols = matcher.alcohols
+    
+    for food in foods:
+        for alcohol in alcohols:
+            # Uyumluluk skoru hesapla
+            score = matcher.calculate_compatibility_score(food, alcohol)
+            
+            # Sadece iyi eşleştirmeleri dahil et (skor > 50)
+            if score > 50:
+                all_pairings.append({
+                    'food': {
+                        'id': food.id,
+                        'name': food.name,
+                        'cuisine_type': food.cuisine_type,
+                        'intensity': food.intensity,
+                        'flavor_profile': food.flavor_profile
+                    },
+                    'alcohol': {
+                        'id': alcohol.id,
+                        'name': alcohol.name,
+                        'type': alcohol.type,
+                        'alcohol_content': alcohol.alcohol_content
+                    },
+                    'compatibility_score': round(score, 1),
+                    'popularity_count': random.randint(15, 150),  # Rastgele popülerlik
+                    'average_rating': round(random.uniform(3.5, 5.0), 1)  # Rastgele puan
+                })
+    
+    # Eğer yeterli eşleştirme yoksa
+    if len(all_pairings) < count:
+        count = len(all_pairings)
+    
+    # Rastgele seçim yap
+    if len(all_pairings) > 0:
+        selected = random.sample(all_pairings, min(count, len(all_pairings)))
+        # Popülerite göre sırala
+        selected.sort(key=lambda x: (x['popularity_count'], x['compatibility_score']), reverse=True)
+        
+        # Önbelleğe kaydet
+        save_trending_cache(selected)
+        return selected
+    
+    return []
 
 @app.route('/')
 def index():
-    """Homepage with beautiful interface"""
-    trending_pairings = matcher.get_trending_pairings(6)
-    return render_template('index.html', trending_pairings=trending_pairings)
+    """Ana sayfa — modern ve görsel arayüz"""
+    trending_pairings = get_weekly_trending_pairings(6)
+    return render_template('index.html', 
+                         trending_pairings=trending_pairings,
+                         foods=matcher.foods,
+                         alcohols=matcher.alcohols)
 
 @app.route('/foods')
 def foods():
@@ -38,31 +300,31 @@ def recommend():
 
 @app.route('/api/recommendations/<food_name>')
 def api_recommendations(food_name):
-    """API endpoint for getting recommendations"""
+    """Öneri almak için API uç noktası"""
     user_profile = None
     if 'user_id' in session and session['user_id'] in matcher.user_profiles:
         user_profile = matcher.user_profiles[session['user_id']]
     
     all_recommendations = matcher.get_recommendations(food_name.replace('-', ' '), user_profile, top_n=5)
     
-    # AI Recommendations
+    # AI önerileri
     ai_result = []
     for alcohol, score, explanation in all_recommendations["ai_recommendations"]:
         ai_result.append({
             'name': alcohol.name,
-            'type': alcohol.type,
-            'subtype': alcohol.subtype,
+            'type': TYPE_TRANSLATIONS.get(alcohol.type, alcohol.type),
+            'subtype': SUBTYPE_TRANSLATIONS.get(alcohol.subtype, alcohol.subtype),
             'alcohol_content': alcohol.alcohol_content,
-            'region': alcohol.region,
-            'price_range': alcohol.price_range,
-            'flavor_profile': alcohol.flavor_profile,
-            'body': alcohol.body,
+            'region': REGION_TRANSLATIONS.get(alcohol.region.lower(), alcohol.region),
+            'price_range': PRICE_TRANSLATIONS.get(alcohol.price_range, alcohol.price_range),
+            'flavor_profile': [FLAVOR_TRANSLATIONS.get(f, f) for f in alcohol.flavor_profile],
+            'body': BODY_TRANSLATIONS.get(alcohol.body, alcohol.body),
             'score': round(score, 1),
             'explanation': explanation,
             'source': 'ai'
         })
     
-    # Expert Recommendations
+    # Uzman önerileri
     expert_result = []
     for drink, score, explanation, expert_info in all_recommendations["expert_recommendations"]:
         expert_data = {
@@ -89,7 +351,7 @@ def api_recommendations(food_name):
 
 @app.route('/profile')
 def profile():
-    """User profile page"""
+    """Kullanıcı profil sayfası"""
     if 'user_id' not in session:
         return redirect(url_for('create_profile'))
     
@@ -102,7 +364,7 @@ def profile():
 
 @app.route('/create_profile', methods=['GET', 'POST'])
 def create_profile():
-    """Create user profile"""
+    """Kullanıcı profili oluşturma"""
     if request.method == 'POST':
         data = request.get_json()
         
@@ -128,7 +390,7 @@ def create_profile():
 
 @app.route('/api/rate_pairing', methods=['POST'])
 def rate_pairing():
-    """Rate a food-alcohol pairing"""
+    """Bir yemek-alkol eşleştirmesini puanla"""
     if 'user_id' not in session:
         return jsonify({'error': 'User not logged in'}), 401
     
@@ -145,8 +407,262 @@ def rate_pairing():
 @app.route('/trending')
 def trending():
     """Trending pairings page"""
-    trending_pairings = matcher.get_trending_pairings(20)
+    trending_pairings = get_weekly_trending_pairings(20)
     return render_template('trending.html', pairings=trending_pairings)
+
+@app.route('/api/refresh_trending', methods=['POST'])
+def refresh_trending():
+    """Manuel olarak trend önbelleğini yenile (admin endpoint)"""
+    try:
+        # Önbellek dosyasını sil
+        if os.path.exists(TRENDING_CACHE_FILE):
+            os.remove(TRENDING_CACHE_FILE)
+        
+        # Yeni trendler oluştur
+        new_trends = get_weekly_trending_pairings(20)
+        
+        return jsonify({
+            'status': 'success',
+            'message': 'Trendler başarıyla yenilendi',
+            'count': len(new_trends)
+        })
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
+
+@app.route('/cocktails')
+def cocktails():
+    """Kokteyl önerileri sayfası"""
+    return render_template('cocktails.html')
+
+@app.route('/api/cocktail_recommendations', methods=['POST'])
+def api_cocktail_recommendations():
+    """Kokteyl önerileri API"""
+    data = request.get_json()
+    mood = data.get('mood', 'happy')
+    flavor_preference = data.get('flavor_preference', 'balanced')
+    occasion = data.get('occasion', 'casual')
+    
+    # Kokteyl veritabanı
+    cocktails_db = {
+        'Mojito': {
+            'ingredients': ['Beyaz Rom', 'Nane', 'Limon', 'Şeker', 'Soda'],
+            'alcohol_content': 10,
+            'flavor': 'fresh',
+            'mood': ['happy', 'energetic'],
+            'occasion': ['casual', 'party'],
+            'description': 'Ferahlatıcı ve hafif bir klasik kokteyl',
+            'image': '🍹'
+        },
+        'Margarita': {
+            'ingredients': ['Tekila', 'Triple Sec', 'Limon Suyu', 'Tuz'],
+            'alcohol_content': 18,
+            'flavor': 'sour',
+            'mood': ['happy', 'party'],
+            'occasion': ['party', 'celebration'],
+            'description': 'Ekşi ve ferahlatıcı Meksika klasiği',
+            'image': '🍸'
+        },
+        'Old Fashioned': {
+            'ingredients': ['Bourbon', 'Şeker', 'Angostura Bitters', 'Portakal Kabuğu'],
+            'alcohol_content': 35,
+            'flavor': 'bitter',
+            'mood': ['relaxed', 'sophisticated'],
+            'occasion': ['formal', 'dinner'],
+            'description': 'Klasik ve sofistike bir viski kokteyli',
+            'image': '🥃'
+        },
+        'Cosmopolitan': {
+            'ingredients': ['Votka', 'Triple Sec', 'Cranberry Suyu', 'Limon'],
+            'alcohol_content': 22,
+            'flavor': 'balanced',
+            'mood': ['happy', 'sophisticated'],
+            'occasion': ['party', 'formal'],
+            'description': 'Zarif ve dengeli bir kokteyl',
+            'image': '🍸'
+        },
+        'Pina Colada': {
+            'ingredients': ['Beyaz Rom', 'Hindistan Cevizi Kremi', 'Ananas Suyu'],
+            'alcohol_content': 12,
+            'flavor': 'sweet',
+            'mood': ['relaxed', 'happy'],
+            'occasion': ['casual', 'beach'],
+            'description': 'Tropik ve kremsi bir tatil kokteyli',
+            'image': '🍹'
+        },
+        'Negroni': {
+            'ingredients': ['Gin', 'Campari', 'Kırmızı Vermut'],
+            'alcohol_content': 24,
+            'flavor': 'bitter',
+            'mood': ['sophisticated', 'relaxed'],
+            'occasion': ['formal', 'aperitif'],
+            'description': 'İtalyan aperitif klasiği, acı ve dengeli',
+            'image': '🍷'
+        },
+        'Aperol Spritz': {
+            'ingredients': ['Aperol', 'Prosecco', 'Soda', 'Portakal'],
+            'alcohol_content': 8,
+            'flavor': 'balanced',
+            'mood': ['happy', 'relaxed'],
+            'occasion': ['casual', 'aperitif'],
+            'description': 'Hafif ve ferahlatıcı İtalyan içkisi',
+            'image': '🍹'
+        },
+        'Manhattan': {
+            'ingredients': ['Rye Whiskey', 'Kırmızı Vermut', 'Angostura Bitters'],
+            'alcohol_content': 30,
+            'flavor': 'balanced',
+            'mood': ['sophisticated', 'relaxed'],
+            'occasion': ['formal', 'dinner'],
+            'description': 'Klasik New York kokteyli',
+            'image': '🍸'
+        }
+    }
+    
+    # Filtreleme ve puanlama
+    recommendations = []
+    for name, cocktail in cocktails_db.items():
+        score = 0
+        
+        # Mood eşleşmesi
+        if mood in cocktail['mood']:
+            score += 30
+        
+        # Flavor eşleşmesi
+        if flavor_preference == cocktail['flavor'] or flavor_preference == 'balanced':
+            score += 25
+        
+        # Occasion eşleşmesi
+        if occasion in cocktail['occasion']:
+            score += 25
+        
+        # Alkol seviyesi bonusu
+        score += 20
+        
+        recommendations.append({
+            'name': name,
+            'score': score,
+            'ingredients': cocktail['ingredients'],
+            'alcohol_content': cocktail['alcohol_content'],
+            'description': cocktail['description'],
+            'image': cocktail['image']
+        })
+    
+    # Skorlara göre sırala
+    recommendations.sort(key=lambda x: x['score'], reverse=True)
+    
+    return jsonify({'recommendations': recommendations[:6]})
+
+@app.route('/bac_calculator')
+def bac_calculator():
+    """Promil hesaplayıcı sayfası"""
+    return render_template('bac_calculator.html')
+
+@app.route('/api/calculate_bac', methods=['POST'])
+def api_calculate_bac():
+    """Promil hesaplama API"""
+    data = request.get_json()
+    
+    weight = float(data.get('weight', 70))  # kg
+    gender = data.get('gender', 'male')
+    drinks = data.get('drinks', [])
+    hours_since_first_drink = float(data.get('hours', 1))
+    
+    # Widmark formülü
+    # BAC = (Alkol gramı / (Vücut ağırlığı x r)) - (0.015 x saat)
+    # r: erkekler için 0.68, kadınlar için 0.55
+    
+    r_value = 0.68 if gender == 'male' else 0.55
+    
+    total_alcohol_grams = 0
+    drink_details = []
+    
+    for drink in drinks:
+        volume_ml = float(drink.get('volume', 0))
+        alcohol_percent = float(drink.get('alcohol_percent', 0))
+        
+        # Alkol gramı = hacim (ml) x alkol % x 0.789 (alkol yoğunluğu)
+        alcohol_grams = volume_ml * (alcohol_percent / 100) * 0.789
+        total_alcohol_grams += alcohol_grams
+        
+        drink_details.append({
+            'name': drink.get('name', 'İçki'),
+            'volume': volume_ml,
+            'alcohol_percent': alcohol_percent,
+            'alcohol_grams': round(alcohol_grams, 2)
+        })
+    
+    # BAC hesaplama - Widmark Formülü
+    # Klasik formül: C = A / (r × W)
+    # C = BAC (g/dL veya g/100mL)
+    # A = Alkol miktarı (gram)
+    # r = Cinsiyet faktörü (erkek: 0.68, kadın: 0.55)
+    # W = Vücut ağırlığı (kg)
+    # 
+    # Örnek: 70kg erkek, 20g alkol
+    # C = 20 / (0.68 × 70) = 20 / 47.6 = 0.42 g/L = 0.042 g/dL
+    # Promil = 0.042 × 10 = 0.42‰
+    
+    if total_alcohol_grams > 0 and weight > 0:
+        # BAC hesaplama (g/L cinsinden)
+        bac_g_per_L = total_alcohol_grams / (r_value * weight)
+        
+        # g/L'den g/dL'ye çevir (÷10)
+        bac = bac_g_per_L / 10
+        
+        # Zaman faktörü - vücut saatte yaklaşık 0.015 g/dL metabolize eder
+        bac = bac - (0.015 * hours_since_first_drink)
+        bac = max(0, bac)  # Negatif değer olamaz
+    else:
+        bac = 0
+    
+    # Promil seviyesine göre durum
+    # BAC 0.0X g/dL = X promil (‰)
+    # Örnek: BAC 0.08 g/dL = 0.8‰
+    status = ''
+    status_color = ''
+    recommendations = []
+    
+    # Promil değerleri: BAC * 10 (çünkü 0.02 g/dL = 0.2‰)
+    bac_promil = bac * 10
+    
+    if bac_promil < 0.2:
+        status = 'Ayık'
+        status_color = 'success'
+        recommendations = ['Güvenli bir seviyedesiniz']
+    elif bac_promil < 0.5:
+        status = 'Minimal Etki'
+        status_color = 'info'
+        recommendations = ['Hafif bir etki hissedebilirsiniz', 'Araç kullanmakta dikkatli olun']
+    elif bac_promil < 0.8:
+        status = 'Hafif Sarhoşluk'
+        status_color = 'warning'
+        recommendations = ['Araç kullanmayın', 'Koordinasyonunuz etkilenmiş olabilir']
+    elif bac_promil < 1.5:
+        status = 'Orta Sarhoşluk'
+        status_color = 'warning'
+        recommendations = ['ASLA araç kullanmayın', 'Tepki süreniz önemli ölçüde yavaşlamıştır', 'Su için ve dinlenin']
+    else:
+        status = 'Yüksek Sarhoşluk / Tehlikeli'
+        status_color = 'danger'
+        recommendations = ['ASLA araç kullanmayın', 'Tıbbi yardım gerekebilir', 'Birisiyle kalın', 'Bol su için']
+    
+    # Ayılma zamanı (0.15 promil/saat = 0.015 g/dL/saat)
+    hours_to_sober = bac_promil / 0.15 if bac_promil > 0 else 0
+    
+    return jsonify({
+        'bac': round(bac, 4),
+        'bac_percentage': round(bac * 100, 2),
+        'bac_promil': round(bac_promil, 2),
+        'status': status,
+        'status_color': status_color,
+        'recommendations': recommendations,
+        'total_alcohol_grams': round(total_alcohol_grams, 2),
+        'hours_to_sober': round(hours_to_sober, 1),
+        'drink_details': drink_details
+    })
 
 @app.route('/logout')
 def logout():

@@ -3,7 +3,7 @@
 {% block title %}Ana Sayfa - Ne Yenir?{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
+<!-- Hero Bölümü -->
 <section class="hero-section">
     <div class="container">
         <div class="row">
@@ -34,7 +34,7 @@
     </div>
 </section>
 
-<!-- Features Section -->
+<!-- Özellikler Bölümü -->
 <section class="py-5">
     <div class="container">
         <div class="row g-4">
@@ -89,11 +89,43 @@
                     </p>
                 </div>
             </div>
+
+            <div class="col-lg-4">
+                <div class="card feature-card h-100">
+                    <div class="feature-icon">
+                        <i class="bi bi-cup-straw"></i>
+                    </div>
+                    <h4>🍹 Kokteyl Önerileri</h4>
+                    <p class="text-muted">
+                        Ruh halinize ve zevkinize göre size özel kokteyl önerileri alın.
+                        Mükemmel içeceği keşfedin!
+                    </p>
+                    <a href="{{ url_for('cocktails') }}" class="btn btn-sm btn-primary mt-2">
+                        <i class="bi bi-arrow-right"></i> Kokteylleri Keşfet
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card feature-card h-100">
+                    <div class="feature-icon">
+                        <i class="bi bi-calculator"></i>
+                    </div>
+                    <h4>📊 Promil Hesaplayıcı</h4>
+                    <p class="text-muted">
+                        Kan alkol seviyenizi hesaplayın ve güvenli kalmak için
+                        öneriler alın. Sorumlu içki tüketimi için!
+                    </p>
+                    <a href="{{ url_for('bac_calculator') }}" class="btn btn-sm btn-primary mt-2">
+                        <i class="bi bi-arrow-right"></i> Promil Hesapla
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Trending Pairings Section -->
+<!-- Popüler Eşleştirmeler Bölümü -->
 {% if trending_pairings %}
 <section class="py-5 bg-light">
     <div class="container">
@@ -111,24 +143,24 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-start mb-3">
                             <div>
-                                <h5 class="card-title text-primary">{{ pairing.food }}</h5>
-                                <h6 class="card-subtitle text-muted">+ {{ pairing.alcohol }}</h6>
+                                <h5 class="card-title text-primary">{{ pairing.food.name }}</h5>
+                                <h6 class="card-subtitle text-muted">+ {{ pairing.alcohol.name }}</h6>
                             </div>
-                            <span class="badge bg-success">{{ pairing.votes }} oy</span>
+                            <span class="badge bg-success">{{ pairing.popularity_count }} oy</span>
                         </div>
 
                         <div class="rating-stars mb-2">
-                            {% for i in range(pairing.rating|int) %}
+                            {% for i in range(pairing.average_rating|int) %}
                             ⭐
                             {% endfor %}
-                            {% if pairing.rating % 1 != 0 %}
+                            {% if pairing.average_rating % 1 != 0 %}
                             ⭐
                             {% endif %}
-                            <span class="ms-2 text-muted">{{ pairing.rating }}/5.0</span>
+                            <span class="ms-2 text-muted">{{ pairing.average_rating }}/5.0</span>
                         </div>
 
                         <div class="score-bar">
-                            <div class="score-fill" style="width: {{ (pairing.rating / 5 * 100) }}%"></div>
+                            <div class="score-fill" style="width: {{ (pairing.average_rating / 5 * 100) }}%"></div>
                         </div>
                     </div>
                 </div>
@@ -145,14 +177,14 @@
 </section>
 {% endif %}
 
-<!-- Statistics Section -->
+<!-- İstatistikler Bölümü -->
 <section class="py-5">
     <div class="container">
         <div class="row g-4 text-center">
             <div class="col-lg-3 col-sm-6">
                 <div class="card">
                     <div class="card-body">
-                        <div class="display-4 text-primary fw-bold">{{ foods|length }}</div>
+                        <div class="display-4 text-primary fw-bold">{{ foods|length }}+</div>
                         <h5 class="text-muted">Yemek Türü</h5>
                     </div>
                 </div>
@@ -161,7 +193,7 @@
             <div class="col-lg-3 col-sm-6">
                 <div class="card">
                     <div class="card-body">
-                        <div class="display-4 text-success fw-bold">{{ alcohols|length }}</div>
+                        <div class="display-4 text-success fw-bold">{{ alcohols|length }}+</div>
                         <h5 class="text-muted">İçecek Seçeneği</h5>
                     </div>
                 </div>
@@ -188,7 +220,7 @@
     </div>
 </section>
 
-<!-- Call to Action -->
+<!-- Harekete Geçirme Bölümü -->
 <section class="py-5 bg-primary text-white">
     <div class="container text-center">
         <div class="row">

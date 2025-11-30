@@ -19,12 +19,28 @@ Modern, kapsamlı bir yapay zeka ve gurme uzmanı destekli yemek-alkol eşleşti
 - **Kültürel Zenginlik**: Türk ve uluslararası mutfak uzmanları
 - **Gelişmiş Algoritma**: Lezzet profilleri, yoğunluk seviyeleri ve kültürel uyum analizi
 
-### 🍽️ Kapsamlı Veritabanı
+### � Kokteyl Önerileri (YENİ!)
+- **Akıllı Öneriler**: Ruh halinize, lezzet tercihinize ve duruma göre kokteyl önerileri
+- **8+ Klasik Kokteyl**: Mojito, Margarita, Old Fashioned, Cosmopolitan ve daha fazlası
+- **Detaylı Bilgi**: Her kokteyl için malzemeler, alkol oranı ve hazırlama bilgileri
+- **Uygunluk Puanı**: Tercihlerinize göre akıllı puanlama sistemi
+
+### 📊 Promil Hesaplayıcı (YENİ!)
+- **Widmark Formülü**: Bilimsel olarak doğrulanmış hesaplama yöntemi
+- **Kişiselleştirilmiş**: Cinsiyet, kilo ve zaman bazlı hesaplama
+- **Miktar/Adet Seçimi**: Aynı içkiden birden fazla içildiğinde miktar seçme özelliği ⭐ YENİ!
+- **Otomatik Hesaplama**: Toplam hacim anlık olarak hesaplanır ve gösterilir
+- **Detaylı Analiz**: Alkol gramı, ayılma süresi ve durum değerlendirmesi
+- **Güvenlik Önerileri**: Promil seviyesine göre öneriler ve uyarılar
+- **Görsel Grafikler**: Promil seviye tablosu ve renkli durum göstergeleri
+- **Hızlı Seçim**: Popüler içkiler için hazır değerler (Bira, Şarap, Rakı, vb.)
+
+### �🍽️ Kapsamlı Veritabanı
 - **14+ Farklı Yemek**: Türk, İtalyan, Fransız, Japon ve diğer mutfaklardan
 - **16+ Alkol Seçeneği**: Şarap, bira, rakı, kokteyl ve premium içecekler  
 - **Detaylı Analiz**: Her ürün için lezzet profili, yoğunluk ve fiyat analizi
 
-### � İleri Seviye Özellikler
+### 🎯 İleri Seviye Özellikler
 - **Trend Analizi**: En popüler eşleştirmeler
 - **Interaktif Arayüz**: Modern ve kullanıcı dostu tasarım
 - **Responsive Design**: Tüm cihazlarda mükemmel görünüm
@@ -39,7 +55,54 @@ Modern, kapsamlı bir yapay zeka ve gurme uzmanı destekli yemek-alkol eşleşti
 - 🍽️ [Yemekler](https://tamerefe.github.io/NeYenir/foods.html)
 - 🍷 [İçecekler](https://tamerefe.github.io/NeYenir/drinks.html)
 - 💡 [Öneriler](https://tamerefe.github.io/NeYenir/recommendations.html)
+- 🍹 [Kokteyl Önerileri](http://127.0.0.1:5000/cocktails) - **YENİ!**
+- 📊 [Promil Hesaplayıcı](http://127.0.0.1:5000/bac_calculator) - **YENİ!**
 - ℹ️ [Hakkında](https://tamerefe.github.io/NeYenir/about.html)
+
+## 💡 Kullanım Örnekleri
+
+### 🍹 Kokteyl Önerileri
+1. Kokteyl Önerileri sayfasına gidin
+2. Ruh halinizi seçin (Mutlu, Rahat, Enerjik, vb.)
+3. Lezzet tercihinizi belirleyin (Dengeli, Tatlı, Ekşi, Acı, Ferah)
+4. Durumu seçin (Günlük, Parti, Resmi, Akşam Yemeği, vb.)
+5. "Kokteyl Önerilerini Göster" butonuna tıklayın
+6. Size özel kokteyl önerilerini görüntüleyin!
+
+**Özellikler:**
+- 8+ klasik kokteyl tarifi
+- Malzeme listesi
+- Alkol oranı bilgisi
+- Uygunluk puanı
+- Detaylı açıklamalar
+
+### 📊 Promil Hesaplayıcı
+1. Promil Hesaplayıcı sayfasına gidin
+2. Kişisel bilgilerinizi girin:
+   - Cinsiyet
+   - Vücut ağırlığı (kg)
+   - İlk içkiden bu yana geçen süre (saat)
+3. İçtiklerinizi ekleyin:
+   - Hızlı seçim (Bira, Şarap, Rakı, vb.) veya manuel giriş
+   - **Adet/Miktar seçimi**: Aynı içkiden kaç tane içtiğinizi belirtin (örn: 3 bira)
+   - Toplam hacim otomatik hesaplanır ve gösterilir
+   - Her içki için hacim (ml) ve alkol yüzdesi
+4. "Promil Hesapla" butonuna tıklayın
+5. Sonuçları görüntüleyin:
+   - BAC (Kan alkol seviyesi) promil cinsinden
+   - Durum değerlendirmesi (Ayık, Hafif Sarhoş, vb.)
+   - Toplam alkol miktarı (gram)
+   - Tahmini ayılma süresi
+   - Güvenlik önerileri
+
+**Örnek Kullanım:**
+- 3 bira (500ml, 5%) → Adet: 3, Toplam: 1500ml ✓
+- 2 şarap (150ml, 12%) → Adet: 2, Toplam: 300ml ✓
+- Tek seferde giriş, hızlı hesaplama!
+
+**Güvenlik Uyarısı:**
+⚠️ Bu hesaplama yaklaşık bir tahmindir. Promil seviyesi kişiden kişiye değişebilir. 
+Alkollü araç kullanmayın! Sorumlu içki tüketin.
 
 ## 🛠️ Teknoloji Yığını
 

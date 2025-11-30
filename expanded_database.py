@@ -9,13 +9,13 @@ def get_expanded_food_database():
     
     expanded_foods = [
         # Turkish Cuisine - Expanded
-        Food(1, "Adana Kebab", "Turkish", ["spicy", "smoky", "salty"], 8, "tender", "grilled", 
+        Food(1, "Adana Kebap", "Turkish", ["spicy", "smoky", "salty"], 8, "tender", "grilled", 
              ["lamb", "spices"], [], "mid-range", "hot"),
-        Food(2, "İskender Kebab", "Turkish", ["savory", "rich", "salty"], 7, "tender", "grilled",
+        Food(2, "İskender Kebap", "Turkish", ["savory", "rich", "salty"], 7, "tender", "grilled",
              ["lamb", "yogurt", "tomato"], [], "mid-range", "hot"),
-        Food(3, "Döner Kebab", "Turkish", ["savory", "spicy"], 6, "tender", "grilled",
+        Food(3, "Döner Kebap", "Turkish", ["savory", "spicy"], 6, "tender", "grilled",
              ["lamb", "beef", "spices"], [], "budget", "hot"),
-        Food(4, "Şiş Kebab", "Turkish", ["smoky", "savory"], 7, "tender", "grilled",
+        Food(4, "Şiş Kebap", "Turkish", ["smoky", "savory"], 7, "tender", "grilled",
              ["lamb", "vegetables"], [], "mid-range", "hot"),
         Food(5, "Köfte", "Turkish", ["savory", "rich"], 6, "tender", "grilled",
              ["ground meat", "spices"], [], "budget", "hot"),
@@ -71,7 +71,7 @@ def get_expanded_food_database():
              ["chickpeas", "herbs", "spices"], ["vegan"], "budget", "hot"),
 
         # Italian Cuisine - Expanded
-        Food(30, "Margherita Pizza", "Italian", ["savory", "fresh"], 6, "crispy", "baked",
+        Food(30, "Pizza Margherita", "Italian", ["savory", "fresh"], 6, "crispy", "baked",
              ["tomato", "mozzarella", "basil"], ["vegetarian"], "budget", "hot"),
         Food(31, "Carbonara", "Italian", ["rich", "creamy"], 8, "creamy", "stirred",
              ["pasta", "eggs", "pancetta"], [], "mid-range", "hot"),
@@ -111,7 +111,7 @@ def get_expanded_food_database():
         # Japanese Cuisine - Expanded
         Food(47, "Sushi Omakase", "Japanese", ["fresh", "umami", "delicate"], 8, "tender", "raw",
              ["fish", "rice", "seaweed"], [], "premium", "cold"),
-        Food(48, "Ramen", "Japanese", ["rich", "umami"], 8, "chewy", "boiled",
+        Food(48, "Ramen Çorbası", "Japanese", ["rich", "umami"], 8, "chewy", "boiled",
              ["noodles", "broth", "pork"], [], "budget", "hot"),
         Food(49, "Tempura", "Japanese", ["crispy", "light"], 6, "crispy", "fried",
              ["seafood", "vegetables", "batter"], [], "mid-range", "hot"),

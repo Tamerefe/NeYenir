@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+
+{% block title %}Kokteyl Önerileri - Ne Yenir?{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="margin-top: 80px;">
+    <div class="row mb-5">
+        <div class="col-lg-12 text-center">
+            <h1 class="display-4 fw-bold mb-3" style="color: white;">
+                <i class="bi bi-cup-straw"></i> Kokteyl Önerileri
+            </h1>
+            <p class="lead" style="color: rgba(255, 255, 255, 0.9);">
+                Ruh halinize ve tercihinize göre size en uygun kokteylleri keşfedin
+            </p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body p-4">
+                    <h4 class="card-title mb-4">
+                        <i class="bi bi-sliders"></i> Tercihleriniz
+                    </h4>
+
+                    <form id="cocktailForm">
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">
+                                <i class="bi bi-emoji-smile"></i> Ruh Haliniz
+                            </label>
+                            <select class="form-select" id="mood">
+                                <option value="happy">Mutlu / Neşeli</option>
+                                <option value="relaxed">Rahat / Sakin</option>
+                                <option value="energetic">Enerjik / Dinamik</option>
+                                <option value="sophisticated">Sofistike / Zarif</option>
+                                <option value="party">Parti / Eğlence</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">
+                                <i class="bi bi-palette"></i> Lezzet Tercihi
+                            </label>
+                            <select class="form-select" id="flavor">
+                                <option value="balanced">Dengeli</option>
+                                <option value="sweet">Tatlı</option>
+                                <option value="sour">Ekşi</option>
+                                <option value="bitter">Acı</option>
+                                <option value="fresh">Ferah</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">
+                                <i class="bi bi-calendar-event"></i> Durum
+                            </label>
+                            <select class="form-select" id="occasion">
+                                <option value="casual">Günlük / Rahat</option>
+                                <option value="party">Parti</option>
+                                <option value="formal">Resmi / Özel</option>
+                                <option value="dinner">Akşam Yemeği</option>
+                                <option value="aperitif">Aperitif</option>
+                                <option value="beach">Sahil / Yaz</option>
+                                <option value="celebration">Kutlama</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 py-3">
+                            <i class="bi bi-search"></i> Kokteyl Önerilerini Göster
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Yükleniyor Animasyonu -->
+    <div id="loadingSpinner" class="text-center" style="display: none;">
+        <div class="spinner-border text-light" role="status" style="width: 3rem; height: 3rem;">
+            <span class="visually-hidden">Yükleniyor...</span>
+        </div>
+    </div>
+
+    <!-- Sonuçlar -->
+    <div id="results" class="row" style="display: none;"></div>
+</div>
+
+<script>
+    document.getElementById('cocktailForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const resultsDiv = document.getElementById('results');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+
+        // Show loading
+        resultsDiv.style.display = 'none';
+        loadingSpinner.style.display = 'block';
+
+        const data = {
+            mood: document.getElementById('mood').value,
+            flavor_preference: document.getElementById('flavor').value,
+            occasion: document.getElementById('occasion').value
+        };
+
+        try {
+            const response = await fetch('/api/cocktail_recommendations', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            displayResults(result.recommendations);
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+        } finally {
+            loadingSpinner.style.display = 'none';
+        }
+    });
+
+    function displayResults(recommendations) {
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = '';
+
+        recommendations.forEach((cocktail, index) => {
+            const col = document.createElement('div');
+            col.className = 'col-lg-4 col-md-6 mb-4';
+
+            const scorePercentage = cocktail.score;
+            const scoreColor = scorePercentage >= 80 ? 'success' :
+                scorePercentage >= 60 ? 'warning' : 'info';
+
+            col.innerHTML = `
+            <div class="card h-100" style="animation: fadeInUp 0.5s ease ${index * 0.1}s backwards;">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h3 class="card-title mb-0">
+                            <span style="font-size: 2rem;">${cocktail.image}</span>
+                            ${cocktail.name}
+                        </h3>
+                        <span class="badge bg-${scoreColor} fs-6">${cocktail.score}%</span>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <small class="text-muted">Uygunluk</small>
+                            <small class="text-muted">${cocktail.score}/100</small>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar bg-${scoreColor}" 
+                                 style="width: ${cocktail.score}%"></div>
+                        </div>
+                    </div>
+                    
+                    <p class="text-muted mb-3">${cocktail.description}</p>
+                    
+                    <div class="mb-3">
+                        <h6 class="fw-bold">
+                            <i class="bi bi-droplet"></i> Alkol Oranı
+                        </h6>
+                        <p class="mb-0">${cocktail.alcohol_content}%</p>
+                    </div>
+                    
+                    <div>
+                        <h6 class="fw-bold">
+                            <i class="bi bi-list-check"></i> Malzemeler
+                        </h6>
+                        <div class="d-flex flex-wrap gap-2">
+                            ${cocktail.ingredients.map(ing =>
+                `<span class="badge bg-light text-dark">${ing}</span>`
+            ).join('')}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+            resultsDiv.appendChild(col);
+        });
+
+        resultsDiv.style.display = 'flex';
+        resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Animasyon tanımları
+    const style = document.createElement('style');
+    style.textContent = `
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+`;
+    document.head.appendChild(style);
+</script>
+
+<style>
+    .card {
+        transition: all 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    .badge {
+        font-weight: 500;
+    }
+
+    .progress {
+        background-color: #e9ecef;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .progress-bar {
+        transition: width 1s ease;
+    }
+</style>
+{% endblock %}

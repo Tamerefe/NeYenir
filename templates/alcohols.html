@@ -15,7 +15,7 @@
                 </p>
             </div>
 
-            <!-- Alcohols Grid -->
+            <!-- İçecekler Izgara Düzeni -->
             <div class="card">
                 <div class="card-header bg-primary text-white">
                     <h4 class="mb-0">
@@ -45,14 +45,16 @@
                                             {% endif %}
                                             {{ alcohol.name }}
                                         </h5>
-                                        <span class="badge bg-secondary">{{ alcohol.type }}</span>
+                                        <span class="badge bg-secondary">
+                                            {{ alcohol.type|translate_type|title }}
+                                        </span>
                                     </div>
 
                                     <div class="mb-3">
                                         <h6 class="text-muted mb-2">Lezzet Notları:</h6>
                                         <div class="d-flex flex-wrap gap-1">
-                                            {% for note in alcohol.flavor_notes %}
-                                            <span class="badge bg-light text-dark">{{ note }}</span>
+                                            {% for note in alcohol.flavor_profile %}
+                                            <span class="badge bg-light text-dark">{{ note|translate_flavor }}</span>
                                             {% endfor %}
                                         </div>
                                     </div>
@@ -64,20 +66,21 @@
                                             </small>
                                             <div class="progress" style="height: 8px;">
                                                 <div class="progress-bar bg-info"
-                                                    style="width: {{ (alcohol.alcohol_content / 50) * 100 }}%"></div>
+                                                    style="width: {{ ((alcohol.alcohol_content / 50) * 100)|round(0) }}%;">
+                                                </div>
                                             </div>
                                             <small>{{ alcohol.alcohol_content }}%</small>
                                         </div>
                                         <div class="col-6">
                                             <small class="text-muted d-block">
-                                                <i class="bi bi-cash text-success"></i> Fiyat Aralığı
+                                                <i class="bi bi-cash text-success"></i> Fiyat
                                             </small>
                                             <span class="badge 
-                                                {% if alcohol.price_range == '$' %}bg-success
-                                                {% elif alcohol.price_range == '$$' %}bg-warning
+                                                {% if alcohol.price_range == 'budget' %}bg-success
+                                                {% elif alcohol.price_range == 'mid-range' %}bg-warning
                                                 {% else %}bg-danger
                                                 {% endif %}">
-                                                {{ alcohol.price_range }}
+                                                {{ alcohol.price_range|translate_price }}
                                             </span>
                                         </div>
                                     </div>
@@ -85,7 +88,7 @@
                                     {% if alcohol.region %}
                                     <div class="mb-3">
                                         <small class="text-muted">
-                                            <i class="bi bi-geo-alt"></i> {{ alcohol.region }}
+                                            <i class="bi bi-geo-alt"></i> Bölge: {{ alcohol.region|translate_region }}
                                         </small>
                                     </div>
                                     {% endif %}

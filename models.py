@@ -1,6 +1,6 @@
 """
-Advanced Data Models and Database Management
-Enhanced models with additional features and validation
+Gelişmiş Veri Modelleri ve Veritabanı Yönetimi
+Ek özellikler ve doğrulama ile zenginleştirilmiş modeller
 """
 
 from dataclasses import dataclass, field, asdict
@@ -39,7 +39,7 @@ class CookingMethod(Enum):
 
 @dataclass
 class NutritionalInfo:
-    """Nutritional information for food items"""
+    """Yemek öğeleri için beslenme bilgileri"""
     calories_per_100g: Optional[int] = None
     protein_g: Optional[float] = None
     fat_g: Optional[float] = None
@@ -49,7 +49,7 @@ class NutritionalInfo:
 
 @dataclass
 class AlcoholDetails:
-    """Detailed alcohol information"""
+    """Detaylı alkol bilgileri"""
     alcohol_content: float
     serving_size_ml: int = 150
     calories_per_serving: Optional[int] = None
@@ -59,12 +59,12 @@ class AlcoholDetails:
 
 @dataclass
 class FoodItem:
-    """Enhanced food item with comprehensive details"""
+    """Kapsamlı detaylar içeren gelişmiş yemek öğesi"""
     id: int
     name: str
     cuisine_type: str
     flavor_profile: List[str]
-    intensity: int  # 1-10 scale
+    intensity: int  # 1-10 ölçeği
     texture: str
     cooking_method: CookingMethod
     main_ingredients: List[str]
@@ -75,7 +75,7 @@ class FoodItem:
     description: str = ""
     image_url: str = ""
     preparation_time_minutes: int = 0
-    difficulty_level: int = 1  # 1-5 scale
+    difficulty_level: int = 1  # 1-5 ölçeği
     origin_country: str = ""
     seasonal_availability: List[str] = field(default_factory=list)
     allergens: List[str] = field(default_factory=list)
@@ -89,7 +89,7 @@ class FoodItem:
             self.price_range = PriceRange(self.price_range)
 
     def to_dict(self) -> Dict:
-        """Convert to dictionary for JSON serialization"""
+        """JSON serileştirmesi için sözlüğe dönüştür"""
         data = asdict(self)
         data['cooking_method'] = self.cooking_method.value
         data['price_range'] = self.price_range.value
@@ -144,7 +144,7 @@ class AlcoholItem:
             self.price_range = PriceRange(self.price_range)
 
     def to_dict(self) -> Dict:
-        """Convert to dictionary for JSON serialization"""
+        """JSON serileştirmesi için sözlüğe dönüştür"""
         data = asdict(self)
         data['price_range'] = self.price_range.value
         data['created_at'] = self.created_at.isoformat()
@@ -243,14 +243,14 @@ class PairingRating:
     created_at: datetime = field(default_factory=datetime.now)
 
     def to_dict(self) -> Dict:
-        """Convert to dictionary for JSON serialization"""
+        """JSON serileştirmesi için sözlüğe dönüştür"""
         data = asdict(self)
         data['created_at'] = self.created_at.isoformat()
         return data
 
 @dataclass
 class TrendingPairing:
-    """Trending pairing with analytics"""
+    """Analitik verileriyle popüler eşleştirme"""
     food_id: int
     alcohol_id: int
     food_name: str
@@ -288,6 +288,10 @@ class EnhancedDatabaseManager:
             # Enhanced users table
             cursor.execute('''
                 CREATE TABLE IF NOT EXISTS users (
+        """
+        Gelişmiş Veri Modelleri ve Veritabanı Yönetimi
+        Ek özellikler ve doğrulama ile zenginleştirilmiş modeller
+        """
                     user_id INTEGER PRIMARY KEY AUTOINCREMENT,
                     name TEXT NOT NULL,
                     email TEXT UNIQUE,

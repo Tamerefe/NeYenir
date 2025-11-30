@@ -18,43 +18,43 @@ import os
 
 @dataclass
 class Food:
-    """Food item with detailed characteristics"""
+    """Detaylı özelliklere sahip yemek öğesi"""
     id: int
     name: str
     cuisine_type: str
-    flavor_profile: List[str]  # sweet, salty, sour, bitter, umami, spicy
-    intensity: int  # 1-10 scale
-    texture: str  # creamy, crispy, tender, chewy
+    flavor_profile: List[str]  # tatlı, tuzlu, eksi, acı, umami, baharatlı
+    intensity: int  # 1-10 ölçeği
+    texture: str  # kremsi, çıtır, yumuşak, çiğnenen
     cooking_method: str
     main_ingredients: List[str]
-    dietary_tags: List[str]  # vegetarian, vegan, gluten-free, etc.
-    price_range: str  # budget, mid-range, premium
-    serving_temp: str  # hot, cold, room-temp
+    dietary_tags: List[str]  # vejetaryen, vegan, gluten-free, vb.
+    price_range: str  # ekonomik, orta, premium
+    serving_temp: str  # sıcak, soğuk, oda sıcaklığı
 
 @dataclass 
 class Alcohol:
-    """Alcohol beverage with detailed characteristics"""
+    """Detaylı özelliklere sahip alkollü içecek"""
     id: int
     name: str
-    type: str  # wine, beer, spirits, cocktail
-    subtype: str  # red wine, IPA, whiskey, etc.
+    type: str  # şarap, bira, spirits, kokteyl
+    subtype: str  # kırmızı şarap, IPA, viski, vb.
     alcohol_content: float
     flavor_profile: List[str]
-    body: str  # light, medium, full
-    sweetness: int  # 1-10 scale
-    acidity: int  # 1-10 scale
-    tannins: int  # 1-10 scale (for wines)
+    body: str  # hafif, orta, yoğun
+    sweetness: int  # 1-10 ölçeği
+    acidity: int  # 1-10 ölçeği
+    tannins: int  # 1-10 ölçeği (şaraplar için)
     price_range: str
     region: str
     vintage: Optional[int]
 
 @dataclass
 class UserProfile:
-    """User preferences and history"""
+    """Kullanıcı tercihleri ve geçmişi"""
     user_id: int
     name: str
     age: int
-    alcohol_tolerance: str  # low, medium, high
+    alcohol_tolerance: str  # düşük, orta, yüksek
     preferred_flavors: List[str]
     dietary_restrictions: List[str]
     budget_preference: str
@@ -64,7 +64,7 @@ class UserProfile:
 
 @dataclass
 class GourmetExpert:
-    """Famous gourmet expert with their specialities"""
+    """Uzmanlık alanlarıyla ünlü gurme uzmanı"""
     name: str
     country: str
     speciality: List[str]
@@ -73,14 +73,14 @@ class GourmetExpert:
     famous_for: List[str]
 
 class GourmetRecommendationSystem:
-    """System for gourmet expert recommendations"""
+    """Gurme uzmanı önerileri için sistem"""
     
     def __init__(self):
         self.experts = self._load_gourmet_experts()
         self.expert_pairings = self._load_expert_pairings()
     
     def _load_gourmet_experts(self) -> List[GourmetExpert]:
-        """Load famous gourmet experts from around the world"""
+        """Dünya çapında ünlü gurme uzmanlarını yükle"""
         experts = [
             # Dünya çapında ünlü gurmeler
             GourmetExpert("Gordon Ramsay", "İngiltere", ["Modern European", "Steakhouse"], 
@@ -123,7 +123,7 @@ class GourmetRecommendationSystem:
         return experts
     
     def _load_expert_pairings(self) -> Dict:
-        """Load expert pairing recommendations"""
+        """Uzman eşleştirme önerilerini yükle"""
         return {
             # Turkish Cuisine Expanded
             "Adana Kebab": [
@@ -296,7 +296,7 @@ class GourmetRecommendationSystem:
         }
     
     def get_expert_recommendations(self, food_name: str, top_n: int = 3) -> List[Tuple]:
-        """Get expert recommendations for a food item"""
+        """Bir yemek için uzman önerilerini al"""
         if food_name not in self.expert_pairings:
             return []
         
@@ -304,14 +304,14 @@ class GourmetRecommendationSystem:
         return expert_recs[:top_n]
     
     def get_expert_info(self, expert_name: str) -> GourmetExpert:
-        """Get information about a specific expert"""
+        """Belirli bir uzman hakkında bilgi al"""
         for expert in self.experts:
             if expert.name == expert_name:
                 return expert
         return None
 
 class AIFoodAlcoholMatcher:
-    """Advanced AI system for food-alcohol pairing"""
+    """Yemek-alkol eşleştirmesi için gelişmiş Yapay Zeka sistemi"""
     
     def __init__(self):
         self.foods = self._load_food_database()
@@ -325,7 +325,7 @@ class AIFoodAlcoholMatcher:
         self._train_model()
     
     def _load_food_database(self) -> List[Food]:
-        """Load comprehensive food database"""
+        """Kapsamlı yemek veritabanını yükle"""
         # Import the expanded database
         try:
             from expanded_database import get_expanded_food_database
@@ -335,11 +335,11 @@ class AIFoodAlcoholMatcher:
             # Fallback to basic database if expanded database is not available
             foods = [
                 # Turkish Cuisine
-                Food(1, "Adana Kebab", "Turkish", ["spicy", "smoky", "salty"], 8, "tender", "grilled", 
+                Food(1, "Adana Kebap", "Turkish", ["spicy", "smoky", "salty"], 8, "tender", "grilled", 
                      ["lamb", "spices"], [], "mid-range", "hot"),
-                Food(2, "İskender Kebab", "Turkish", ["savory", "rich", "salty"], 7, "tender", "grilled",
+                Food(2, "İskender Kebap", "Turkish", ["savory", "rich", "salty"], 7, "tender", "grilled",
                      ["lamb", "yogurt", "tomato"], [], "mid-range", "hot"),
-                Food(3, "Manti", "Turkish", ["savory", "rich"], 6, "tender", "boiled",
+                Food(3, "Mantı", "Turkish", ["savory", "rich"], 6, "tender", "boiled",
                      ["beef", "dough", "yogurt"], [], "mid-range", "hot"),
                 Food(4, "Lahmacun", "Turkish", ["spicy", "savory"], 7, "crispy", "baked",
                      ["lamb", "vegetables", "spices"], [], "budget", "hot"),
@@ -353,7 +353,7 @@ class AIFoodAlcoholMatcher:
                      ["fish", "rice", "seaweed"], [], "premium", "cold"),
                 Food(8, "Coq au Vin", "French", ["rich", "savory", "complex"], 8, "tender", "braised",
                      ["chicken", "wine", "herbs"], [], "premium", "hot"),
-                Food(9, "Margherita Pizza", "Italian", ["savory", "rich"], 6, "crispy", "baked",
+                Food(9, "Pizza Margherita", "Italian", ["savory", "rich"], 6, "crispy", "baked",
                      ["tomato", "mozzarella", "basil"], ["vegetarian"], "budget", "hot"),
                 Food(10, "Chocolate Lava Cake", "French", ["sweet", "rich"], 9, "creamy", "baked",
                       ["chocolate", "butter", "eggs"], ["vegetarian"], "mid-range", "hot"),
@@ -373,7 +373,7 @@ class AIFoodAlcoholMatcher:
             return foods
     
     def _load_alcohol_database(self) -> List[Alcohol]:
-        """Load comprehensive alcohol database"""
+        """Kapsamlı alkol veritabanını yükle"""
         # Import the expanded database
         try:
             from expanded_database import get_expanded_alcohol_database
@@ -413,7 +413,7 @@ class AIFoodAlcoholMatcher:
             return alcohols
     
     def _load_pairing_rules(self) -> Dict:
-        """Load AI pairing rules and weights"""
+        """AI eşleştirme kurallarını ve ağırlıklarını yükle"""
         return {
             "flavor_matching": {
                 "complementary": {
@@ -449,7 +449,7 @@ class AIFoodAlcoholMatcher:
         }
     
     def _initialize_database(self):
-        """Initialize SQLite database for storing user data and history"""
+        """Kullanıcı verilerini ve geçmişi saklamak için SQLite veritabanını başlat"""
         # Remove the class-level connection, use get_db_connection instead
         conn = self.get_db_connection()
         cursor = conn.cursor()
@@ -485,11 +485,11 @@ class AIFoodAlcoholMatcher:
         conn.close()
     
     def get_db_connection(self):
-        """Get a new database connection for each request (thread-safe)"""
+        """Her istek için yeni veritabanı bağlantısı al (thread-safe)"""
         return sqlite3.connect('food_alcohol_system.db', check_same_thread=False)
     
     def _train_model(self):
-        """Train a simple ML model for better recommendations"""
+        """Daha iyi öneriler için basit bir ML modeli eğit"""
         # Simple weighted scoring model
         self.ml_model = {
             'flavor_weights': np.random.random(10),
@@ -500,7 +500,7 @@ class AIFoodAlcoholMatcher:
         }
     
     def calculate_compatibility_score(self, food: Food, alcohol: Alcohol, user_profile: Optional[UserProfile] = None) -> float:
-        """Calculate AI-powered compatibility score between food and alcohol"""
+        """Yemek ve alkol arasında AI destekli uyumluluk puanı hesapla"""
         score = 0.0
         max_score = 0.0
         
@@ -571,7 +571,7 @@ class AIFoodAlcoholMatcher:
         return min(100, max(0, final_score))
     
     def get_recommendations(self, food_name: str, user_profile: Optional[UserProfile] = None, top_n: int = 5) -> Dict:
-        """Get top N alcohol recommendations for a given food with both AI and expert opinions"""
+        """Belirli bir yemek için hem AI hem de uzman görüşleriyle en iyi N alkol önerisini al"""
         # Find the food
         food = None
         for f in self.foods:
@@ -609,7 +609,7 @@ class AIFoodAlcoholMatcher:
         }
     
     def _generate_explanation(self, food: Food, alcohol: Alcohol, score: float) -> str:
-        """Generate AI explanation for the pairing recommendation"""
+        """Eşleştirme önerisi için AI açıklaması oluştur"""
         explanations = []
         
         # Flavor explanations - Türkçe lezzet açıklamaları
@@ -663,7 +663,7 @@ class AIFoodAlcoholMatcher:
             return base_explanation
     
     def create_user_profile(self, name: str, age: int, preferences: Dict) -> UserProfile:
-        """Create a new user profile"""
+        """Yeni kullanıcı profili oluştur"""
         user_id = len(self.user_profiles) + 1
         profile = UserProfile(
             user_id=user_id,
@@ -683,7 +683,7 @@ class AIFoodAlcoholMatcher:
         return profile
     
     def _save_user_to_db(self, profile: UserProfile):
-        """Save user profile to database"""
+        """Kullanıcı profilini veritabanına kaydet"""
         conn = self.get_db_connection()
         cursor = conn.cursor()
         cursor.execute('''
@@ -701,7 +701,7 @@ class AIFoodAlcoholMatcher:
         conn.close()
     
     def rate_pairing(self, user_id: int, food_name: str, alcohol_name: str, rating: int):
-        """Rate a food-alcohol pairing for learning"""
+        """Öğrenme için bir yemek-alkol eşleştirmesini puanla"""
         food_id = next((f.id for f in self.foods if f.name == food_name), None)
         alcohol_id = next((a.id for a in self.alcohols if a.name == alcohol_name), None)
         
@@ -719,7 +719,7 @@ class AIFoodAlcoholMatcher:
             self.user_profiles[user_id].previous_pairings.append((food_id, alcohol_id, rating))
     
     def get_user_history(self, user_id: int) -> List[Dict]:
-        """Get user's pairing history"""
+        """Kullanıcının eşleştirme geçmişini al"""
         conn = self.get_db_connection()
         cursor = conn.cursor()
         cursor.execute('''
@@ -730,8 +730,8 @@ class AIFoodAlcoholMatcher:
         history = []
         for row in cursor.fetchall():
             food_id, alcohol_id, rating, timestamp = row
-            food_name = next((f.name for f in self.foods if f.id == food_id), "Unknown")
-            alcohol_name = next((a.name for a in self.alcohols if a.id == alcohol_id), "Unknown")
+            food_name = next((f.name for f in self.foods if f.id == food_id), "Bilinmeyen")
+            alcohol_name = next((a.name for a in self.alcohols if a.id == alcohol_id), "Bilinmeyen")
             
             history.append({
                 'food': food_name,
@@ -744,7 +744,7 @@ class AIFoodAlcoholMatcher:
         return history
     
     def get_trending_pairings(self, top_n: int = 10) -> List[Dict]:
-        """Get trending food-alcohol pairings based on ratings"""
+        """Puanlamalara göre trend yemek-alkol eşleştirmelerini al"""
         conn = self.get_db_connection()
         cursor = conn.cursor()
         cursor.execute('''
@@ -759,8 +759,8 @@ class AIFoodAlcoholMatcher:
         trending = []
         for row in cursor.fetchall():
             food_id, alcohol_id, avg_rating, count = row
-            food_name = next((f.name for f in self.foods if f.id == food_id), "Unknown")
-            alcohol_name = next((a.name for a in self.alcohols if a.id == alcohol_id), "Unknown")
+            food_name = next((f.name for f in self.foods if f.id == food_id), "Bilinmeyen")
+            alcohol_name = next((a.name for a in self.alcohols if a.id == alcohol_id), "Bilinmeyen")
             
             trending.append({
                 'food': food_name,

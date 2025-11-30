@@ -28,7 +28,7 @@
                         <div class="col-lg-6">
                             <div class="card food-item-card h-100" style="cursor: pointer;"
                                 data-food-name="{{ food.name }}"
-                                onclick="selectFood('{{ food.name }}', '{{ food.cuisine_type }}', {{ food.intensity }})">
+                                onclick="selectFood('{{ food.name }}', '{{ food.cuisine_type }}', '{{ food.intensity }}')">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-start mb-2">
                                         <h5 class="card-title mb-1">
@@ -42,11 +42,12 @@
                                             {% endif %}
                                             {{ food.name }}
                                         </h5>
-                                        <span class="cuisine-badge">{{ food.cuisine_type }}</span>
+                                        <span class="cuisine-badge">{{ food.cuisine_type|translate_cuisine }}</span>
                                     </div>
 
                                     <p class="text-muted small mb-2">
-                                        {{ food.flavor_profile|join(', ') }}
+                                        {% for flavor in food.flavor_profile %}{{ flavor|translate_flavor }}{% if not
+                                        loop.last %}, {% endif %}{% endfor %}
                                     </p>
 
                                     <div class="d-flex justify-content-between align-items-center">
@@ -54,7 +55,7 @@
                                             <i class="bi bi-fire"></i> Yoğunluk: {{ food.intensity }}/10
                                         </small>
                                         <small class="text-muted">
-                                            <i class="bi bi-tag"></i> {{ food.price_range }}
+                                            <i class="bi bi-tag"></i> {{ food.price_range|translate_price }}
                                         </small>
                                     </div>
                                 </div>
@@ -68,7 +69,7 @@
     </div>
 </div>
 
-<!-- Recommendations Modal -->
+<!-- Öneriler Modalı -->
 <div class="modal fade" id="recommendationsModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -94,7 +95,7 @@
     </div>
 </div>
 
-<!-- Rating Modal -->
+<!-- Puanlama Modalı -->
 <div class="modal fade" id="ratingModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -183,7 +184,7 @@
                                     ${rec.type.charAt(0).toUpperCase() + rec.type.slice(1)} • ${rec.subtype} • ${rec.region}
                                 </p>
                                 <small class="text-black opacity-75">
-                                    ${rec.alcohol_content}% ABV • ${rec.price_range} • ${rec.body} body
+                                    %${rec.alcohol_content} Alkol • ${rec.price_range} • ${rec.body} gövde
                                 </small>
                             </div>
                             <div class="text-end">
@@ -251,7 +252,7 @@
                                     ${rec.name}
                                 </h5>
                                 <p class="text-warning mb-2">
-                                    👨‍🍳 ${expertInfo.name || 'Expert'} (${expertInfo.country || ''}) ${stars}
+                                    👨‍🍳 ${expertInfo.name || 'Uzman'} (${expertInfo.country || ''}) ${stars}
                                 </p>
                                 <small class="text-black opacity-75">
                                     ${expertInfo.bio || ''}
@@ -318,6 +319,14 @@
         if (score >= 70) return 'info';
         if (score >= 60) return 'warning';
         return 'secondary';
+    }
+
+    function showRatingModal(alcoholName) {
+        rateThisPairing(alcoholName);
+    }
+
+    function showDetails(alcoholName) {
+        alert('Detay sayfası yakında eklenecek!');
     }
 
     function rateThisPairing(alcoholName) {
@@ -402,7 +411,7 @@
             });
     }
 
-    // Food card hover effects
+    // Yemek kartı hover efektleri
     document.addEventListener('DOMContentLoaded', function () {
         const foodCards = document.querySelectorAll('.food-item-card');
 

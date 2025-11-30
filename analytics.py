@@ -1,6 +1,6 @@
 """
-Analytics and Reporting Module
-Advanced analytics for understanding user behavior and pairing trends
+Analitik ve Raporlama Modülü
+Kullanıcı davranışları ve eşleştirme eğilimlerini anlamaya yönelik gelişmiş analizler
 """
 
 import sqlite3
@@ -18,20 +18,20 @@ import logging
 logger = logging.getLogger(__name__)
 
 class AnalyticsEngine:
-    """Advanced analytics engine for the food-alcohol pairing system"""
+    """Yemek-alkol eşleştirme sistemi için gelişmiş analitik motoru"""
     
     def __init__(self, db_path: str = "food_alcohol_system.db"):
         self.db_path = db_path
         self.conn = None
     
     def get_connection(self):
-        """Get database connection"""
+        """Veritabanı bağlantısını al"""
         if not self.conn:
             self.conn = sqlite3.connect(self.db_path)
         return self.conn
     
     def get_user_statistics(self) -> Dict:
-        """Get comprehensive user statistics"""
+        """Kapsamlı kullanıcı istatistiklerini al"""
         conn = self.get_connection()
         
         stats = {}
@@ -71,7 +71,7 @@ class AnalyticsEngine:
         return stats
     
     def get_pairing_analytics(self) -> Dict:
-        """Get detailed pairing analytics"""
+        """Detaylı eşleştirme analitiklerini al"""
         conn = self.get_connection()
         
         analytics = {}
@@ -440,20 +440,20 @@ class AnalyticsEngine:
         return exported_files
     
     def close_connection(self):
-        """Close database connection"""
+        """Veritabanı bağlantısını kapat"""
         if self.conn:
             self.conn.close()
             self.conn = None
 
-# CLI interface for analytics
+# Analitik için CLI arayüzü
 def main():
     import argparse
     
-    parser = argparse.ArgumentParser(description="Analytics Engine for NeYenir")
-    parser.add_argument('--report', choices=['business', 'user'], help='Generate report')
-    parser.add_argument('--user-id', type=int, help='User ID for user report')
-    parser.add_argument('--charts', action='store_true', help='Generate visualization charts')
-    parser.add_argument('--export', action='store_true', help='Export data to CSV')
+    parser = argparse.ArgumentParser(description="NeYenir için Analitik Motoru")
+    parser.add_argument('--report', choices=['business', 'user'], help='Rapor oluştur (business veya user)')
+    parser.add_argument('--user-id', type=int, help='Kullanıcı raporu için kullanıcı ID')
+    parser.add_argument('--charts', action='store_true', help='Görselleştirme grafikleri oluştur')
+    parser.add_argument('--export', action='store_true', help='Verileri CSV formatında dışa aktar')
     
     args = parser.parse_args()
     
@@ -476,8 +476,8 @@ def main():
         print("Data exported:", exported)
     
     else:
-        print("NeYenir Analytics Engine")
-        print("Use --help for available options")
+        print("NeYenir Analitik Motoru")
+        print("Kullanılabilir seçenekler için --help kullanın")
 
 if __name__ == "__main__":
     main()

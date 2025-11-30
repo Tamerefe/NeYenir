@@ -15,7 +15,7 @@
                 </p>
             </div>
 
-            <!-- Trending Pairings Grid -->
+            <!-- Popüler Eşleştirmeler Izgara Düzeni -->
             <div class="card">
                 <div class="card-header bg-primary text-white">
                     <h4 class="mb-0">
@@ -67,7 +67,19 @@
                                                         {{ pairing.food.name }}
                                                     </h5>
                                                     <span class="badge bg-light text-dark">
-                                                        {{ pairing.food.cuisine_type }}
+                                                        {% if pairing.food.cuisine_type == 'Turkish' %}Türk
+                                                        {% elif pairing.food.cuisine_type == 'French' %}Fransız
+                                                        {% elif pairing.food.cuisine_type == 'Italian' %}İtalyan
+                                                        {% elif pairing.food.cuisine_type == 'Japanese' %}Japon
+                                                        {% elif pairing.food.cuisine_type == 'British' %}İngiliz
+                                                        {% elif pairing.food.cuisine_type == 'American' %}Amerikan
+                                                        {% elif pairing.food.cuisine_type == 'Chinese' %}Çin
+                                                        {% elif pairing.food.cuisine_type == 'Indian' %}Hint
+                                                        {% elif pairing.food.cuisine_type == 'Mexican' %}Meksika
+                                                        {% elif pairing.food.cuisine_type == 'Spanish' %}İspanyol
+                                                        {% elif pairing.food.cuisine_type == 'Greek' %}Yunan
+                                                        {% else %}{{ pairing.food.cuisine_type }}
+                                                        {% endif %}
                                                     </span>
                                                     <div class="mt-2">
                                                         <small class="text-muted">
@@ -98,7 +110,19 @@
                                                         {{ pairing.alcohol.name }}
                                                     </h5>
                                                     <span class="badge bg-secondary">
-                                                        {{ pairing.alcohol.type }}
+                                                        {% if pairing.alcohol.type == 'Wine' %}Şarap
+                                                        {% elif pairing.alcohol.type == 'Beer' %}Bira
+                                                        {% elif pairing.alcohol.type == 'Whiskey' %}Viski
+                                                        {% elif pairing.alcohol.type == 'Vodka' %}Votka
+                                                        {% elif pairing.alcohol.type == 'Gin' %}Cin
+                                                        {% elif pairing.alcohol.type == 'Rum' %}Rom
+                                                        {% elif pairing.alcohol.type == 'Tequila' %}Tekila
+                                                        {% elif pairing.alcohol.type == 'Brandy' %}Kanyak
+                                                        {% elif pairing.alcohol.type == 'Cognac' %}Konyak
+                                                        {% elif pairing.alcohol.type == 'Champagne' %}Şampanya
+                                                        {% elif pairing.alcohol.type == 'Cocktail' %}Kokteyl
+                                                        {% else %}{{ pairing.alcohol.type }}
+                                                        {% endif %}
                                                     </span>
                                                     <div class="mt-2">
                                                         <small class="text-muted">

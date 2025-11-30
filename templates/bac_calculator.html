@@ -1,0 +1,416 @@
+{% extends "base.html" %}
+
+{% block title %}Promil Hesaplayıcı - Ne Yenir?{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="margin-top: 80px;">
+    <div class="row mb-5">
+        <div class="col-lg-12 text-center">
+            <h1 class="display-4 fw-bold mb-3" style="color: white;">
+                <i class="bi bi-calculator"></i> Promil Hesaplayıcı
+            </h1>
+            <p class="lead" style="color: rgba(255, 255, 255, 0.9);">
+                Kan alkol seviyenizi (BAC) hesaplayın ve güvenli kalmak için öneriler alın
+            </p>
+            <div class="alert alert-warning d-inline-block" role="alert">
+                <i class="bi bi-exclamation-triangle"></i>
+                <strong>Uyarı:</strong> Bu hesaplama yaklaşık bir tahmindir. Alkollü araç kullanmayın!
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body p-4">
+                    <h4 class="card-title mb-4">
+                        <i class="bi bi-person"></i> Kişisel Bilgiler
+                    </h4>
+
+                    <form id="bacForm">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">
+                                    <i class="bi bi-gender-ambiguous"></i> Cinsiyet
+                                </label>
+                                <select class="form-select" id="gender" required>
+                                    <option value="male">Erkek</option>
+                                    <option value="female">Kadın</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">
+                                    <i class="bi bi-speedometer"></i> Vücut Ağırlığı (kg)
+                                </label>
+                                <input type="number" class="form-control" id="weight" min="30" max="200" value="70"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">
+                                <i class="bi bi-clock"></i> İlk İçkiden Bu Yana Geçen Süre (saat)
+                            </label>
+                            <input type="number" class="form-control" id="hours" min="0" max="24" step="0.5" value="1"
+                                required>
+                            <small class="text-muted">İlk içkinizi içtiğinizden bu yana kaç saat geçti?</small>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <h4 class="card-title mb-3">
+                            <i class="bi bi-cup"></i> İçtikleriniz
+                        </h4>
+
+                        <div id="drinksList"></div>
+
+                        <button type="button" class="btn btn-outline-primary w-100 mb-4" onclick="addDrink()">
+                            <i class="bi bi-plus-circle"></i> İçki Ekle
+                        </button>
+
+                        <button type="submit" class="btn btn-primary w-100 py-3">
+                            <i class="bi bi-calculator"></i> Promil Hesapla
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Results -->
+            <div id="results" style="display: none;" class="mt-4">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <h4 class="card-title mb-4">
+                            <i class="bi bi-graph-up"></i> Sonuçlar
+                        </h4>
+
+                        <div class="text-center mb-4">
+                            <div class="display-3 fw-bold mb-2" id="bacValue">0.00‰</div>
+                            <h5 id="bacStatus" class="badge bg-success fs-5">Ayık</h5>
+                        </div>
+
+                        <div class="row text-center mb-4">
+                            <div class="col-md-4 mb-3">
+                                <div class="p-3 bg-light rounded">
+                                    <i class="bi bi-droplet-fill text-primary fs-3 d-block mb-2"></i>
+                                    <div class="fw-bold">Toplam Alkol</div>
+                                    <div id="totalAlcohol">0 g</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="p-3 bg-light rounded">
+                                    <i class="bi bi-clock-fill text-info fs-3 d-block mb-2"></i>
+                                    <div class="fw-bold">Ayılma Süresi</div>
+                                    <div id="hoursToSober">0 saat</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="p-3 bg-light rounded">
+                                    <i class="bi bi-percent text-warning fs-3 d-block mb-2"></i>
+                                    <div class="fw-bold">BAC Yüzdesi</div>
+                                    <div id="bacPercentage">0.00%</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info" role="alert" id="recommendationsBox">
+                            <h6 class="alert-heading">
+                                <i class="bi bi-info-circle"></i> Öneriler
+                            </h6>
+                            <ul id="recommendations" class="mb-0"></ul>
+                        </div>
+
+                        <div class="table-responsive">
+                            <h6 class="fw-bold mb-3">İçki Detayları</h6>
+                            <table class="table table-striped" id="drinkDetailsTable">
+                                <thead>
+                                    <tr>
+                                        <th>İçki</th>
+                                        <th>Hacim (ml)</th>
+                                        <th>Alkol %</th>
+                                        <th>Alkol (g)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="drinkDetailsBody"></tbody>
+                            </table>
+                        </div>
+
+                        <!-- BAC Scale Reference -->
+                        <div class="mt-4">
+                            <h6 class="fw-bold mb-3">Promil Seviye Tablosu</h6>
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Promil</th>
+                                            <th>Durum</th>
+                                            <th>Etkiler</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="table-success">
+                                            <td>0.00 - 0.02‰</td>
+                                            <td>Ayık</td>
+                                            <td>Herhangi bir etki yok</td>
+                                        </tr>
+                                        <tr class="table-info">
+                                            <td>0.02 - 0.05‰</td>
+                                            <td>Minimal Etki</td>
+                                            <td>Hafif rahatlama, konsantrasyon azalması</td>
+                                        </tr>
+                                        <tr class="table-warning">
+                                            <td>0.05 - 0.08‰</td>
+                                            <td>Hafif Sarhoşluk</td>
+                                            <td>Koordinasyon kaybı, yargılama bozulması</td>
+                                        </tr>
+                                        <tr class="table-warning">
+                                            <td>0.08 - 0.15‰</td>
+                                            <td>Orta Sarhoşluk</td>
+                                            <td>Belirgin motor kontrolü kaybı, konuşma bozukluğu</td>
+                                        </tr>
+                                        <tr class="table-danger">
+                                            <td>0.15+‰</td>
+                                            <td>Yüksek Sarhoşluk</td>
+                                            <td>Ciddi koordinasyon kaybı, bilinç bulanıklığı, tıbbi risk</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let drinkCounter = 0;
+
+    // Popüler içkiler listesi
+    const commonDrinks = {
+        'Bira (500ml, 5%)': { volume: 500, alcohol: 5 },
+        'Şarap (150ml, 12%)': { volume: 150, alcohol: 12 },
+        'Votka (40ml, 40%)': { volume: 40, alcohol: 40 },
+        'Rakı (50ml, 45%)': { volume: 50, alcohol: 45 },
+        'Viski (40ml, 40%)': { volume: 40, alcohol: 40 },
+        'Tekila (40ml, 38%)': { volume: 40, alcohol: 38 },
+        'Rom (40ml, 40%)': { volume: 40, alcohol: 40 },
+        'Cin (40ml, 40%)': { volume: 40, alcohol: 40 },
+        'Kokteyl (200ml, 15%)': { volume: 200, alcohol: 15 }
+    };
+
+    function addDrink() {
+        const drinksList = document.getElementById('drinksList');
+        const drinkId = `drink-${drinkCounter++}`;
+
+        const drinkDiv = document.createElement('div');
+        drinkDiv.className = 'card mb-3';
+        drinkDiv.id = drinkId;
+        drinkDiv.innerHTML = `
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="mb-0">İçki #${drinkCounter}</h6>
+                <button type="button" class="btn btn-sm btn-danger" onclick="removeDrink('${drinkId}')">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label class="form-label">Hızlı Seçim</label>
+                    <select class="form-select" onchange="fillDrinkDetails(this, '${drinkId}')">
+                        <option value="">-- Manuel giriş için boş bırakın --</option>
+                        ${Object.keys(commonDrinks).map(drink =>
+            `<option value="${drink}">${drink}</option>`
+        ).join('')}
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Adet/Miktar</label>
+                    <input type="number" class="form-control drink-quantity" 
+                           min="1" max="50" value="1" onchange="updateQuantity('${drinkId}')" required>
+                    <small class="text-muted">Kaç adet?</small>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">İsim</label>
+                    <input type="text" class="form-control drink-name" 
+                           placeholder="ör: Bira" value="İçki">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Hacim (ml)</label>
+                    <input type="number" class="form-control drink-volume drink-volume-base" 
+                           min="1" max="2000" placeholder="500" onchange="updateQuantity('${drinkId}')" required>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Alkol %</label>
+                    <input type="number" class="form-control drink-alcohol" 
+                           min="0" max="100" step="0.1" placeholder="5" required>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <div class="alert alert-info py-2 px-3 mb-0">
+                        <small>
+                            <i class="bi bi-info-circle"></i> 
+                            Toplam Hacim: <strong><span class="total-volume">0</span> ml</strong>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+        drinksList.appendChild(drinkDiv);
+    }
+
+    function removeDrink(drinkId) {
+        document.getElementById(drinkId).remove();
+    }
+
+    function updateQuantity(drinkId) {
+        const drinkDiv = document.getElementById(drinkId);
+        const quantity = parseInt(drinkDiv.querySelector('.drink-quantity').value) || 1;
+        const baseVolume = parseFloat(drinkDiv.querySelector('.drink-volume-base').value) || 0;
+        const totalVolume = quantity * baseVolume;
+
+        drinkDiv.querySelector('.drink-volume').value = baseVolume;
+        drinkDiv.querySelector('.total-volume').textContent = totalVolume;
+    }
+
+    function fillDrinkDetails(select, drinkId) {
+        const drinkName = select.value;
+        if (!drinkName) return;
+
+        const drinkDiv = document.getElementById(drinkId);
+        const drink = commonDrinks[drinkName];
+
+        drinkDiv.querySelector('.drink-name').value = drinkName;
+        drinkDiv.querySelector('.drink-volume').value = drink.volume;
+        drinkDiv.querySelector('.drink-volume-base').value = drink.volume;
+        drinkDiv.querySelector('.drink-alcohol').value = drink.alcohol;
+        drinkDiv.querySelector('.drink-quantity').value = 1;
+
+        updateQuantity(drinkId);
+    }
+
+    // Başlangıçta bir içki ekle
+    addDrink();
+
+    document.getElementById('bacForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const drinks = [];
+        document.querySelectorAll('#drinksList .card').forEach(drinkCard => {
+            const name = drinkCard.querySelector('.drink-name').value;
+            const quantity = parseInt(drinkCard.querySelector('.drink-quantity').value) || 1;
+            const volumeBase = drinkCard.querySelector('.drink-volume-base').value;
+            const alcohol = drinkCard.querySelector('.drink-alcohol').value;
+
+            if (volumeBase && alcohol) {
+                const totalVolume = quantity * parseFloat(volumeBase);
+                drinks.push({
+                    name: `${name} (x${quantity})`,
+                    volume: totalVolume,
+                    alcohol_percent: parseFloat(alcohol)
+                });
+            }
+        });
+
+        if (drinks.length === 0) {
+            alert('Lütfen en az bir içki ekleyin!');
+            return;
+        }
+
+        const data = {
+            weight: parseFloat(document.getElementById('weight').value),
+            gender: document.getElementById('gender').value,
+            hours: parseFloat(document.getElementById('hours').value),
+            drinks: drinks
+        };
+
+        try {
+            const response = await fetch('/api/calculate_bac', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            displayResults(result);
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+        }
+    });
+
+    function displayResults(result) {
+        const resultsDiv = document.getElementById('results');
+
+        // BAC value and status - Promil değerini kullan
+        const promilValue = result.bac_promil || (result.bac * 10);
+        document.getElementById('bacValue').textContent = `${promilValue.toFixed(2)}%`;
+        document.getElementById('bacPercentage').textContent = `${result.bac_percentage}%`;
+        document.getElementById('totalAlcohol').textContent = `${result.total_alcohol_grams} g`;
+        document.getElementById('hoursToSober').textContent = `${result.hours_to_sober} saat`;
+
+        const statusBadge = document.getElementById('bacStatus');
+        statusBadge.textContent = result.status;
+        statusBadge.className = `badge bg-${result.status_color} fs-5`;
+
+        // Recommendations
+        const recommendationsList = document.getElementById('recommendations');
+        recommendationsList.innerHTML = '';
+        result.recommendations.forEach(rec => {
+            const li = document.createElement('li');
+            li.textContent = rec;
+            recommendationsList.appendChild(li);
+        });
+
+        const recommendationsBox = document.getElementById('recommendationsBox');
+        recommendationsBox.className = `alert alert-${result.status_color}`;
+
+        // Drink details table
+        const tableBody = document.getElementById('drinkDetailsBody');
+        tableBody.innerHTML = '';
+        result.drink_details.forEach(drink => {
+            const row = tableBody.insertRow();
+            row.innerHTML = `
+            <td>${drink.name}</td>
+            <td>${drink.volume}</td>
+            <td>${drink.alcohol_percent}%</td>
+            <td>${drink.alcohol_grams} g</td>
+        `;
+        });
+
+        resultsDiv.style.display = 'block';
+        resultsDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+<style>
+    .card {
+        animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    #bacValue {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+</style>
+{% endblock %}
