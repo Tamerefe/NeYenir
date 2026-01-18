@@ -5,58 +5,92 @@
 {% block content %}
 <div class="container" style="padding-top: 100px;">
     <div class="row">
-        <div class="col-lg-8 mx-auto">
+        <div class="col-lg-12 mx-auto">
             <div class="text-center mb-5">
-                <h1 class="display-4 fw-bold text-black mb-3">
-                    🍽️ Yemeğinizi Seçin
+                <h1 class="display-4 fw-bold text-white mb-3">
+                    Yemeğinizi Seçin
                 </h1>
-                <p class="lead text-black-50">
+                <p class="lead text-white-50">
                     Bir yemek seçin ve AI ile gurme uzmanlarından içecek önerileri alın
                 </p>
             </div>
 
             <!-- Food Selection -->
-            <div class="card">
-                <div class="card-header bg-primary text-black">
-                    <h4 class="mb-0">
-                        <i class="bi bi-search"></i> Yemek Seçimi
-                    </h4>
+            <div class="card modern-selection-container">
+                <div class="card-header modern-selection-header">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="selection-icon-badge">
+                            <i class="bi bi-search"></i>
+                        </div>
+                        <div>
+                            <h4 class="mb-0 text-white fw-bold">Yemek Seçimi</h4>
+                            <small class="text-white-50">{{ foods|length }} lezzetli seçenek</small>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="row g-3" id="foodGrid">
+                <div class="card-body modern-selection-body">
+                    <div class="row g-4" id="foodGrid">
                         {% for food in foods %}
-                        <div class="col-lg-6">
-                            <div class="card food-item-card h-100" style="cursor: pointer;"
+                        <div class="col-lg-4 col-md-6 selection-item" style="animation-delay: {{ (loop.index - 1) * 0.05 }}s;">
+                            <div class="modern-food-selection-card"
                                 data-food-name="{{ food.name }}"
                                 onclick="selectFood('{{ food.name }}', '{{ food.cuisine_type }}', '{{ food.intensity }}')">
+                                <div class="selection-card-glow"></div>
+                                
                                 <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-start mb-2">
-                                        <h5 class="card-title mb-1">
-                                            {% if food.cuisine_type == 'Turkish' %}🇹🇷
-                                            {% elif food.cuisine_type == 'French' %}🇫🇷
-                                            {% elif food.cuisine_type == 'Italian' %}🇮🇹
-                                            {% elif food.cuisine_type == 'Japanese' %}🇯🇵
-                                            {% elif food.cuisine_type == 'British' %}🇬🇧
-                                            {% elif food.cuisine_type == 'American' %}🇺🇸
-                                            {% else %}🌍
-                                            {% endif %}
-                                            {{ food.name }}
-                                        </h5>
-                                        <span class="cuisine-badge">{{ food.cuisine_type|translate_cuisine }}</span>
+                                    <!-- Header with Flag & Badge -->
+                                    <div class="selection-header mb-3">
+                                        <div class="d-flex align-items-center gap-2 mb-2">
+                                            <span class="food-flag-icon">
+                                                {% if food.cuisine_type == 'Turkish' %}🇹🇷
+                                                {% elif food.cuisine_type == 'French' %}🇫🇷
+                                                {% elif food.cuisine_type == 'Italian' %}🇮🇹
+                                                {% elif food.cuisine_type == 'Japanese' %}🇯🇵
+                                                {% elif food.cuisine_type == 'British' %}🇬🇧
+                                                {% elif food.cuisine_type == 'American' %}🇺🇸
+                                                {% elif food.cuisine_type == 'Chinese' %}🇨🇳
+                                                {% elif food.cuisine_type == 'Indian' %}🇮🇳
+                                                {% elif food.cuisine_type == 'Mexican' %}🇲🇽
+                                                {% elif food.cuisine_type == 'Spanish' %}🇪🇸
+                                                {% elif food.cuisine_type == 'Greek' %}🇬🇷
+                                                {% else %}🌍
+                                                {% endif %}
+                                            </span>
+                                            <h5 class="selection-title mb-0">{{ food.name }}</h5>
+                                        </div>
+                                        <span class="cuisine-badge-selection">{{ food.cuisine_type|translate_cuisine }}</span>
                                     </div>
 
-                                    <p class="text-muted small mb-2">
-                                        {% for flavor in food.flavor_profile %}{{ flavor|translate_flavor }}{% if not
-                                        loop.last %}, {% endif %}{% endfor %}
-                                    </p>
+                                    <!-- Flavor Tags -->
+                                    <div class="selection-flavors mb-3">
+                                        <div class="flavor-tags-row">
+                                            {% for flavor in food.flavor_profile[:3] %}
+                                            <span class="flavor-tag-selection">{{ flavor|translate_flavor }}</span>
+                                            {% endfor %}
+                                            {% if food.flavor_profile|length > 3 %}
+                                            <span class="flavor-tag-more">+{{ food.flavor_profile|length - 3 }}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
 
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <small class="text-muted">
-                                            <i class="bi bi-fire"></i> Yoğunluk: {{ food.intensity }}/10
-                                        </small>
-                                        <small class="text-muted">
-                                            <i class="bi bi-tag"></i> {{ food.price_range|translate_price }}
-                                        </small>
+                                    <!-- Stats Row -->
+                                    <div class="selection-stats">
+                                        <div class="stat-item-selection">
+                                            <i class="bi bi-fire text-danger"></i>
+                                            <span class="stat-label-selection">Yoğunluk</span>
+                                            <span class="stat-value-selection">{{ food.intensity }}/10</span>
+                                        </div>
+                                        <div class="stat-divider-selection"></div>
+                                        <div class="stat-item-selection">
+                                            <i class="bi bi-tag text-success"></i>
+                                            <span class="stat-label-selection">{{ food.price_range|translate_price }}</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Hover Action -->
+                                    <div class="selection-action">
+                                        <i class="bi bi-arrow-right-circle-fill"></i>
+                                        <span>Öneri Al</span>
                                     </div>
                                 </div>
                             </div>
@@ -71,20 +105,34 @@
 
 <!-- Öneriler Modalı -->
 <div class="modal fade" id="recommendationsModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header bg-primary text-black">
-                <h5 class="modal-title">
-                    <i class="bi bi-lightbulb"></i> <span id="selectedFoodName"></span> için AI Önerileri
-                </h5>
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content modern-modal">
+            <div class="modal-header modern-modal-header">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="modal-icon">
+                        <i class="bi bi-lightbulb-fill"></i>
+                    </div>
+                    <div>
+                        <h5 class="modal-title mb-0">
+                            <span id="selectedFoodName"></span> için AI Önerileri
+                        </h5>
+                        <small class="text-white-50">Yapay zeka ve gurme uzmanlarından öneriler</small>
+                    </div>
+                </div>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body modern-modal-body">
                 <div class="loading-spinner" id="loadingSpinner">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Yükleniyor...</span>
+                    <div class="loading-content">
+                        <div class="spinner-modern">
+                            <div class="spinner-ring"></div>
+                            <div class="spinner-ring"></div>
+                            <div class="spinner-ring"></div>
+                            <i class="bi bi-robot spinner-icon"></i>
+                        </div>
+                        <h5 class="mt-4 mb-2">AI Analiz Yapıyor</h5>
+                        <p class="text-muted">Mükemmel eşleştirmeler hazırlanıyor...</p>
                     </div>
-                    <p class="mt-3">AI mükemmel eşleştirmeleri analiz ediyor...</p>
                 </div>
 
                 <div id="recommendationsContent" style="display: none;">
@@ -162,63 +210,107 @@
         if (data.ai_recommendations && data.ai_recommendations.length > 0) {
             html += `
             <div class="mb-5">
-                <h4 class="text-black mb-3">
-                    <i class="bi bi-robot text-info"></i> 🤖 AI Önerileri
-                </h4>
-                <div class="row g-3">
+                <div class="section-header mb-4">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="section-icon ai-icon">
+                            <i class="bi bi-robot"></i>
+                        </div>
+                        <div>
+                            <h4 class="mb-0 fw-bold">AI Önerileri</h4>
+                            <small class="text-muted">Yapay zeka destekli akıllı eşleştirmeler</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-4">
             `;
 
             data.ai_recommendations.forEach((rec, index) => {
                 const alcoholIcon = getAlcoholIcon(rec.type);
                 const scoreColor = getScoreColor(rec.score);
+                const scoreGradient = getScoreGradient(rec.score);
 
                 html += `
-                <div class="col-12">
-                    <div class="recommendation-card">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <div class="flex-grow-1">
-                                <h5 class="text-black mb-1">
-                                    ${alcoholIcon} ${rec.name}
-                                </h5>
-                                <p class="text-black mb-2">
-                                    ${rec.type.charAt(0).toUpperCase() + rec.type.slice(1)} • ${rec.subtype} • ${rec.region}
-                                </p>
-                                <small class="text-black opacity-75">
-                                    %${rec.alcohol_content} Alkol • ${rec.price_range} • ${rec.body} gövde
-                                </small>
-                            </div>
-                            <div class="text-end">
-                                <div class="score-badge bg-${scoreColor} text-black px-3 py-2 rounded-pill">
-                                    ${rec.score}/100
+                <div class="col-lg-4 col-md-6 recommendation-item" style="animation-delay: ${index * 0.1}s">
+                    <div class="modern-recommendation-card">
+                        <div class="card-glow ${scoreColor}"></div>
+                        
+                        <div class="card-content">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div class="flex-grow-1">
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <span class="alcohol-icon-badge">${alcoholIcon}</span>
+                                        <h5 class="card-title-modern mb-0">
+                                            ${rec.name}
+                                        </h5>
+                                    </div>
+                                    <div class="card-meta mb-2">
+                                        <span class="meta-item">
+                                            <i class="bi bi-cup"></i> ${rec.type.charAt(0).toUpperCase() + rec.type.slice(1)}
+                                        </span>
+                                        <span class="meta-divider">•</span>
+                                        <span class="meta-item">
+                                            <i class="bi bi-tag"></i> ${rec.subtype}
+                                        </span>
+                                        <span class="meta-divider">•</span>
+                                        <span class="meta-item">
+                                            <i class="bi bi-geo-alt"></i> ${rec.region}
+                                        </span>
+                                    </div>
+                                    <div class="card-specs">
+                                        <span class="spec-badge">
+                                            <i class="bi bi-percent"></i> ${rec.alcohol_content}% Alkol
+                                        </span>
+                                        <span class="spec-badge">
+                                            <i class="bi bi-cash"></i> ${rec.price_range}
+                                        </span>
+                                        <span class="spec-badge">
+                                            <i class="bi bi-droplet"></i> ${rec.body} gövde
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="score-section">
+                                    <div class="modern-score-badge ${scoreColor}">
+                                        <div class="score-number">${rec.score}</div>
+                                        <div class="score-label">/ 100</div>
+                                    </div>
+                                    <div class="score-label-text">${getScoreLabel(rec.score)}</div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <div class="score-bar">
-                                <div class="score-fill" style="width: ${rec.score}%"></div>
+                            
+                            <div class="progress-modern mb-3">
+                                <div class="progress-fill ${scoreColor}" style="width: 0%; animation: fillProgress 1s ease forwards ${index * 0.1 + 0.3}s; --target-width: ${rec.score}%">
+                                    <span class="progress-shimmer"></span>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <p class="text-black mb-3">
-                            ${rec.explanation}
-                        </p>
-                        
-                        <div class="d-flex gap-2 flex-wrap">
-                            ${rec.flavor_profile.map(flavor =>
-                    `<span class="badge bg-secondary">${flavor}</span>`
-                ).join('')}
-                        </div>
-                        
-                        <div class="mt-3">
-                            <button class="btn btn-outline-success btn-sm me-2" 
-                                    onclick="showRatingModal('${rec.name}')">
-                                <i class="bi bi-star"></i> Eşleştirmeyi Oyla
-                            </button>
-                            <button class="btn btn-outline-info btn-sm"
-                                    onclick="showDetails('${rec.name}')">
-                                <i class="bi bi-info-circle"></i> Detaylar
-                            </button>
+                            
+                            <div class="explanation-box mb-3">
+                                <i class="bi bi-lightbulb explanation-icon"></i>
+                                <p class="explanation-text mb-0">
+                                    ${rec.explanation}
+                                </p>
+                            </div>
+                            
+                            <div class="flavor-tags mb-3">
+                                <div class="flavor-label">
+                                    <i class="bi bi-palette"></i> Lezzet Profili:
+                                </div>
+                                <div class="d-flex gap-2 flex-wrap">
+                                    ${rec.flavor_profile.map((flavor, idx) =>
+                        `<span class="flavor-tag" style="animation-delay: ${idx * 0.05}s">${flavor}</span>`
+                    ).join('')}
+                                </div>
+                            </div>
+                            
+                            <div class="action-buttons">
+                                <button class="btn-modern btn-rate" onclick="showRatingModal('${rec.name}')">
+                                    <i class="bi bi-star-fill"></i>
+                                    <span>Oyla</span>
+                                </button>
+                                <button class="btn-modern btn-details" onclick="showDetails('${rec.name}')">
+                                    <i class="bi bi-info-circle-fill"></i>
+                                    <span>Detaylar</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -232,10 +324,18 @@
         if (data.expert_recommendations && data.expert_recommendations.length > 0) {
             html += `
             <div class="mb-4">
-                <h4 class="text-black mb-3">
-                    <i class="bi bi-person-badge text-warning"></i> 👨‍🍳 Gurme Uzmanı Önerileri
-                </h4>
-                <div class="row g-3">
+                <div class="section-header mb-4">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="section-icon expert-icon">
+                            <i class="bi bi-person-badge"></i>
+                        </div>
+                        <div>
+                            <h4 class="mb-0 fw-bold">Gurme Uzmanı Önerileri</h4>
+                            <small class="text-muted">Dünya çapında ünlü şeflerden öneriler</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-4">
             `;
 
             data.expert_recommendations.forEach((rec, index) => {
@@ -244,50 +344,88 @@
                 const scoreColor = getScoreColor(rec.score);
 
                 html += `
-                <div class="col-12">
-                    <div class="recommendation-card border-warning">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <div class="flex-grow-1">
-                                <h5 class="text-black mb-1">
-                                    ${rec.name}
-                                </h5>
-                                <p class="text-warning mb-2">
-                                    👨‍🍳 ${expertInfo.name || 'Uzman'} (${expertInfo.country || ''}) ${stars}
-                                </p>
-                                <small class="text-black opacity-75">
-                                    ${expertInfo.bio || ''}
-                                </small>
-                            </div>
-                            <div class="text-end">
-                                <div class="score-badge bg-${scoreColor} text-black px-3 py-2 rounded-pill">
-                                    ${rec.score}/100
+                <div class="col-lg-4 col-md-6 recommendation-item" style="animation-delay: ${index * 0.1}s">
+                    <div class="modern-recommendation-card expert-card">
+                        <div class="card-glow expert-glow"></div>
+                        
+                        <div class="expert-badge">
+                            <i class="bi bi-award-fill"></i>
+                            <span>Gurme Uzmanı</span>
+                        </div>
+                        
+                        <div class="card-content">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div class="flex-grow-1">
+                                    <div class="expert-header mb-3">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="expert-avatar">
+                                                <i class="bi bi-person-fill"></i>
+                                            </div>
+                                            <div>
+                                                <h6 class="expert-name mb-1">
+                                                    ${expertInfo.name || 'Uzman'} ${stars}
+                                                </h6>
+                                                <div class="expert-meta">
+                                                    <span class="expert-country">
+                                                        <i class="bi bi-geo-alt-fill"></i> ${expertInfo.country || ''}
+                                                    </span>
+                                                </div>
+                                                ${expertInfo.bio ? `
+                                                <p class="expert-bio">${expertInfo.bio}</p>
+                                                ` : ''}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="recommendation-title mb-2">
+                                        <h5 class="card-title-modern mb-0">
+                                            ${rec.name}
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="score-section">
+                                    <div class="modern-score-badge expert-score">
+                                        <div class="score-number">${rec.score}</div>
+                                        <div class="score-label">/ 100</div>
+                                    </div>
+                                    <div class="score-label-text">${getScoreLabel(rec.score)}</div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <div class="score-bar">
-                                <div class="score-fill bg-warning" style="width: ${rec.score}%"></div>
+                            
+                            <div class="progress-modern mb-3">
+                                <div class="progress-fill expert-progress" style="width: 0%; animation: fillProgress 1s ease forwards ${index * 0.1 + 0.3}s; --target-width: ${rec.score}%">
+                                    <span class="progress-shimmer"></span>
+                                </div>
                             </div>
+                            
+                            <div class="explanation-box expert-explanation mb-3">
+                                <i class="bi bi-chat-quote explanation-icon"></i>
+                                <p class="explanation-text mb-0">
+                                    "${rec.explanation}"
+                                </p>
+                            </div>
+                            
+                            ${expertInfo.speciality ? `
+                            <div class="expert-specialities mb-3">
+                                <div class="flavor-label">
+                                    <i class="bi bi-star-fill"></i> Uzmanlık Alanları:
+                                </div>
+                                <div class="d-flex gap-2 flex-wrap">
+                                    ${expertInfo.speciality.map((spec, idx) =>
+                        `<span class="expert-tag" style="animation-delay: ${idx * 0.05}s">${spec}</span>`
+                    ).join('')}
+                                </div>
+                            </div>
+                            ` : ''}
+                            
+                            ${expertInfo.famous_for ? `
+                            <div class="famous-for-section">
+                                <i class="bi bi-trophy-fill"></i>
+                                <span class="famous-label">Ünlü olduğu alanlar:</span>
+                                <span class="famous-text">${expertInfo.famous_for.join(', ')}</span>
+                            </div>
+                            ` : ''}
                         </div>
-                        
-                        <p class="text-black mb-3">
-                            ${rec.explanation}
-                        </p>
-                        
-                        ${expertInfo.speciality ? `
-                        <div class="d-flex gap-2 flex-wrap mb-3">
-                            ${expertInfo.speciality.map(spec =>
-                    `<span class="badge bg-warning text-dark">${spec}</span>`
-                ).join('')}
-                        </div>
-                        ` : ''}
-                        
-                        ${expertInfo.famous_for ? `
-                        <div class="text-black opacity-75 small mb-2">
-                            <strong>Ünlü olduğu alanlar:</strong> ${expertInfo.famous_for.join(', ')}
-                        </div>
-                        ` : ''}
                     </div>
                 </div>
                 `;
@@ -319,6 +457,21 @@
         if (score >= 70) return 'info';
         if (score >= 60) return 'warning';
         return 'secondary';
+    }
+
+    function getScoreGradient(score) {
+        if (score >= 80) return 'linear-gradient(135deg, #10B981, #059669)';
+        if (score >= 70) return 'linear-gradient(135deg, #06B6D4, #0891B2)';
+        if (score >= 60) return 'linear-gradient(135deg, #F59E0B, #D97706)';
+        return 'linear-gradient(135deg, #6B7280, #4B5563)';
+    }
+
+    function getScoreLabel(score) {
+        if (score >= 90) return 'Mükemmel';
+        if (score >= 80) return 'Harika';
+        if (score >= 70) return 'İyi';
+        if (score >= 60) return 'Uygun';
+        return 'Orta';
     }
 
     function showRatingModal(alcoholName) {
@@ -429,34 +582,4 @@
     });
 </script>
 
-<style>
-    .food-item-card {
-        transition: all 0.3s ease;
-        border: 2px solid transparent;
-    }
-
-    .food-item-card:hover {
-        border-color: var(--primary-color);
-    }
-
-    .rating-star {
-        font-size: 2rem;
-        color: #ddd;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        margin: 0 5px;
-    }
-
-    .rating-star:hover,
-    .rating-star.bi-star-fill {
-        color: #ffc107;
-        transform: scale(1.1);
-    }
-
-    .score-badge {
-        font-weight: bold;
-        font-size: 0.9rem;
-        min-width: 80px;
-    }
-</style>
 {% endblock %}

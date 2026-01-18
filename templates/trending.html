@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container" style="padding-top: 100px;">
     <div class="row">
-        <div class="col-lg-10 mx-auto">
+        <div class="col-lg-12 mx-auto">
             <div class="text-center mb-5">
                 <h1 class="display-4 fw-bold text-white mb-3">
                     🔥 Trend Eşleştirmeler
@@ -16,160 +16,186 @@
             </div>
 
             <!-- Popüler Eşleştirmeler Izgara Düzeni -->
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">
-                        <i class="bi bi-fire"></i> Popüler Eşleştirmeler ({{ pairings|length }} adet)
-                    </h4>
+            <div class="card modern-trending-container">
+                <div class="card-header modern-trending-header">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="trending-icon-badge">
+                            <i class="bi bi-fire"></i>
+                        </div>
+                        <div>
+                            <h4 class="mb-0 text-white fw-bold">Popüler Eşleştirmeler</h4>
+                            <small class="text-white-50">{{ pairings|length }} trend eşleştirme</small>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body modern-trending-body">
                     <div class="row g-4" id="trendingGrid">
                         {% for pairing in pairings %}
-                        <div class="col-lg-6 col-md-6">
-                            <div class="card trending-card h-100">
+                        <div class="col-lg-6 col-md-6 trending-item" style="animation-delay: {{ (loop.index - 1) * 0.1 }}s">
+                            <div class="modern-trending-card">
+                                <div class="trending-card-glow"></div>
+                                
+                                <!-- Trend Badge -->
+                                <div class="trend-number-badge">
+                                    <span class="trend-number">#{{ loop.index }}</span>
+                                    <span class="trend-label">Trend</span>
+                                </div>
+                                
+                                <!-- Popularity Indicator -->
+                                <div class="popularity-indicator">
+                                    <div class="popularity-bar" style="--popularity: {{ ((20 - loop.index + 1) / 20) * 100 }}%">
+                                        <span class="popularity-shimmer"></span>
+                                    </div>
+                                    <small class="popularity-label">Popülerlik</small>
+                                </div>
+
                                 <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-start mb-3">
-                                        <div class="pairing-badge">
-                                            <span class="badge bg-danger">
-                                                <i class="bi bi-fire"></i> Trend #{{ loop.index }}
-                                            </span>
-                                        </div>
-                                        <div class="popularity-score">
-                                            <small class="text-muted">Popülerlik</small>
-                                            <div class="progress" style="height: 6px; width: 60px;">
-                                                <div class="progress-bar bg-success"
-                                                    style="width: {{ ((20 - loop.index + 1) / 20) * 100 }}%"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <div class="pairing-content">
-                                        <div class="row">
+                                        <div class="row g-3">
+                                            <!-- Food Section -->
                                             <div class="col-6">
-                                                <div class="food-section">
-                                                    <h6 class="text-muted mb-2">
-                                                        <i class="bi bi-egg-fried"></i> Yemek
-                                                    </h6>
-                                                    <h5 class="mb-2">
-                                                        {% if pairing.food.cuisine_type == 'Turkish' %}🇹🇷
-                                                        {% elif pairing.food.cuisine_type == 'French' %}🇫🇷
-                                                        {% elif pairing.food.cuisine_type == 'Italian' %}🇮🇹
-                                                        {% elif pairing.food.cuisine_type == 'Japanese' %}🇯🇵
-                                                        {% elif pairing.food.cuisine_type == 'British' %}🇬🇧
-                                                        {% elif pairing.food.cuisine_type == 'American' %}🇺🇸
-                                                        {% elif pairing.food.cuisine_type == 'Chinese' %}🇨🇳
-                                                        {% elif pairing.food.cuisine_type == 'Indian' %}🇮🇳
-                                                        {% elif pairing.food.cuisine_type == 'Mexican' %}🇲🇽
-                                                        {% elif pairing.food.cuisine_type == 'Spanish' %}🇪🇸
-                                                        {% elif pairing.food.cuisine_type == 'Greek' %}🇬🇷
-                                                        {% else %}🌍
-                                                        {% endif %}
-                                                        {{ pairing.food.name }}
-                                                    </h5>
-                                                    <span class="badge bg-light text-dark">
-                                                        {% if pairing.food.cuisine_type == 'Turkish' %}Türk
-                                                        {% elif pairing.food.cuisine_type == 'French' %}Fransız
-                                                        {% elif pairing.food.cuisine_type == 'Italian' %}İtalyan
-                                                        {% elif pairing.food.cuisine_type == 'Japanese' %}Japon
-                                                        {% elif pairing.food.cuisine_type == 'British' %}İngiliz
-                                                        {% elif pairing.food.cuisine_type == 'American' %}Amerikan
-                                                        {% elif pairing.food.cuisine_type == 'Chinese' %}Çin
-                                                        {% elif pairing.food.cuisine_type == 'Indian' %}Hint
-                                                        {% elif pairing.food.cuisine_type == 'Mexican' %}Meksika
-                                                        {% elif pairing.food.cuisine_type == 'Spanish' %}İspanyol
-                                                        {% elif pairing.food.cuisine_type == 'Greek' %}Yunan
-                                                        {% else %}{{ pairing.food.cuisine_type }}
-                                                        {% endif %}
-                                                    </span>
-                                                    <div class="mt-2">
-                                                        <small class="text-muted">
+                                                <div class="modern-food-section">
+                                                    <div class="section-label">
+                                                        <i class="bi bi-egg-fried"></i>
+                                                        <span>Yemek</span>
+                                                    </div>
+                                                    <div class="item-display">
+                                                        <span class="item-flag">
+                                                            {% if pairing.food.cuisine_type == 'Turkish' %}🇹🇷
+                                                            {% elif pairing.food.cuisine_type == 'French' %}🇫🇷
+                                                            {% elif pairing.food.cuisine_type == 'Italian' %}🇮🇹
+                                                            {% elif pairing.food.cuisine_type == 'Japanese' %}🇯🇵
+                                                            {% elif pairing.food.cuisine_type == 'British' %}🇬🇧
+                                                            {% elif pairing.food.cuisine_type == 'American' %}🇺🇸
+                                                            {% elif pairing.food.cuisine_type == 'Chinese' %}🇨🇳
+                                                            {% elif pairing.food.cuisine_type == 'Indian' %}🇮🇳
+                                                            {% elif pairing.food.cuisine_type == 'Mexican' %}🇲🇽
+                                                            {% elif pairing.food.cuisine_type == 'Spanish' %}🇪🇸
+                                                            {% elif pairing.food.cuisine_type == 'Greek' %}🇬🇷
+                                                            {% else %}🌍
+                                                            {% endif %}
+                                                        </span>
+                                                        <h5 class="item-name">{{ pairing.food.name }}</h5>
+                                                    </div>
+                                                    <div class="item-tags">
+                                                        <span class="cuisine-tag food-tag">
+                                                            {% if pairing.food.cuisine_type == 'Turkish' %}Türk
+                                                            {% elif pairing.food.cuisine_type == 'French' %}Fransız
+                                                            {% elif pairing.food.cuisine_type == 'Italian' %}İtalyan
+                                                            {% elif pairing.food.cuisine_type == 'Japanese' %}Japon
+                                                            {% elif pairing.food.cuisine_type == 'British' %}İngiliz
+                                                            {% elif pairing.food.cuisine_type == 'American' %}Amerikan
+                                                            {% elif pairing.food.cuisine_type == 'Chinese' %}Çin
+                                                            {% elif pairing.food.cuisine_type == 'Indian' %}Hint
+                                                            {% elif pairing.food.cuisine_type == 'Mexican' %}Meksika
+                                                            {% elif pairing.food.cuisine_type == 'Spanish' %}İspanyol
+                                                            {% elif pairing.food.cuisine_type == 'Greek' %}Yunan
+                                                            {% else %}{{ pairing.food.cuisine_type }}
+                                                            {% endif %}
+                                                        </span>
+                                                        <span class="intensity-tag">
                                                             <i class="bi bi-fire"></i> {{ pairing.food.intensity }}/10
-                                                        </small>
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-6">
-                                                <div class="alcohol-section">
-                                                    <h6 class="text-muted mb-2">
-                                                        <i class="bi bi-wine"></i> İçecek
-                                                    </h6>
-                                                    <h5 class="mb-2">
-                                                        {% if pairing.alcohol.type == 'Wine' %}🍷
-                                                        {% elif pairing.alcohol.type == 'Beer' %}🍺
-                                                        {% elif pairing.alcohol.type == 'Whiskey' %}🥃
-                                                        {% elif pairing.alcohol.type == 'Vodka' %}🍸
-                                                        {% elif pairing.alcohol.type == 'Gin' %}🍸
-                                                        {% elif pairing.alcohol.type == 'Rum' %}🥃
-                                                        {% elif pairing.alcohol.type == 'Tequila' %}🍹
-                                                        {% elif pairing.alcohol.type == 'Brandy' %}🥃
-                                                        {% elif pairing.alcohol.type == 'Cognac' %}🥃
-                                                        {% elif pairing.alcohol.type == 'Champagne' %}🍾
-                                                        {% elif pairing.alcohol.type == 'Cocktail' %}🍹
-                                                        {% else %}🍷
-                                                        {% endif %}
-                                                        {{ pairing.alcohol.name }}
-                                                    </h5>
-                                                    <span class="badge bg-secondary">
-                                                        {% if pairing.alcohol.type == 'Wine' %}Şarap
-                                                        {% elif pairing.alcohol.type == 'Beer' %}Bira
-                                                        {% elif pairing.alcohol.type == 'Whiskey' %}Viski
-                                                        {% elif pairing.alcohol.type == 'Vodka' %}Votka
-                                                        {% elif pairing.alcohol.type == 'Gin' %}Cin
-                                                        {% elif pairing.alcohol.type == 'Rum' %}Rom
-                                                        {% elif pairing.alcohol.type == 'Tequila' %}Tekila
-                                                        {% elif pairing.alcohol.type == 'Brandy' %}Kanyak
-                                                        {% elif pairing.alcohol.type == 'Cognac' %}Konyak
-                                                        {% elif pairing.alcohol.type == 'Champagne' %}Şampanya
-                                                        {% elif pairing.alcohol.type == 'Cocktail' %}Kokteyl
-                                                        {% else %}{{ pairing.alcohol.type }}
-                                                        {% endif %}
-                                                    </span>
-                                                    <div class="mt-2">
-                                                        <small class="text-muted">
-                                                            <i class="bi bi-thermometer"></i> {{
-                                                            pairing.alcohol.alcohol_content }}%
-                                                        </small>
+
+                                            <!-- Plus Icon -->
+                                            <div class="col-auto d-flex align-items-center">
+                                                <div class="pairing-connector">
+                                                    <i class="bi bi-plus-circle-fill"></i>
+                                                </div>
+                                            </div>
+
+                                            <!-- Alcohol Section -->
+                                            <div class="col">
+                                                <div class="modern-alcohol-section">
+                                                    <div class="section-label">
+                                                        <i class="bi bi-cup-straw"></i>
+                                                        <span>İçecek</span>
+                                                    </div>
+                                                    <div class="item-display">
+                                                        <span class="item-flag">
+                                                            {% if pairing.alcohol.type == 'Wine' %}🍷
+                                                            {% elif pairing.alcohol.type == 'Beer' %}🍺
+                                                            {% elif pairing.alcohol.type == 'Whiskey' %}🥃
+                                                            {% elif pairing.alcohol.type == 'Vodka' %}🍸
+                                                            {% elif pairing.alcohol.type == 'Gin' %}🍸
+                                                            {% elif pairing.alcohol.type == 'Rum' %}🥃
+                                                            {% elif pairing.alcohol.type == 'Tequila' %}🍹
+                                                            {% elif pairing.alcohol.type == 'Brandy' %}🥃
+                                                            {% elif pairing.alcohol.type == 'Cognac' %}🥃
+                                                            {% elif pairing.alcohol.type == 'Champagne' %}🍾
+                                                            {% elif pairing.alcohol.type == 'Cocktail' %}🍹
+                                                            {% else %}🍷
+                                                            {% endif %}
+                                                        </span>
+                                                        <h5 class="item-name">{{ pairing.alcohol.name }}</h5>
+                                                    </div>
+                                                    <div class="item-tags">
+                                                        <span class="cuisine-tag alcohol-tag">
+                                                            {% if pairing.alcohol.type == 'Wine' %}Şarap
+                                                            {% elif pairing.alcohol.type == 'Beer' %}Bira
+                                                            {% elif pairing.alcohol.type == 'Whiskey' %}Viski
+                                                            {% elif pairing.alcohol.type == 'Vodka' %}Votka
+                                                            {% elif pairing.alcohol.type == 'Gin' %}Cin
+                                                            {% elif pairing.alcohol.type == 'Rum' %}Rom
+                                                            {% elif pairing.alcohol.type == 'Tequila' %}Tekila
+                                                            {% elif pairing.alcohol.type == 'Brandy' %}Kanyak
+                                                            {% elif pairing.alcohol.type == 'Cognac' %}Konyak
+                                                            {% elif pairing.alcohol.type == 'Champagne' %}Şampanya
+                                                            {% elif pairing.alcohol.type == 'Cocktail' %}Kokteyl
+                                                            {% else %}{{ pairing.alcohol.type }}
+                                                            {% endif %}
+                                                        </span>
+                                                        <span class="intensity-tag">
+                                                            <i class="bi bi-thermometer-half"></i> {{ pairing.alcohol.alcohol_content }}%
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <hr class="my-3">
-
-                                    <div class="pairing-score text-center">
-                                        <div class="row g-2">
-                                            <div class="col-4">
-                                                <div class="score-item">
-                                                    <div class="score-value text-primary fw-bold">
-                                                        {{ "%.1f"|format(pairing.compatibility_score) }}
-                                                    </div>
-                                                    <small class="text-muted">Uyumluluk</small>
-                                                </div>
+                                    <!-- Stats Section -->
+                                    <div class="pairing-stats">
+                                        <div class="stat-item stat-compatibility">
+                                            <div class="stat-icon">
+                                                <i class="bi bi-heart-fill"></i>
                                             </div>
-                                            <div class="col-4">
-                                                <div class="score-item">
-                                                    <div class="score-value text-success fw-bold">
-                                                        {{ pairing.popularity_count }}
-                                                    </div>
-                                                    <small class="text-muted">Beğeni</small>
-                                                </div>
+                                            <div class="stat-content">
+                                                <div class="stat-value">{{ "%.1f"|format(pairing.compatibility_score) }}</div>
+                                                <div class="stat-label">Uyumluluk</div>
                                             </div>
-                                            <div class="col-4">
-                                                <div class="score-item">
-                                                    <div class="score-value text-warning fw-bold">
-                                                        ★ {{ "%.1f"|format(pairing.average_rating or 0) }}
-                                                    </div>
-                                                    <small class="text-muted">Puan</small>
-                                                </div>
+                                        </div>
+                                        
+                                        <div class="stat-item stat-popularity">
+                                            <div class="stat-icon">
+                                                <i class="bi bi-people-fill"></i>
+                                            </div>
+                                            <div class="stat-content">
+                                                <div class="stat-value">{{ pairing.popularity_count }}</div>
+                                                <div class="stat-label">Beğeni</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="stat-item stat-rating">
+                                            <div class="stat-icon">
+                                                <i class="bi bi-star-fill"></i>
+                                            </div>
+                                            <div class="stat-content">
+                                                <div class="stat-value">{{ "%.1f"|format(pairing.average_rating or 0) }}</div>
+                                                <div class="stat-label">Puan</div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="d-grid mt-3">
-                                        <a href="{{ url_for('recommend') }}#food-{{ pairing.food.name|replace(' ', '-') }}"
-                                            class="btn btn-outline-primary">
-                                            <i class="bi bi-search"></i> Bu Eşleştirmeyi Dene
+                                    <!-- Action Button -->
+                                    <div class="mt-4">
+                                        <a href="{{ url_for('main.recommend') }}#food-{{ pairing.food.name|replace(' ', '-') }}"
+                                            class="btn-trending-action">
+                                            <i class="bi bi-arrow-right-circle-fill"></i>
+                                            <span>Bu Eşleştirmeyi Dene</span>
                                         </a>
                                     </div>
                                 </div>
@@ -183,7 +209,7 @@
                         <i class="bi bi-search display-1 text-muted"></i>
                         <h4 class="text-muted mt-3">Henüz trend eşleştirme bulunamadı</h4>
                         <p class="text-muted">İlk eşleştirmeleri oluşturmak için öneriler sayfasını ziyaret edin.</p>
-                        <a href="{{ url_for('recommend') }}" class="btn btn-primary">
+                        <a href="{{ url_for('main.recommend') }}" class="btn btn-primary">
                             <i class="bi bi-lightbulb"></i> Öneriler Al
                         </a>
                     </div>
@@ -193,61 +219,4 @@
         </div>
     </div>
 </div>
-
-<style>
-    .trending-card {
-        transition: all 0.3s ease;
-        border-left: 4px solid var(--primary-color);
-    }
-
-    .trending-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        border-left: 4px solid var(--accent-color);
-    }
-
-    .pairing-badge .badge {
-        animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-        0% {
-            transform: scale(1);
-        }
-
-        50% {
-            transform: scale(1.05);
-        }
-
-        100% {
-            transform: scale(1);
-        }
-    }
-
-    .score-item {
-        padding: 0.5rem;
-        border-radius: 8px;
-        background: rgba(var(--bs-primary-rgb), 0.05);
-    }
-
-    .score-value {
-        font-size: 1.25rem;
-        line-height: 1;
-    }
-
-    .progress {
-        border-radius: 10px;
-    }
-
-    .progress-bar {
-        border-radius: 10px;
-    }
-
-    .food-section,
-    .alcohol-section {
-        padding: 0.5rem;
-        border-radius: 8px;
-        background: rgba(0, 0, 0, 0.02);
-    }
-</style>
 {% endblock %}

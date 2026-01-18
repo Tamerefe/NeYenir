@@ -15,6 +15,7 @@ import numpy as np
 from dataclasses import dataclass, asdict
 import pickle
 import os
+from pathlib import Path
 
 @dataclass
 class Food:
@@ -328,10 +329,10 @@ class AIFoodAlcoholMatcher:
         """Kapsamlı yemek veritabanını yükle"""
         # Import the expanded database
         try:
-            from expanded_database import get_expanded_food_database
+            from core.expanded_database import get_expanded_food_database
             return get_expanded_food_database()
-        except ImportError:
-            print("⚠️ Genişletilmiş veri tabanı yüklenemedi, temel veri tabanı kullanılıyor...")
+        except (ImportError, Exception) as e:
+            print(f"⚠️ Genişletilmiş veri tabanı yüklenemedi, temel veri tabanı kullanılıyor... (Hata: {e})")
             # Fallback to basic database if expanded database is not available
             foods = [
                 # Turkish Cuisine
@@ -376,10 +377,10 @@ class AIFoodAlcoholMatcher:
         """Kapsamlı alkol veritabanını yükle"""
         # Import the expanded database
         try:
-            from expanded_database import get_expanded_alcohol_database
+            from core.expanded_database import get_expanded_alcohol_database
             return get_expanded_alcohol_database()
-        except ImportError:
-            print("⚠️ Genişletilmiş alkol veri tabanı yüklenemedi, temel veri tabanı kullanılıyor...")
+        except (ImportError, Exception) as e:
+            print(f"⚠️ Genişletilmiş alkol veri tabanı yüklenemedi, temel veri tabanı kullanılıyor... (Hata: {e})")
             # Fallback to basic database if expanded database is not available
             alcohols = [
                 # Turkish Alcohols

@@ -5,10 +5,10 @@
 {% block content %}
 <div class="container" style="padding-top: 100px;">
     <div class="row">
-        <div class="col-lg-10 mx-auto">
+        <div class="col-lg-12 mx-auto">
             <div class="text-center mb-5">
                 <h1 class="display-4 fw-bold text-white mb-3">
-                    🍷 Tüm İçecekler
+                    Tüm İçecekler
                 </h1>
                 <p class="lead text-white-50">
                     Alkollü içecek koleksiyonumuzu keşfedin ve favorilerinizi bulun
@@ -16,87 +16,285 @@
             </div>
 
             <!-- İçecekler Izgara Düzeni -->
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">
-                        <i class="bi bi-wine"></i> İçecek Koleksiyonu ({{ alcohols|length }} içecek)
-                    </h4>
+            <div class="card modern-collection-container">
+                <div class="card-header modern-alcohol-header">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="collection-icon-badge alcohol-badge">
+                            <i class="bi bi-cup-straw"></i>
+                        </div>
+                        <div>
+                            <h4 class="mb-0 text-white fw-bold">İçecek Koleksiyonu</h4>
+                            <small class="text-white-50">{{ alcohols|length }} premium seçenek</small>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body modern-collection-body">
                     <div class="row g-4" id="alcoholsGrid">
                         {% for alcohol in alcohols %}
-                        <div class="col-lg-4 col-md-6">
-                            <div class="card alcohol-card h-100">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-start mb-3">
-                                        <h5 class="card-title mb-1">
-                                            {% if alcohol.type == 'Wine' %}🍷
-                                            {% elif alcohol.type == 'Beer' %}🍺
-                                            {% elif alcohol.type == 'Whiskey' %}🥃
-                                            {% elif alcohol.type == 'Vodka' %}🍸
-                                            {% elif alcohol.type == 'Gin' %}🍸
-                                            {% elif alcohol.type == 'Rum' %}🥃
-                                            {% elif alcohol.type == 'Tequila' %}🍹
-                                            {% elif alcohol.type == 'Brandy' %}🥃
-                                            {% elif alcohol.type == 'Cognac' %}🥃
-                                            {% elif alcohol.type == 'Champagne' %}🍾
-                                            {% elif alcohol.type == 'Cocktail' %}🍹
-                                            {% else %}🍷
-                                            {% endif %}
-                                            {{ alcohol.name }}
-                                        </h5>
-                                        <span class="badge bg-secondary">
-                                            {{ alcohol.type|translate_type|title }}
-                                        </span>
-                                    </div>
+                        <div class="col-lg-4 col-md-6 collection-item"
+                            style="animation-delay: {{ (loop.index - 1) * 0.05 }}s">
+                            <div class="modern-alcohol-card">
+                                <div class="alcohol-card-glow"></div>
 
-                                    <div class="mb-3">
-                                        <h6 class="text-muted mb-2">Lezzet Notları:</h6>
-                                        <div class="d-flex flex-wrap gap-1">
-                                            {% for note in alcohol.flavor_profile %}
-                                            <span class="badge bg-light text-dark">{{ note|translate_flavor }}</span>
-                                            {% endfor %}
+                                <!-- Alkol Görseli -->
+                                <div class="alcohol-image-container">
+                                    {% if 'Rakı' in alcohol.name or 'Ouzo' in alcohol.name or 'Absinthe' in alcohol.name
+                                    or alcohol.subtype == 'anise' %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/raki.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% elif alcohol.type == 'wine' and alcohol.subtype == 'red' %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/redwine.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% elif alcohol.type == 'wine' and (alcohol.subtype == 'white' or alcohol.subtype ==
+                                    'rosé' or alcohol.subtype == 'sweet') %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/whitewine.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% elif alcohol.type == 'wine' and alcohol.subtype == 'sparkling' %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/champagne.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% elif alcohol.type == 'wine' and alcohol.subtype == 'fortified' %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/porto.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% elif 'Cognac' in alcohol.name or alcohol.subtype == 'brandy' or alcohol.subtype
+                                    == 'grape brandy' %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/cognac.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% elif alcohol.subtype == 'gin' or alcohol.subtype == 'gin-based' %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/gin.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% elif alcohol.subtype == 'vodka' or alcohol.subtype == 'vodka-based' %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/vodka.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% elif alcohol.subtype == 'whiskey' or alcohol.subtype == 'whiskey-based' %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/whiskey.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% elif alcohol.subtype == 'tequila' or alcohol.subtype == 'mezcal' or
+                                    alcohol.subtype == 'tequila-based' %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/tequila.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% elif alcohol.subtype == 'rum' or alcohol.subtype == 'rum-based' or 'Rum' in
+                                    alcohol.name %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/rum.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% elif alcohol.type == 'sake' %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/sake.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% elif alcohol.type == 'aperitif' or alcohol.type == 'fortified' %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/aperatif.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% elif alcohol.type == 'beer' and alcohol.subtype == 'lager' %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/pilsener.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% elif alcohol.type == 'beer' and alcohol.subtype in ['ale', 'wheat'] %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/craftbeer.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% elif alcohol.type == 'beer' %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/beer.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% elif 'Mojito' in alcohol.name or 'Pina Colada' in alcohol.name or 'Daiquiri' in
+                                    alcohol.name %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/tropicalcocktail.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% elif 'Cosmopolitan' in alcohol.name or 'Aperol Spritz' in alcohol.name %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/chillcocktail.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% elif alcohol.type == 'cocktail' and alcohol.sweetness >= 7 %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/sweetcocktail.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% elif 'Manhattan' in alcohol.name or 'Negroni' in alcohol.name or 'Old Fashioned'
+                                    in alcohol.name %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/hardcocktail.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% elif alcohol.type == 'cocktail' and alcohol.alcohol_content >= 20 %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/premiumcocktail.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% elif alcohol.type == 'cocktail' %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/chillcocktail.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% elif alcohol.type == 'spirits' %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/spirit.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+
+                                    {% else %}
+                                    <img src="{{ url_for('static', filename='images/alcohols/spirit.webp') }}"
+                                        alt="{{ alcohol.name }}" class="alcohol-image">
+                                    {% endif %}
+                                </div>
+
+                                <div class="card-body">
+                                    <!-- Title & Badge -->
+                                    <div class="alcohol-header mb-4">
+                                        <h5 class="alcohol-title">{{ alcohol.name }}</h5>
+                                        <div
+                                            class="d-flex justify-content-center align-items-center gap-2 flex-wrap mt-2">
+                                            <span class="cuisine-badge-modern alcohol-type">
+                                                {{ alcohol.type|translate_type|title }}
+                                            </span>
+                                            {% if alcohol.vintage %}
+                                            <span class="vintage-badge">{{ alcohol.vintage }}</span>
+                                            {% endif %}
                                         </div>
                                     </div>
 
-                                    <div class="row g-2 mb-3">
-                                        <div class="col-6">
-                                            <small class="text-muted d-block">
-                                                <i class="bi bi-thermometer text-info"></i> Alkol Oranı
-                                            </small>
-                                            <div class="progress" style="height: 8px;">
-                                                <div class="progress-bar bg-info"
-                                                    style="width: {{ ((alcohol.alcohol_content / 50) * 100)|round(0) }}%;">
+                                    <!-- Tadım Notları Section -->
+                                    <div class="tasting-notes-section">
+                                        <!-- Burun (Nose/Aroma) -->
+                                        <div class="tasting-note-item mb-3">
+                                            <div class="tasting-note-header">
+                                                <i class="bi bi-flower1"></i>
+                                                <span class="tasting-note-label">Burun</span>
+                                            </div>
+                                            <div class="tasting-note-content">
+                                                <div class="flavor-tags-grid">
+                                                    {% for note in alcohol.flavor_profile %}
+                                                    <span class="flavor-chip alcohol-flavor">{{ note|translate_flavor
+                                                        }}</span>
+                                                    {% endfor %}
                                                 </div>
                                             </div>
-                                            <small>{{ alcohol.alcohol_content }}%</small>
                                         </div>
-                                        <div class="col-6">
-                                            <small class="text-muted d-block">
-                                                <i class="bi bi-cash text-success"></i> Fiyat
-                                            </small>
-                                            <span class="badge 
-                                                {% if alcohol.price_range == 'budget' %}bg-success
-                                                {% elif alcohol.price_range == 'mid-range' %}bg-warning
-                                                {% else %}bg-danger
-                                                {% endif %}">
-                                                {{ alcohol.price_range|translate_price }}
-                                            </span>
+
+                                        <!-- Damak (Palate) -->
+                                        <div class="tasting-note-item mb-3">
+                                            <div class="tasting-note-header">
+                                                <i class="bi bi-cup-straw"></i>
+                                                <span class="tasting-note-label">Damak</span>
+                                            </div>
+                                            <div class="tasting-note-content">
+                                                <!-- Body -->
+                                                <div class="tasting-attribute mb-2">
+                                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                                        <span class="attribute-label">Gövde</span>
+                                                        <span class="attribute-value">{{ alcohol.body|translate_body
+                                                            }}</span>
+                                                    </div>
+                                                    <div class="tasting-bar">
+                                                        <div class="tasting-bar-fill body-bar"
+                                                            style="width: {% if alcohol.body == 'light' %}33%{% elif alcohol.body == 'medium' %}66%{% else %}100%{% endif %}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Sweetness -->
+                                                <div class="tasting-attribute mb-2">
+                                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                                        <span class="attribute-label">Tatlılık</span>
+                                                        <span class="attribute-value">{{ alcohol.sweetness }}/10</span>
+                                                    </div>
+                                                    <div class="tasting-bar">
+                                                        <div class="tasting-bar-fill sweetness-bar"
+                                                            style="width: {{ (alcohol.sweetness / 10 * 100)|round(0) }}%">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Acidity -->
+                                                <div class="tasting-attribute mb-2">
+                                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                                        <span class="attribute-label">Asidite</span>
+                                                        <span class="attribute-value">{{ alcohol.acidity }}/10</span>
+                                                    </div>
+                                                    <div class="tasting-bar">
+                                                        <div class="tasting-bar-fill acidity-bar"
+                                                            style="width: {{ (alcohol.acidity / 10 * 100)|round(0) }}%">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Tannins (if applicable) -->
+                                                {% if alcohol.tannins and alcohol.tannins > 0 %}
+                                                <div class="tasting-attribute mb-2">
+                                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                                        <span class="attribute-label">Tanen</span>
+                                                        <span class="attribute-value">{{ alcohol.tannins }}/10</span>
+                                                    </div>
+                                                    <div class="tasting-bar">
+                                                        <div class="tasting-bar-fill tannins-bar"
+                                                            style="width: {{ (alcohol.tannins / 10 * 100)|round(0) }}%">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    {% if alcohol.region %}
-                                    <div class="mb-3">
-                                        <small class="text-muted">
-                                            <i class="bi bi-geo-alt"></i> Bölge: {{ alcohol.region|translate_region }}
-                                        </small>
-                                    </div>
-                                    {% endif %}
-
-                                    <div class="d-grid">
-                                        <a href="{{ url_for('recommend') }}" class="btn btn-outline-primary">
-                                            <i class="bi bi-search"></i> Eşleştirmeler Gör
-                                        </a>
+                                        <!-- Teknik Bilgiler Accordion -->
+                                        <div class="accordion accordion-flush" id="accordionTeknik{{ alcohol.id }}">
+                                            <div class="accordion-item tasting-accordion-item">
+                                                <h2 class="accordion-header" id="headingTeknik{{ alcohol.id }}">
+                                                    <button class="accordion-button collapsed tasting-accordion-button"
+                                                        type="button" data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseTeknik{{ alcohol.id }}"
+                                                        aria-expanded="false"
+                                                        aria-controls="collapseTeknik{{ alcohol.id }}">
+                                                        <i class="bi bi-info-circle me-2"></i>
+                                                        <span>Teknik Bilgiler</span>
+                                                    </button>
+                                                </h2>
+                                                <div id="collapseTeknik{{ alcohol.id }}"
+                                                    class="accordion-collapse collapse"
+                                                    aria-labelledby="headingTeknik{{ alcohol.id }}"
+                                                    data-bs-parent="#accordionTeknik{{ alcohol.id }}">
+                                                    <div class="accordion-body tasting-note-content">
+                                                        <div class="technical-info-grid">
+                                                            <div class="technical-item">
+                                                                <i class="bi bi-thermometer-half"></i>
+                                                                <div>
+                                                                    <span class="technical-label">Alkol</span>
+                                                                    <span class="technical-value">{{
+                                                                        alcohol.alcohol_content }}%</span>
+                                                                </div>
+                                                            </div>
+                                                            {% if alcohol.region %}
+                                                            <div class="technical-item">
+                                                                <i class="bi bi-geo-alt-fill"></i>
+                                                                <div>
+                                                                    <span class="technical-label">Bölge</span>
+                                                                    <span class="technical-value">{{
+                                                                        alcohol.region|translate_region }}</span>
+                                                                </div>
+                                                            </div>
+                                                            {% endif %}
+                                                            <div class="technical-item">
+                                                                <i class="bi bi-tag-fill"></i>
+                                                                <div>
+                                                                    <span class="technical-label">Fiyat</span>
+                                                                    <span class="technical-value price-value 
+                                                                        {% if alcohol.price_range == 'budget' %}price-budget
+                                                                        {% elif alcohol.price_range == 'mid-range' %}price-mid
+                                                                        {% else %}price-premium
+                                                                        {% endif %}">
+                                                                        {{ alcohol.price_range|translate_price }}
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -108,23 +306,4 @@
         </div>
     </div>
 </div>
-
-<style>
-    .alcohol-card {
-        transition: all 0.3s ease;
-    }
-
-    .alcohol-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    }
-
-    .progress {
-        border-radius: 10px;
-    }
-
-    .progress-bar {
-        border-radius: 10px;
-    }
-</style>
 {% endblock %}

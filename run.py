@@ -44,7 +44,7 @@ def run_console_app():
     print("=" * 60)
     
     try:
-        from main import main
+        from core.matcher import main
         main()
     except KeyboardInterrupt:
         print("\n\n👋 NeYenir'i kullandığınız için teşekkürler!")
@@ -58,7 +58,8 @@ def run_web_app(host='localhost', port=5000, debug=True):
     print("=" * 60)
     
     try:
-        from app import app
+        from app import create_app
+        app = create_app()
         app.run(host=host, port=port, debug=debug)
     except KeyboardInterrupt:
         print("\n\n👋 Sunucu durduruldu. NeYenir'i kullandığınız için teşekkürler!")
@@ -82,7 +83,7 @@ def show_system_info():
     print("=" * 60)
     
     try:
-        from main import AIFoodAlcoholMatcher
+        from core.matcher import AIFoodAlcoholMatcher
         matcher = AIFoodAlcoholMatcher()
         
         print(f"🍽️ Available Foods: {len(matcher.foods)}")

@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ne Yenir? - AI Destekli Yemek & Alkol Eşleştirme</title>
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&family=Inter:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigasyon Menüsü -->
+    <nav class="navbar navbar-expand-lg modern-navbar fixed-top">
+        <div class="container">
+            <a class="navbar-brand modern-brand" href="index.html">
+                <div class="brand-logo-wrapper">
+                    <img src="assets/images/logo.png" alt="Ne Yenir Logo" class="brand-logo">
+                    <div class="brand-glow"></div>
+                </div>
+                <span class="brand-text">Ne Yenir?</span>
+                <span class="brand-badge">AI</span>
+            </a>
+
+            <button class="navbar-toggler modern-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+                <span class="toggler-icon"></span>
+                <span class="toggler-icon"></span>
+                <span class="toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto modern-nav-menu">
+                    <li class="nav-item">
+                        <a class="nav-link modern-nav-link" href="index.html">
+                            <span class="nav-icon"><i class="bi bi-house-fill"></i></span>
+                            <span class="nav-text">Ana Sayfa</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link modern-nav-link" href="recommend.html">
+                            <span class="nav-icon"><i class="bi bi-lightbulb-fill"></i></span>
+                            <span class="nav-text">Öneriler</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown modern-dropdown">
+                        <a class="nav-link modern-nav-link dropdown-toggle" href="#" role="button"
+                            data-bs-toggle="dropdown">
+                            <span class="nav-icon"><i class="bi bi-grid-fill"></i></span>
+                            <span class="nav-text">Keşfet</span>
+                        </a>
+                        <ul class="dropdown-menu modern-dropdown-menu">
+                            <li><a class="dropdown-item modern-dropdown-item" href="foods.html">
+                                    <i class="bi bi-egg-fried"></i> Yemekler
+                                </a></li>
+                            <li><a class="dropdown-item modern-dropdown-item" href="alcohols.html">
+                                    <i class="bi bi-cup"></i> İçecekler
+                                </a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item modern-dropdown-item" href="trending.html">
+                                    <i class="bi bi-fire"></i> Trendler
+                                </a></li>
+                            <li><a class="dropdown-item modern-dropdown-item" href="cocktails.html">
+                                    <i class="bi bi-cup-straw"></i> Kokteyl Önerileri
+                                </a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link modern-nav-link" href="bac-calculator.html">
+                            <span class="nav-icon"><i class="bi bi-calculator-fill"></i></span>
+                            <span class="nav-text">Promil</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav modern-nav-actions">
+                    <li class="nav-item">
+                        <a class="btn modern-btn-nav" href="create-profile.html">
+                            <i class="bi bi-person-plus-fill"></i>
+                            <span>Profil Oluştur</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Ana İçerik -->
+    <main>
+        <!-- Modern Hero Section -->
+        <section class="modern-hero-section">
+            <div class="hero-background">
+                <div class="hero-gradient"></div>
+                <div class="hero-pattern"></div>
+            </div>
+
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 hero-content">
+                        <div class="hero-badge mb-4">
+                            <span><i class="bi bi-stars"></i> AI Destekli Akıllı Eşleştirme</span>
+                        </div>
+
+                        <h1 class="modern-hero-title mb-4">
+                            Tadın Yanında
+                            <span class="gradient-text">Keyfin Zirvesinde</span>
+                            Bir Uyum
+                        </h1>
+
+                        <p class="modern-hero-subtitle mb-5">
+                            AI teknolojisi ve gurme uzmanlarının deneyimiyle, her yemeğiniz için ideal içecek
+                            önerileri alın. Lezzet deneyiminizi <strong>maksimize</strong> edin!
+                        </p>
+
+                        <div class="hero-actions mb-5">
+                            <a href="recommend.html" class="btn modern-btn-hero primary">
+                                <i class="bi bi-lightbulb-fill"></i>
+                                <span>Öneri Al</span>
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+                            <a href="create-profile.html" class="btn modern-btn-hero secondary">
+                                <i class="bi bi-person-plus-fill"></i>
+                                <span>Profil Oluştur</span>
+                            </a>
+                        </div>
+
+                        <!-- Trust Indicators -->
+                        <div class="hero-trust">
+                            <div class="trust-item">
+                                <i class="bi bi-shield-fill-check"></i>
+                                <span>Güvenilir AI</span>
+                            </div>
+                            <div class="trust-divider"></div>
+                            <div class="trust-item">
+                                <i class="bi bi-people-fill"></i>
+                                <span>1000+ Kullanıcı</span>
+                            </div>
+                            <div class="trust-divider"></div>
+                            <div class="trust-item">
+                                <i class="bi bi-star-fill"></i>
+                                <span>%98 Memnuniyet</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 hero-visual">
+                        <div class="hero-card-stack">
+                            <div class="floating-card card-1">
+                                <div class="card-icon">🍷</div>
+                                <div class="card-content">
+                                    <div class="card-label">AI Öneri</div>
+                                    <div class="card-value">%95 Uyum</div>
+                                </div>
+                            </div>
+                            <div class="floating-card card-2">
+                                <div class="card-icon">🍽️</div>
+                                <div class="card-content">
+                                    <div class="card-label">Yemek Türü</div>
+                                    <div class="card-value">50+</div>
+                                </div>
+                            </div>
+                            <div class="floating-card card-3">
+                                <div class="card-icon">⭐</div>
+                                <div class="card-content">
+                                    <div class="card-label">Ortalama Skor</div>
+                                    <div class="card-value">4.8/5.0</div>
+                                </div>
+                            </div>
+                            <div class="hero-circle-large"></div>
+                            <div class="hero-circle-small"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Stats Section -->
+        <section class="live-stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card-modern" data-animate="counter">
+                        <div class="stat-icon-wrapper purple">
+                            <i class="bi bi-egg-fill"></i>
+                        </div>
+                        <div class="stat-number" data-target="50">0</div>
+                        <div class="stat-label">Yemek Çeşidi</div>
+                        <div class="stat-growth">
+                            <i class="bi bi-arrow-up-short"></i>
+                            <span>+12% bu ay</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card-modern" data-animate="counter">
+                        <div class="stat-icon-wrapper orange">
+                            <i class="bi bi-cup-fill"></i>
+                        </div>
+                        <div class="stat-number" data-target="60">0</div>
+                        <div class="stat-label">İçecek Seçeneği</div>
+                        <div class="stat-growth">
+                            <i class="bi bi-arrow-up-short"></i>
+                            <span>+8% bu ay</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card-modern" data-animate="counter">
+                        <div class="stat-icon-wrapper green">
+                            <i class="bi bi-robot"></i>
+                        </div>
+                        <div class="stat-number" data-target="1247">0</div>
+                        <div class="stat-label">AI Önerisi Verildi</div>
+                        <div class="stat-growth">
+                            <i class="bi bi-arrow-up-short"></i>
+                            <span>+24% bu ay</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card-modern" data-animate="counter">
+                        <div class="stat-icon-wrapper cyan">
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <div class="stat-number" data-target="98" data-suffix="%">0</div>
+                        <div class="stat-label">Kullanıcı Memnuniyeti</div>
+                        <div class="stat-growth success">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <span>Mükemmel</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modern Features Section -->
+        <section class="modern-features-section">
+            <div class="container">
+                <div class="section-header-modern text-center mb-5">
+                    <div class="section-badge">
+                        <i class="bi bi-lightning-charge-fill"></i>
+                        <span>Özellikler</span>
+                    </div>
+                    <h2 class="section-title-modern">Neden <span class="gradient-text">Ne Yenir?</span></h2>
+                    <p class="section-subtitle-modern">
+                        Yemek-içecek eşleştirmesini bir sonraki seviyeye taşıyan özelliklerimizi keşfedin
+                    </p>
+                </div>
+
+                <div class="features-grid">
+                    <!-- Feature 1: AI Powered -->
+                    <div class="feature-card-modern">
+                        <div class="feature-icon-modern gradient-purple">
+                            <i class="bi bi-robot"></i>
+                            <div class="icon-glow"></div>
+                        </div>
+                        <h3 class="feature-title-modern">AI Destekli Eşleştirme</h3>
+                        <p class="feature-desc-modern">
+                            Gelişmiş makine öğrenmesi algoritmaları lezzet profillerini analiz ederek
+                            %95 doğruluk oranıyla mükemmel eşleştirmeler sunar.
+                        </p>
+                        <div class="feature-stats">
+                            <div class="feature-stat-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>Akıllı Analiz</span>
+                            </div>
+                            <div class="feature-stat-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>Gerçek Zamanlı</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature 2: Expert Recommendations -->
+                    <div class="feature-card-modern">
+                        <div class="feature-icon-modern gradient-orange">
+                            <i class="bi bi-award-fill"></i>
+                            <div class="icon-glow"></div>
+                        </div>
+                        <h3 class="feature-title-modern">Gurme Uzman Önerileri</h3>
+                        <p class="feature-desc-modern">
+                            Dünya çapında ünlü şefler ve sommelierların özel önerileriyle
+                            deneyiminizi zenginleştirin.
+                        </p>
+                        <div class="feature-stats">
+                            <div class="feature-stat-item">
+                                <i class="bi bi-people-fill"></i>
+                                <span>12+ Uzman</span>
+                            </div>
+                            <div class="feature-stat-item">
+                                <i class="bi bi-globe"></i>
+                                <span>8 Mutfak</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature 3: Personalized Learning -->
+                    <div class="feature-card-modern">
+                        <div class="feature-icon-modern gradient-green">
+                            <i class="bi bi-graph-up-arrow"></i>
+                            <div class="icon-glow"></div>
+                        </div>
+                        <h3 class="feature-title-modern">Kişiselleştirilmiş Öğrenme</h3>
+                        <p class="feature-desc-modern">
+                            Tercihlerinizden öğrenen sistem, her önerisiyle size özel
+                            deneyimler sunmaya devam eder.
+                        </p>
+                        <div class="feature-stats">
+                            <div class="feature-stat-item">
+                                <i class="bi bi-trophy-fill"></i>
+                                <span>Akıllı Profil</span>
+                            </div>
+                            <div class="feature-stat-item">
+                                <i class="bi bi-star-fill"></i>
+                                <span>Otomatik İyileşme</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature 4: Global Database -->
+                    <div class="feature-card-modern">
+                        <div class="feature-icon-modern gradient-cyan">
+                            <i class="bi bi-globe2"></i>
+                            <div class="icon-glow"></div>
+                        </div>
+                        <h3 class="feature-title-modern">Geniş Yemek Veritabanı</h3>
+                        <p class="feature-desc-modern">
+                            Türk mutfağından Fransız gastronomisine, Japon sushisinden
+                            İtalyan pastalarına kadar geniş seçenek yelpazesi.
+                        </p>
+                        <div class="feature-stats">
+                            <div class="feature-stat-item">
+                                <i class="bi bi-flag-fill"></i>
+                                <span>12+ Ülke</span>
+                            </div>
+                            <div class="feature-stat-item">
+                                <i class="bi bi-cup-fill"></i>
+                                <span>50+ İçecek</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature 5: Cocktail Suggestions -->
+                    <div class="feature-card-modern">
+                        <div class="feature-icon-modern gradient-pink">
+                            <i class="bi bi-cup-straw"></i>
+                            <div class="icon-glow"></div>
+                        </div>
+                        <h3 class="feature-title-modern">Kokteyl Önerileri</h3>
+                        <p class="feature-desc-modern">
+                            Ruh halinize ve zevkinize göre size özel kokteyl tarifleri
+                            ve önerileri keşfedin.
+                        </p>
+                        <a href="cocktails.html" class="feature-link">
+                            <span>Kokteylleri Keşfet</span>
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <!-- Feature 6: BAC Calculator -->
+                    <div class="feature-card-modern">
+                        <div class="feature-icon-modern gradient-red">
+                            <i class="bi bi-calculator-fill"></i>
+                            <div class="icon-glow"></div>
+                        </div>
+                        <h3 class="feature-title-modern">Promil Hesaplayıcı</h3>
+                        <p class="feature-desc-modern">
+                            Kan alkol seviyenizi hesaplayın ve sorumlu tüketim için
+                            bilimsel öneriler alın.
+                        </p>
+                        <a href="bac-calculator.html" class="feature-link">
+                            <span>Hesapla</span>
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-card">
+                    <div class="cta-glow"></div>
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            <h2 class="cta-title">Mükemmel Eşleştirmeleri Keşfetmeye Hazır mısınız?</h2>
+                            <p class="cta-subtitle">
+                                AI'mıza güvenen binlerce yemek severin deneyimine katılın ve
+                                her öğününüzü özel bir deneyime dönüştürün.
+                            </p>
+                        </div>
+                        <div class="col-lg-4 text-lg-end">
+                            <a href="recommend.html" class="btn modern-btn-cta">
+                                <i class="bi bi-rocket-takeoff-fill"></i>
+                                <span>Keşfetmeye Başla</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Alt Bilgi -->
+    <footer class="modern-footer mt-5">
+        <div class="container">
+            <div class="row g-4 py-5">
+                <!-- Logo ve Açıklama -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-brand mb-3">
+                        <img src="assets/images/logo.png" alt="Ne Yenir Logo" class="footer-logo mb-3">
+                        <h5 class="text-white fw-bold">Ne Yenir?</h5>
+                    </div>
+                    <p class="footer-description">
+                        AI ve makine öğrenmesi destekli yemek-içecek eşleştirme platformu.
+                        Lezzet yolculuğunuzda yanınızdayız! 🍷✨
+                    </p>
+                    <div class="social-links mt-3">
+                        <a href="#" class="social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <!-- Hızlı Linkler -->
+                <div class="col-lg-2 col-md-6">
+                    <h6 class="footer-title">Keşfet</h6>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="bi bi-chevron-right"></i> Ana Sayfa</a></li>
+                        <li><a href="recommend.html"><i class="bi bi-chevron-right"></i> Öneriler</a></li>
+                        <li><a href="foods.html"><i class="bi bi-chevron-right"></i> Yemekler</a></li>
+                        <li><a href="alcohols.html"><i class="bi bi-chevron-right"></i> İçecekler</a></li>
+                    </ul>
+                </div>
+
+                <!-- Özellikler -->
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="footer-title">Özellikler</h6>
+                    <ul class="footer-links">
+                        <li><a href="trending.html"><i class="bi bi-chevron-right"></i> Trendler</a></li>
+                        <li><a href="cocktails.html"><i class="bi bi-chevron-right"></i> Kokteyl Önerileri</a></li>
+                        <li><a href="bac-calculator.html"><i class="bi bi-chevron-right"></i> Promil Hesapla</a></li>
+                        <li><a href="create-profile.html"><i class="bi bi-chevron-right"></i> Profil Oluştur</a></li>
+                    </ul>
+                </div>
+
+                <!-- İletişim -->
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="footer-title">İletişim</h6>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="bi bi-geo-alt-fill"></i>
+                            <span>Türkiye</span>
+                        </li>
+                        <li>
+                            <i class="bi bi-envelope-fill"></i>
+                            <span>info@neyenir.com</span>
+                        </li>
+                        <li>
+                            <i class="bi bi-robot"></i>
+                            <span>AI Destekli Sistem</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Alt Çizgi -->
+            <div class="footer-bottom py-4">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+                        <p class="mb-0">&copy; 2025 Ne Yenir? Tüm hakları saklıdır.</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <a href="#" class="footer-bottom-link">Gizlilik Politikası</a>
+                        <span class="mx-2">•</span>
+                        <a href="#" class="footer-bottom-link">Kullanım Koşulları</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Demo Uyarı Banner (Alt) -->
+    <div class="demo-banner" id="demoBanner">
+        <div class="container">
+            <i class="bi bi-info-circle-fill me-2"></i>
+            <strong>DEMO SİTE:</strong> Bu sayfa sadece görsel gösterim amaçlıdır. Tüm özellikler çalışmamaktadır.
+            Tam özellikli uygulama için Flask backend gereklidir.
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Özel JavaScript -->
+    <script>
+        // Demo Mode - Tüm linkleri ve butonları devre dışı bırak
+        document.addEventListener('DOMContentLoaded', function () {
+            // Tüm linkleri devre dışı bırak
+            const allLinks = document.querySelectorAll('a');
+            allLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    // Sadece aynı sayfadaki linkler için uyarı göster
+                    if (this.getAttribute('href') && !this.getAttribute('href').startsWith('#')) {
+                        alert('⚠️ DEMO MODU: Bu özellik çalışmamaktadır. Bu sadece görsel bir gösterim sitesidir.');
+                    }
+                    return false;
+                });
+
+                // Görsel olarak devre dışı göster (sadece dış linkler için)
+                if (link.getAttribute('href') && !link.getAttribute('href').startsWith('#')) {
+                    link.style.cursor = 'not-allowed';
+                    link.classList.add('demo-disabled');
+                }
+            });
+
+            // Tüm butonları devre dışı bırak
+            const allButtons = document.querySelectorAll('button, .btn');
+            allButtons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    alert('⚠️ DEMO MODU: Bu özellik çalışmamaktadır. Bu sadece görsel bir gösterim sitesidir.');
+                    return false;
+                });
+                button.style.cursor = 'not-allowed';
+                button.classList.add('demo-disabled');
+            });
+
+            // Form submit'leri engelle
+            const allForms = document.querySelectorAll('form');
+            allForms.forEach(form => {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    alert('⚠️ DEMO MODU: Form gönderimi çalışmamaktadır.');
+                    return false;
+                });
+            });
+
+            // Dropdown menüleri devre dışı bırak
+            const dropdowns = document.querySelectorAll('.dropdown-toggle');
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                });
+            });
+
+            // Navbar toggle butonunu devre dışı bırak
+            const navbarToggler = document.querySelector('.navbar-toggler');
+            if (navbarToggler) {
+                navbarToggler.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                });
+                navbarToggler.style.cursor = 'not-allowed';
+                navbarToggler.classList.add('demo-disabled');
+            }
+        });
+
+        // Counter Animation
+        document.addEventListener('DOMContentLoaded', function () {
+            const counters = document.querySelectorAll('[data-animate="counter"]');
+
+            const animateCounter = (element) => {
+                const numberEl = element.querySelector('.stat-number');
+                const target = parseInt(numberEl.dataset.target);
+                const suffix = numberEl.dataset.suffix || '';
+                const duration = 2000;
+                const start = 0;
+                const startTime = performance.now();
+
+                const updateCounter = (currentTime) => {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+
+                    const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                    const current = Math.floor(easeOutQuart * (target - start) + start);
+
+                    numberEl.textContent = current + suffix;
+
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        numberEl.textContent = target + suffix;
+                    }
+                };
+
+                requestAnimationFrame(updateCounter);
+            };
+
+            // Intersection Observer for counters
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(entry.target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            counters.forEach(counter => observer.observe(counter));
+        });
+    </script>
+</body>
+
+</html>

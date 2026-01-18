@@ -5,7 +5,7 @@ Comprehensive food database with international and Turkish cuisine
 
 def get_expanded_food_database():
     """Return expanded food database with much more variety"""
-    from main import Food
+    from core.matcher import Food
     
     expanded_foods = [
         # Turkish Cuisine - Expanded
@@ -243,7 +243,7 @@ def get_expanded_food_database():
 
 def get_expanded_alcohol_database():
     """Return expanded alcohol database with much more variety"""
-    from main import Alcohol
+    from core.matcher import Alcohol
     
     expanded_alcohols = [
         # Turkish Alcohols - Expanded

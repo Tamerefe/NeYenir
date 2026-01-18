@@ -1,217 +1,23 @@
 """
-Ne Yenir? - Web Arayüzü
-Modern Flask web uygulaması ile responsive tasarım
+Flask route'ları
+Tüm web endpoint'leri burada tanımlanır
 """
 
-from flask import Flask, render_template, request, jsonify, session, redirect, url_for, flash
-from main import AIFoodAlcoholMatcher, UserProfile
-import json
-from datetime import datetime, timedelta
-import secrets
+from flask import Blueprint, render_template, request, jsonify, session, redirect, url_for, flash
+from core.matcher import AIFoodAlcoholMatcher
+from app.utils.cache import load_trending_cache, save_trending_cache, TRENDING_CACHE_FILE
+from app.utils.translations import (
+    FLAVOR_TRANSLATIONS, PRICE_TRANSLATIONS, BODY_TRANSLATIONS,
+    TYPE_TRANSLATIONS, SUBTYPE_TRANSLATIONS, REGION_TRANSLATIONS
+)
 import random
 import os
+from pathlib import Path
 
-app = Flask(__name__)
-app.secret_key = secrets.token_hex(16)
+bp = Blueprint('main', __name__)
 
 # Global eşleştirici örneği
 matcher = AIFoodAlcoholMatcher()
-
-# Çeviri sözlükleri
-FLAVOR_TRANSLATIONS = {
-    "spicy": "baharatlı", "sweet": "tatlı", "salty": "tuzlu", "sour": "ekşi",
-    "bitter": "acı", "umami": "umami", "rich": "zengin", "fresh": "taze",
-    "smoky": "dumanlı", "savory": "lezzetli", "acidic": "asitli", "mineral": "mineral",
-    "fruity": "meyveli", "floral": "çiçeksi", "earthy": "toprak", "creamy": "kremsi",
-    "crispy": "gevrek", "briny": "tuzlu", "delicate": "narin", "complex": "karmaşık",
-    "herbal": "bitkisel", "citrus": "narenciye", "dark fruit": "koyu meyve", 
-    "red fruit": "kırmızı meyve", "oak": "meşe", "tannins": "tanen",
-    "butter": "tereyağı", "grass": "çimen", "yeast": "maya", "hoppy": "şerbetçiotu",
-    "malty": "maltlı", "roasted": "kavrulmuş", "chocolate": "çikolata", 
-    "coffee": "kahve", "vanilla": "vanilya", "juniper": "ardıç", "mint": "nane",
-    "lime": "limon", "rice": "pirinç", "clean": "temiz", "anise": "anason",
-    "tangy": "buruk", "perfumed": "kokulu", "nutty": "fındıksı", "deep": "derin",
-    "garlicky": "sarımsaksı", "aromatic": "aromatik", "cinnamon": "tarçınlı",
-    "varied": "çeşitli", "cold": "soğuk", "fluffy": "kabarık", "luxurious": "lüks",
-    "buttery": "tereyağımsı", "hearty": "doyurucu"
-}
-
-PRICE_TRANSLATIONS = {
-    "budget": "ekonomik",
-    "mid-range": "orta",
-    "premium": "premium"
-}
-
-BODY_TRANSLATIONS = {
-    "light": "hafif",
-    "medium": "orta",
-    "full": "dolgun"
-}
-
-TYPE_TRANSLATIONS = {
-    "wine": "şarap",
-    "beer": "bira",
-    "spirits": "alkollü içki",
-    "cocktail": "kokteyl",
-    "sake": "sake"
-}
-
-SUBTYPE_TRANSLATIONS = {
-    "red": "kırmızı",
-    "white": "beyaz",
-    "sparkling": "köpüklü",
-    "rosé": "roze",
-    "dessert": "tatlı",
-    "fortified": "takviyeli",
-    "ale": "ale",
-    "lager": "lager",
-    "stout": "stout",
-    "ipa": "IPA",
-    "pilsner": "pilsner",
-    "wheat beer": "buğday birası",
-    "whiskey": "viski",
-    "gin": "cin",
-    "vodka": "votka",
-    "rum": "rom",
-    "tequila": "tekila",
-    "brandy": "kanyak",
-    "cognac": "kanyak",
-    "anise": "anason",
-    "gin-based": "cin bazlı",
-    "whiskey-based": "viski bazlı",
-    "rum-based": "rom bazlı",
-    "pure rice": "saf pirinç"
-}
-
-REGION_TRANSLATIONS = {
-    "turkey": "Türkiye",
-    "france": "Fransa",
-    "italy": "İtalya",
-    "spain": "İspanya",
-    "portugal": "Portekiz",
-    "germany": "Almanya",
-    "usa": "ABD",
-    "united states": "ABD",
-    "new zealand": "Yeni Zelanda",
-    "australia": "Avustralya",
-    "chile": "Şili",
-    "argentina": "Arjantin",
-    "south africa": "Güney Afrika",
-    "japan": "Japonya",
-    "china": "Çin",
-    "scotland": "İskoçya",
-    "ireland": "İrlanda",
-    "mexico": "Meksika",
-    "cuba": "Küba",
-    "jamaica": "Jamaika",
-    "international": "Uluslararası",
-    "czech republic": "Çek Cumhuriyeti",
-    "england": "İngiltere",
-    "uk": "Birleşik Krallık"
-}
-
-CUISINE_TRANSLATIONS = {
-    "turkish": "Türk",
-    "french": "Fransız",
-    "italian": "İtalyan",
-    "japanese": "Japon",
-    "chinese": "Çin",
-    "american": "Amerikan",
-    "mexican": "Meksika",
-    "indian": "Hint",
-    "thai": "Tayland",
-    "greek": "Yunan",
-    "spanish": "İspanyol",
-    "british": "İngiliz",
-    "german": "Alman",
-    "korean": "Kore",
-    "vietnamese": "Vietnam",
-    "lebanese": "Lübnan",
-    "moroccan": "Fas",
-    "brazilian": "Brezilya",
-    "argentinian": "Arjantin",
-    "international": "Uluslararası",
-    "mediterranean": "Akdeniz",
-    "middle eastern": "Orta Doğu",
-    "asian": "Asya"
-}
-
-# Jinja2 filtreleri
-@app.template_filter('translate_flavor')
-def translate_flavor(flavor):
-    """Lezzet notalarını Türkçeye çevir"""
-    return FLAVOR_TRANSLATIONS.get(flavor.lower(), flavor)
-
-@app.template_filter('translate_price')
-def translate_price(price):
-    """Fiyat aralığını Türkçeye çevir"""
-    return PRICE_TRANSLATIONS.get(price.lower(), price)
-
-@app.template_filter('translate_body')
-def translate_body(body):
-    """Gövde türünü Türkçeye çevir"""
-    return BODY_TRANSLATIONS.get(body.lower(), body)
-
-@app.template_filter('translate_type')
-def translate_type(alcohol_type):
-    """Alkol türünü Türkçeye çevir"""
-    return TYPE_TRANSLATIONS.get(alcohol_type.lower(), alcohol_type)
-
-@app.template_filter('translate_subtype')
-def translate_subtype(subtype):
-    """Alkol alt türünü Türkçeye çevir"""
-    return SUBTYPE_TRANSLATIONS.get(subtype.lower(), subtype)
-
-@app.template_filter('translate_region')
-def translate_region(region):
-    """Bölge/ülke ismini Türkçeye çevir"""
-    return REGION_TRANSLATIONS.get(region.lower(), region)
-
-@app.template_filter('translate_cuisine')
-def translate_cuisine(cuisine):
-    """Şöğün türünü Türkçeye çevir"""
-    return CUISINE_TRANSLATIONS.get(cuisine.lower(), cuisine)
-
-# Haftalık trend önbelleği fonksiyonları
-TRENDING_CACHE_FILE = 'data/trending_cache.json'
-TRENDING_CACHE_DAYS = 7
-
-def load_trending_cache():
-    """Önbellek dosyasından trend verileri yükle"""
-    if not os.path.exists(TRENDING_CACHE_FILE):
-        return None
-    
-    try:
-        with open(TRENDING_CACHE_FILE, 'r', encoding='utf-8') as f:
-            cache = json.load(f)
-            
-        # Zaman damgasını kontrol et
-        cache_date = datetime.fromisoformat(cache['timestamp'])
-        age_days = (datetime.now() - cache_date).days
-        
-        # Eğer 7 günden eskiyse geçersiz
-        if age_days >= TRENDING_CACHE_DAYS:
-            return None
-            
-        return cache['pairings']
-    except Exception as e:
-        print(f"⚠️ Önbellek yüklenirken hata: {e}")
-        return None
-
-def save_trending_cache(pairings):
-    """Önbellek dosyasına trend verileri kaydet"""
-    os.makedirs('data', exist_ok=True)
-    
-    cache = {
-        'timestamp': datetime.now().isoformat(),
-        'pairings': pairings
-    }
-    
-    try:
-        with open(TRENDING_CACHE_FILE, 'w', encoding='utf-8') as f:
-            json.dump(cache, f, ensure_ascii=False, indent=2)
-    except Exception as e:
-        print(f"⚠️ Önbellek kaydedilirken hata: {e}")
 
 def get_weekly_trending_pairings(count=20):
     """
@@ -254,8 +60,8 @@ def get_weekly_trending_pairings(count=20):
                         'alcohol_content': alcohol.alcohol_content
                     },
                     'compatibility_score': round(score, 1),
-                    'popularity_count': random.randint(15, 150),  # Rastgele popülerlik
-                    'average_rating': round(random.uniform(3.5, 5.0), 1)  # Rastgele puan
+                    'popularity_count': random.randint(15, 150),
+                    'average_rating': round(random.uniform(3.5, 5.0), 1)
                 })
     
     # Eğer yeterli eşleştirme yoksa
@@ -274,7 +80,7 @@ def get_weekly_trending_pairings(count=20):
     
     return []
 
-@app.route('/')
+@bp.route('/')
 def index():
     """Ana sayfa — modern ve görsel arayüz"""
     trending_pairings = get_weekly_trending_pairings(6)
@@ -283,22 +89,22 @@ def index():
                          foods=matcher.foods,
                          alcohols=matcher.alcohols)
 
-@app.route('/foods')
+@bp.route('/foods')
 def foods():
     """Browse all available foods"""
     return render_template('foods.html', foods=matcher.foods)
 
-@app.route('/alcohols')
+@bp.route('/alcohols')
 def alcohols():
     """Browse all available alcohols"""
     return render_template('alcohols.html', alcohols=matcher.alcohols)
 
-@app.route('/recommend')
+@bp.route('/recommend')
 def recommend():
     """Food selection for recommendations"""
     return render_template('recommend.html', foods=matcher.foods)
 
-@app.route('/api/recommendations/<food_name>')
+@bp.route('/api/recommendations/<food_name>')
 def api_recommendations(food_name):
     """Öneri almak için API uç noktası"""
     user_profile = None
@@ -349,20 +155,20 @@ def api_recommendations(food_name):
         'expert_recommendations': expert_result
     })
 
-@app.route('/profile')
+@bp.route('/profile')
 def profile():
     """Kullanıcı profil sayfası"""
     if 'user_id' not in session:
-        return redirect(url_for('create_profile'))
+        return redirect(url_for('main.create_profile'))
     
     user_profile = matcher.user_profiles.get(session['user_id'])
     if not user_profile:
-        return redirect(url_for('create_profile'))
+        return redirect(url_for('main.create_profile'))
     
     history = matcher.get_user_history(user_profile.user_id)
     return render_template('profile.html', user=user_profile, history=history)
 
-@app.route('/create_profile', methods=['GET', 'POST'])
+@bp.route('/create_profile', methods=['GET', 'POST'])
 def create_profile():
     """Kullanıcı profili oluşturma"""
     if request.method == 'POST':
@@ -388,7 +194,7 @@ def create_profile():
     
     return render_template('create_profile.html')
 
-@app.route('/api/rate_pairing', methods=['POST'])
+@bp.route('/api/rate_pairing', methods=['POST'])
 def rate_pairing():
     """Bir yemek-alkol eşleştirmesini puanla"""
     if 'user_id' not in session:
@@ -404,19 +210,19 @@ def rate_pairing():
     
     return jsonify({'status': 'success'})
 
-@app.route('/trending')
+@bp.route('/trending')
 def trending():
     """Trending pairings page"""
     trending_pairings = get_weekly_trending_pairings(20)
     return render_template('trending.html', pairings=trending_pairings)
 
-@app.route('/api/refresh_trending', methods=['POST'])
+@bp.route('/api/refresh_trending', methods=['POST'])
 def refresh_trending():
     """Manuel olarak trend önbelleğini yenile (admin endpoint)"""
     try:
         # Önbellek dosyasını sil
-        if os.path.exists(TRENDING_CACHE_FILE):
-            os.remove(TRENDING_CACHE_FILE)
+        if TRENDING_CACHE_FILE.exists():
+            TRENDING_CACHE_FILE.unlink()
         
         # Yeni trendler oluştur
         new_trends = get_weekly_trending_pairings(20)
@@ -432,12 +238,12 @@ def refresh_trending():
             'message': str(e)
         }), 500
 
-@app.route('/cocktails')
+@bp.route('/cocktails')
 def cocktails():
     """Kokteyl önerileri sayfası"""
     return render_template('cocktails.html')
 
-@app.route('/api/cocktail_recommendations', methods=['POST'])
+@bp.route('/api/cocktail_recommendations', methods=['POST'])
 def api_cocktail_recommendations():
     """Kokteyl önerileri API"""
     data = request.get_json()
@@ -555,12 +361,12 @@ def api_cocktail_recommendations():
     
     return jsonify({'recommendations': recommendations[:6]})
 
-@app.route('/bac_calculator')
+@bp.route('/bac_calculator')
 def bac_calculator():
     """Promil hesaplayıcı sayfası"""
     return render_template('bac_calculator.html')
 
-@app.route('/api/calculate_bac', methods=['POST'])
+@bp.route('/api/calculate_bac', methods=['POST'])
 def api_calculate_bac():
     """Promil hesaplama API"""
     data = request.get_json()
@@ -571,9 +377,6 @@ def api_calculate_bac():
     hours_since_first_drink = float(data.get('hours', 1))
     
     # Widmark formülü
-    # BAC = (Alkol gramı / (Vücut ağırlığı x r)) - (0.015 x saat)
-    # r: erkekler için 0.68, kadınlar için 0.55
-    
     r_value = 0.68 if gender == 'male' else 0.55
     
     total_alcohol_grams = 0
@@ -594,17 +397,7 @@ def api_calculate_bac():
             'alcohol_grams': round(alcohol_grams, 2)
         })
     
-    # BAC hesaplama - Widmark Formülü
-    # Klasik formül: C = A / (r × W)
-    # C = BAC (g/dL veya g/100mL)
-    # A = Alkol miktarı (gram)
-    # r = Cinsiyet faktörü (erkek: 0.68, kadın: 0.55)
-    # W = Vücut ağırlığı (kg)
-    # 
-    # Örnek: 70kg erkek, 20g alkol
-    # C = 20 / (0.68 × 70) = 20 / 47.6 = 0.42 g/L = 0.042 g/dL
-    # Promil = 0.042 × 10 = 0.42‰
-    
+    # BAC hesaplama
     if total_alcohol_grams > 0 and weight > 0:
         # BAC hesaplama (g/L cinsinden)
         bac_g_per_L = total_alcohol_grams / (r_value * weight)
@@ -619,13 +412,6 @@ def api_calculate_bac():
         bac = 0
     
     # Promil seviyesine göre durum
-    # BAC 0.0X g/dL = X promil (‰)
-    # Örnek: BAC 0.08 g/dL = 0.8‰
-    status = ''
-    status_color = ''
-    recommendations = []
-    
-    # Promil değerleri: BAC * 10 (çünkü 0.02 g/dL = 0.2‰)
     bac_promil = bac * 10
     
     if bac_promil < 0.2:
@@ -664,17 +450,12 @@ def api_calculate_bac():
         'drink_details': drink_details
     })
 
-@app.route('/logout')
+@bp.route('/logout')
 def logout():
     """Logout user"""
     session.pop('user_id', None)
     flash('Başarıyla çıkış yapıldı!', 'info')
-    return redirect(url_for('index'))
+    return redirect(url_for('main.index'))
 
-@app.errorhandler(404)
-def not_found(error):
-    """404 error handler with logo"""
-    return render_template('404.html'), 404
+# 404 handler is registered in app/__init__.py
 
-if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1', port=5000)

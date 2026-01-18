@@ -1,0 +1,28 @@
+{
+    "name": "Ne Yenir?",
+    "description": "AI destekli yemek ve içecek öneri sistemi",
+    "repository": "https://github.com/[kullanıcıadı]/NeYenir",
+    "logo": "https://raw.githubusercontent.com/[kullanıcıadı]/NeYenir/main/static/images/logo.png",
+    "keywords": [
+        "python",
+        "flask",
+        "ai",
+        "food",
+        "recommendations"
+    ],
+    "env": {
+        "FLASK_ENV": {
+            "description": "Flask environment",
+            "value": "production"
+        },
+        "SECRET_KEY": {
+            "description": "Secret key for Flask sessions",
+            "generator": "secret"
+        }
+    },
+    "buildpacks": [
+        {
+            "url": "heroku/python"
+        }
+    ]
+}

@@ -14,18 +14,21 @@ Modern, kapsamlı bir yapay zeka ve gurme uzmanı destekli yemek-alkol eşleşti
 ## 🌟 Özellikler
 
 ### 🤖 Hibrit AI + Gurme Uzman Sistemi
+
 - **Çifte Güç**: Hem yapay zeka hem de gerçek gurme uzmanlarından öneriler
 - **9 Dünya Çapında Uzman**: Gordon Ramsay, Mehmet Gürs, Joël Robuchon ve daha fazlası
 - **Kültürel Zenginlik**: Türk ve uluslararası mutfak uzmanları
 - **Gelişmiş Algoritma**: Lezzet profilleri, yoğunluk seviyeleri ve kültürel uyum analizi
 
 ### � Kokteyl Önerileri (YENİ!)
+
 - **Akıllı Öneriler**: Ruh halinize, lezzet tercihinize ve duruma göre kokteyl önerileri
 - **8+ Klasik Kokteyl**: Mojito, Margarita, Old Fashioned, Cosmopolitan ve daha fazlası
 - **Detaylı Bilgi**: Her kokteyl için malzemeler, alkol oranı ve hazırlama bilgileri
 - **Uygunluk Puanı**: Tercihlerinize göre akıllı puanlama sistemi
 
 ### 📊 Promil Hesaplayıcı (YENİ!)
+
 - **Widmark Formülü**: Bilimsel olarak doğrulanmış hesaplama yöntemi
 - **Kişiselleştirilmiş**: Cinsiyet, kilo ve zaman bazlı hesaplama
 - **Miktar/Adet Seçimi**: Aynı içkiden birden fazla içildiğinde miktar seçme özelliği ⭐ YENİ!
@@ -36,21 +39,49 @@ Modern, kapsamlı bir yapay zeka ve gurme uzmanı destekli yemek-alkol eşleşti
 - **Hızlı Seçim**: Popüler içkiler için hazır değerler (Bira, Şarap, Rakı, vb.)
 
 ### �🍽️ Kapsamlı Veritabanı
+
 - **14+ Farklı Yemek**: Türk, İtalyan, Fransız, Japon ve diğer mutfaklardan
-- **16+ Alkol Seçeneği**: Şarap, bira, rakı, kokteyl ve premium içecekler  
+- **16+ Alkol Seçeneği**: Şarap, bira, rakı, kokteyl ve premium içecekler
 - **Detaylı Analiz**: Her ürün için lezzet profili, yoğunluk ve fiyat analizi
 
 ### 🎯 İleri Seviye Özellikler
+
 - **Trend Analizi**: En popüler eşleştirmeler
 - **Interaktif Arayüz**: Modern ve kullanıcı dostu tasarım
 - **Responsive Design**: Tüm cihazlarda mükemmel görünüm
 - **Progressive Web App**: Mobil cihazlarda app-like experience
 
-## 🚀 Demo & Canlı Site
+## 🚀 Siteler
 
-🌐 **[Ne Yenir? - Canlı Demo](https://tamerefe.github.io/NeYenir/)**
+### 🎨 Demo Site (GitHub Pages)
+**Statik dökümantasyon ve tanıtım sayfası**
+
+🌐 **[Ne Yenir? - Demo](https://tamerefe.github.io/NeYenir/)**
+
+- 📄 Proje tanıtımı ve dökümantasyon
+- 📷 Ekran görüntüleri ve özellikler
+- ℹ️ Statik içerik (backend yok)
+
+### 🚀 Ana Site (Production)
+**Tam özellikli Flask uygulaması**
+
+🌐 **[Ne Yenir? - Canlı Uygulama](#)** *(Yakında)*
+
+Platform seçenekleri:
+- ☁️ Render.com (Önerilen)
+- 🚂 Railway.app
+- 🟣 Heroku
+
+**Özellikler:**
+- ✅ AI destekli öneriler
+- ✅ Kullanıcı profilleri
+- ✅ Veritabanı
+- ✅ API endpoints
+- ✅ Kokteyl önerileri
+- ✅ Promil hesaplayıcı
 
 ### Sayfalar
+
 - 🏠 [Ana Sayfa](https://tamerefe.github.io/NeYenir/index.html)
 - 🍽️ [Yemekler](https://tamerefe.github.io/NeYenir/foods.html)
 - 🍷 [İçecekler](https://tamerefe.github.io/NeYenir/drinks.html)
@@ -62,6 +93,7 @@ Modern, kapsamlı bir yapay zeka ve gurme uzmanı destekli yemek-alkol eşleşti
 ## 💡 Kullanım Örnekleri
 
 ### 🍹 Kokteyl Önerileri
+
 1. Kokteyl Önerileri sayfasına gidin
 2. Ruh halinizi seçin (Mutlu, Rahat, Enerjik, vb.)
 3. Lezzet tercihinizi belirleyin (Dengeli, Tatlı, Ekşi, Acı, Ferah)
@@ -70,6 +102,7 @@ Modern, kapsamlı bir yapay zeka ve gurme uzmanı destekli yemek-alkol eşleşti
 6. Size özel kokteyl önerilerini görüntüleyin!
 
 **Özellikler:**
+
 - 8+ klasik kokteyl tarifi
 - Malzeme listesi
 - Alkol oranı bilgisi
@@ -77,6 +110,7 @@ Modern, kapsamlı bir yapay zeka ve gurme uzmanı destekli yemek-alkol eşleşti
 - Detaylı açıklamalar
 
 ### 📊 Promil Hesaplayıcı
+
 1. Promil Hesaplayıcı sayfasına gidin
 2. Kişisel bilgilerinizi girin:
    - Cinsiyet
@@ -96,17 +130,19 @@ Modern, kapsamlı bir yapay zeka ve gurme uzmanı destekli yemek-alkol eşleşti
    - Güvenlik önerileri
 
 **Örnek Kullanım:**
+
 - 3 bira (500ml, 5%) → Adet: 3, Toplam: 1500ml ✓
 - 2 şarap (150ml, 12%) → Adet: 2, Toplam: 300ml ✓
 - Tek seferde giriş, hızlı hesaplama!
 
 **Güvenlik Uyarısı:**
-⚠️ Bu hesaplama yaklaşık bir tahmindir. Promil seviyesi kişiden kişiye değişebilir. 
+⚠️ Bu hesaplama yaklaşık bir tahmindir. Promil seviyesi kişiden kişiye değişebilir.
 Alkollü araç kullanmayın! Sorumlu içki tüketin.
 
 ## 🛠️ Teknoloji Yığını
 
 ### Backend & AI (Legacy Flask App)
+
 - **Python 3.8+**: Ana programlama dili
 - **Flask**: Web framework
 - **SQLite**: Veritabanı
@@ -114,16 +150,19 @@ Alkollü araç kullanmayın! Sorumlu içki tüketin.
 - **NumPy & Pandas**: Veri işleme
 
 ### Frontend (Current Static Site)
+
 - **HTML5, CSS3, JavaScript**: Modern web teknolojileri
 - **Bootstrap 5**: Responsive CSS framework
 - **Bootstrap Icons**: İkon seti
 - **Inter Font**: Modern tipografi
 
 ### Analytics & Visualization
+
 - **Matplotlib, Seaborn, Plotly**: Veri görselleştirme (legacy)
 - **Statistical Analysis**: İstatistiksel analiz
 
 ### Deployment
+
 - **GitHub Pages**: Static site hosting
 - **GitHub Actions**: CI/CD (opsiyonel)
 
@@ -131,21 +170,48 @@ Alkollü araç kullanmayın! Sorumlu içki tüketin.
 
 ```
 NeYenir/
-├── index.html              # Ana sayfa (GitHub Pages entry point)
-├── foods.html              # Yemek listesi sayfası
-├── drinks.html             # İçecek listesi sayfası  
-├── recommendations.html    # AI önerileri sayfası
-├── about.html              # Proje hakkında sayfası
-├── static/
+├── app/                    # Flask web uygulaması
+│   ├── __init__.py        # Flask app factory
+│   ├── config.py          # Konfigürasyon ayarları
+│   ├── routes.py          # Tüm web route'ları
+│   └── utils/             # Yardımcı modüller
+│       ├── __init__.py
+│       ├── cache.py       # Önbellek yönetimi
+│       └── translations.py # Çeviri sözlükleri ve Jinja2 filtreleri
+│
+├── core/                   # Çekirdek iş mantığı
+│   ├── __init__.py
+│   ├── matcher.py         # AIFoodAlcoholMatcher (ana eşleştirme motoru)
+│   ├── models.py          # Veri modelleri (Food, Alcohol, UserProfile, vb.)
+│   ├── analytics.py        # Analitik ve raporlama
+│   ├── expanded_database.py # Genişletilmiş veritabanı
+│   └── ml/                # Machine Learning modülleri
+│       ├── __init__.py
+│       └── engine.py      # ML motoru (neural network, collaborative filtering)
+│
+├── data/                   # Veri dosyaları
+│   └── trending_cache.json
+│
+├── static/                 # Statik dosyalar (CSS, JS, resimler)
+│   ├── css/
 │   └── images/
-│       └── logo.png        # Logo dosyası
-├── templates/              # Flask template dosyaları (legacy)
-├── app.py                  # Flask uygulaması (legacy)
-├── main.py                 # Ana Python uygulaması (legacy)
-├── ml_engine.py           # AI/ML motoru (legacy)
-├── models.py              # Veri modelleri (legacy)
-├── requirements.txt       # Python bağımlılıkları (legacy)
-└── README.md              # Bu dosya
+│
+├── templates/              # HTML şablonları
+│   ├── base.html
+│   ├── index.html
+│   ├── foods.html
+│   ├── alcohols.html
+│   ├── recommend.html
+│   ├── trending.html
+│   ├── cocktails.html
+│   ├── bac_calculator.html
+│   ├── create_profile.html
+│   └── 404.html
+│
+├── run.py                  # Uygulama başlatma scripti
+├── requirements.txt        # Python bağımlılıkları
+├── README.md              # Proje dokümantasyonu
+└── LICENSE.md             # Lisans bilgisi
 ```
 
 ## 🌍 GitHub Pages Deployment
@@ -157,6 +223,7 @@ Bu proje GitHub Pages ile otomatik olarak deploy edilir:
 3. **Custom domain** ayarları GitHub Pages settings'den yapılabilir
 
 ### Manual Deployment
+
 ```bash
 # Repository'yi clone edin
 git clone https://github.com/Tamerefe/NeYenir.git
@@ -176,6 +243,7 @@ git push origin gh-pages
 Bu proje orijinal olarak Flask web uygulaması olarak geliştirildi, ancak GitHub Pages desteği için static site'a dönüştürüldü:
 
 ### Orijinal Flask Uygulaması (Legacy)
+
 ```bash
 # Python ortamını hazırlayın
 python -m venv venv
@@ -192,6 +260,7 @@ python run.py --web
 ```
 
 ### Static Site Versiyonu (Güncel)
+
 - **Otomatik Deploy**: GitHub Pages ile otomatik deployment
 - **Serverless**: Sunucu gerektirmez
 - **CDN**: Global olarak hızlı erişim
@@ -202,7 +271,7 @@ python run.py --web
 Sistemimizde yer alan dünya çapında ünlü şefler:
 
 - 🇬🇧 **Gordon Ramsay**: Michelin Star Chef, wine pairing uzmanı
-- 🇹🇷 **Mehmet Gürs**: Türk mutfağı ve rakı eşleştirme uzmanı  
+- 🇹🇷 **Mehmet Gürs**: Türk mutfağı ve rakı eşleştirme uzmanı
 - 🇫🇷 **Joël Robuchon**: Le Chef du Siècle, Fransız mutfağı uzmanı
 - 🇯🇵 **Nobu Matsuhisa**: Japon mutfağı ve sake pairing uzmanı
 - 🇮🇹 **Massimo Bottura**: İtalyan mutfağı ve wine expertise
@@ -229,6 +298,7 @@ Sistemimizde yer alan dünya çapında ünlü şefler:
 ### Geliştirme Ortamı
 
 #### Static Site (Güncel)
+
 ```bash
 # Repository'yi clone edin
 git clone https://github.com/Tamerefe/NeYenir.git
@@ -239,6 +309,7 @@ cd NeYenir
 ```
 
 #### Legacy Flask App
+
 ```bash
 # Python ortamını hazırlayın
 python -m venv venv
@@ -265,12 +336,14 @@ Bu proje MIT lisansı altında lisanslanmıştır.
 ## 🎯 Roadmap
 
 ### v1.1 (Planlanan)
+
 - [ ] Daha fazla yemek seçeneği
 - [ ] Cocktail tarifleri
 - [ ] Kullanıcı puanlama sistemi
 - [ ] PWA (Progressive Web App) özellikleri
 
 ### v1.2 (Gelecek)
+
 - [ ] Multi-language support (EN, TR)
 - [ ] Dark/Light theme toggle
 - [ ] Restaurant recommendations
@@ -294,6 +367,7 @@ Bu proje MIT lisansı altında lisanslanmıştır.
 ```
 
 3. **Bağımlılıkları Yükleyin**
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -301,19 +375,23 @@ pip install -r requirements.txt
 4. **Uygulamayı Çalıştırın**
 
 **Konsol Uygulaması:**
+
 ```bash
 python main.py
 ```
 
 **Web Uygulaması:**
+
 ```bash
 python app.py
 ```
+
 Tarayıcınızda `http://localhost:5000` adresine gidin.
 
 ## 🎯 Kullanım
 
 ### Konsol Uygulaması
+
 1. Uygulamayı başlatın: `python main.py`
 2. Ana menüden istediğiniz seçeneği seçin
 3. Yemek seçimi yapın
@@ -321,6 +399,7 @@ Tarayıcınızda `http://localhost:5000` adresine gidin.
 5. Puanlama yaparak sistemi eğitmeye yardımcı olun
 
 ### Web Uygulaması
+
 1. Profil oluşturun (isteğe bağlı ama önerilen)
 2. "Get Recommendations" bölümünden yemek seçin
 3. AI önerilerini inceleyin
@@ -331,32 +410,36 @@ Tarayıcınızda `http://localhost:5000` adresine gidin.
 ### Ana Bileşenler
 
 #### 1. AIFoodAlcoholMatcher (main.py)
+
 - **Çekirdek AI Motoru**: Tüm eşleştirme algoritmaları
 - **Veritabanı Yönetimi**: SQLite ile kullanıcı verileri
 - **Makine Öğrenmesi**: Öneri algoritmaları
 
 #### 2. Web Arayüzü (app.py)
+
 - **Flask Framework**: Modern web uygulaması
 - **RESTful API**: Frontend-backend iletişimi
 - **Responsive Design**: Mobil uyumlu arayüz
 
 #### 3. Veritabanı Yapısı
+
 ```sql
 -- Kullanıcı tablosu
 users (user_id, name, age, preferences...)
 
--- Puanlama tablosu  
+-- Puanlama tablosu
 pairings (id, user_id, food_id, alcohol_id, rating, timestamp)
 ```
 
 ### Algoritma Detayları
 
 #### Uyumluluk Skoru Hesaplama
+
 ```python
 # Lezzet Eşleştirme (40% ağırlık)
 flavor_score = complementary_flavors + similar_flavors
 
-# Yoğunluk Uyumu (20% ağırlık)  
+# Yoğunluk Uyumu (20% ağırlık)
 intensity_score = 1 - abs(food_intensity - alcohol_intensity)
 
 # Doku ve Gövde Uyumu (15% ağırlık)
@@ -375,11 +458,13 @@ user_score = preferences + restrictions + history
 ## 📈 AI Özellikleri
 
 ### Lezzet Profili Analizi
+
 - **Tamamlayıcı Lezzetler**: Tatlı-baharatlı, tuzlu-ekşi kombinasyonları
 - **Benzer Lezzetler**: Aynı lezzet ailesinden eşleştirmeler
 - **Yoğunluk Dengesi**: Hafif yemekler için hafif içecekler
 
 ### Makine Öğrenmesi
+
 - **Kullanıcı Puanlamaları**: Her puanlama sistemin öğrenmesine katkıda bulunur
 - **Trend Analizi**: Popüler kombinasyonlar otomatik tespit edilir
 - **Kişiselleştirilme**: Bireysel tercihler zamanla öğrenilir
@@ -387,6 +472,7 @@ user_score = preferences + restrictions + history
 ## 🎨 Kullanıcı Deneyimi
 
 ### Web Arayüzü Özellikleri
+
 - **Modern Tasarım**: Bootstrap 5 ile responsive tasarım
 - **Gradient Arkaplanlar**: Görsel çekicilik
 - **Animasyonlar**: Smooth geçişler ve hover efektleri
@@ -394,6 +480,7 @@ user_score = preferences + restrictions + history
 - **İnteraktif Puanlama**: Yıldız tabanlı puanlama sistemi
 
 ### Mobil Uyumluluk
+
 - Tüm ekran boyutlarında mükemmel görünüm
 - Touch-friendly kontroller
 - Hızlı yükleme süreleri
@@ -401,12 +488,14 @@ user_score = preferences + restrictions + history
 ## 🔧 Geliştirici Notları
 
 ### Genişletme İmkanları
+
 1. **Daha Fazla Yemek Ekleme**: `_load_food_database()` fonksiyonunu güncelle
 2. **Yeni Alkol Türleri**: `_load_alcohol_database()` fonksiyonunu genişlet
 3. **Gelişmiş ML**: Scikit-learn veya TensorFlow entegrasyonu
 4. **API Entegrasyonu**: Dış yemek/içecek veritabanları
 
 ### Performans İyileştirmeleri
+
 - Veritabanı indexleme
 - Caching mekanizması
 - Asenkron işlemler
@@ -414,6 +503,7 @@ user_score = preferences + restrictions + history
 ## 🐛 Bilinen Sorunlar ve Çözümler
 
 ### Yaygın Hatalar
+
 1. **ModuleNotFoundError**: `pip install -r requirements.txt` çalıştırın
 2. **Port Already in Use**: Flask uygulaması için farklı port kullanın
 3. **Database Lock**: SQLite veritabanı dosyasının erişilebilir olduğundan emin olun
@@ -440,6 +530,7 @@ Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için LICENSE dosyas
 ## 👨‍💻 Geliştirici
 
 **NeYenir Team**
+
 - AI Algorithm Design
 - Web Development
 - UX/UI Design

@@ -8,269 +8,97 @@
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #8B5CF6;
-            --secondary-color: #06B6D4;
-            --accent-color: #F59E0B;
-            --danger-color: #EF4444;
-            --success-color: #10B981;
-            --dark-color: #1F2937;
-            --light-color: #F9FAFB;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-
-        .navbar {
-            background: rgba(255, 255, 255, 0.95) !important;
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .card {
-            border: none;
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.95);
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border: none;
-            border-radius: 12px;
-            padding: 12px 24px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
-        }
-
-        .hero-section {
-            padding: 100px 0;
-            text-align: center;
-            color: white;
-        }
-
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            opacity: 0.9;
-            margin-bottom: 2rem;
-        }
-
-        .feature-card {
-            text-align: center;
-            padding: 2rem;
-            height: 100%;
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-        }
-
-        .score-bar {
-            height: 8px;
-            background: #e5e7eb;
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 8px 0;
-        }
-
-        .score-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--success-color), var(--accent-color));
-            border-radius: 4px;
-            transition: width 1s ease;
-        }
-
-        .food-card,
-        .alcohol-card {
-            margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
-        }
-
-        .food-card:hover,
-        .alcohol-card:hover {
-            border-left-color: var(--primary-color);
-            transform: translateX(5px);
-        }
-
-        .cuisine-badge {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .rating-stars {
-            color: var(--accent-color);
-            font-size: 1.2rem;
-        }
-
-        .loading-spinner {
-            display: none;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1rem;
-            }
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 16px;
-            color: white;
-        }
-
-        .recommendation-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .recommendation-card:hover {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
-            transform: translateY(-3px);
-        }
-
-        /* Logo Stilleri */
-        .navbar-brand img,
-        .logo {
-            transition: all 0.3s ease;
-        }
-
-        .navbar-brand img:hover {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .hero-logo {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-    </style>
+    <!-- Fine Dining Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&family=Inter:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
     <!-- Navigasyon Menüsü -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <nav class="navbar navbar-expand-lg modern-navbar fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold d-flex align-items-center" href="{{ url_for('index') }}">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Ne Yenir Logo"
-                    style="height: 40px; width: 40px; margin-right: 10px; border-radius: 8px;">
-                Ne Yenir?
+            <a class="navbar-brand modern-brand" href="{{ url_for('main.index') }}">
+                <div class="brand-logo-wrapper">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Ne Yenir Logo" class="brand-logo">
+                    <div class="brand-glow"></div>
+                </div>
+                <span class="brand-text">Ne Yenir?</span>
+                <span class="brand-badge">AI</span>
             </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler modern-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="toggler-icon"></span>
+                <span class="toggler-icon"></span>
+                <span class="toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
+                <ul class="navbar-nav me-auto modern-nav-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('index') }}">
-                            <i class="bi bi-house"></i> Ana Sayfa
+                        <a class="nav-link modern-nav-link" href="{{ url_for('main.index') }}">
+                            <span class="nav-icon"><i class="bi bi-house-fill"></i></span>
+                            <span class="nav-text">Ana Sayfa</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('recommend') }}">
-                            <i class="bi bi-lightbulb"></i> Öneriler Al
+                        <a class="nav-link modern-nav-link" href="{{ url_for('main.recommend') }}">
+                            <span class="nav-icon"><i class="bi bi-lightbulb-fill"></i></span>
+                            <span class="nav-text">Öneriler</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('foods') }}">
-                            <i class="bi bi-egg-fried"></i> Yemekleri İncele
+                    <li class="nav-item dropdown modern-dropdown">
+                        <a class="nav-link modern-nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <span class="nav-icon"><i class="bi bi-grid-fill"></i></span>
+                            <span class="nav-text">Keşfet</span>
                         </a>
+                        <ul class="dropdown-menu modern-dropdown-menu">
+                            <li><a class="dropdown-item modern-dropdown-item" href="{{ url_for('main.foods') }}">
+                                <i class="bi bi-egg-fried"></i> Yemekler
+                            </a></li>
+                            <li><a class="dropdown-item modern-dropdown-item" href="{{ url_for('main.alcohols') }}">
+                                <i class="bi bi-cup"></i> İçecekler
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item modern-dropdown-item" href="{{ url_for('main.trending') }}">
+                                <i class="bi bi-fire"></i> Trendler
+                            </a></li>
+                            <li><a class="dropdown-item modern-dropdown-item" href="{{ url_for('main.cocktails') }}">
+                                <i class="bi bi-cup-straw"></i> Kokteyl Önerileri
+                            </a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('alcohols') }}">
-                            <i class="bi bi-cup"></i> İçecekleri İncele
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('trending') }}">
-                            <i class="bi bi-fire"></i> Trendler
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('cocktails') }}">
-                            <i class="bi bi-cup-straw"></i> Kokteyl Önerileri
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('bac_calculator') }}">
-                            <i class="bi bi-calculator"></i> Promil Hesapla
+                        <a class="nav-link modern-nav-link" href="{{ url_for('main.bac_calculator') }}">
+                            <span class="nav-icon"><i class="bi bi-calculator-fill"></i></span>
+                            <span class="nav-text">Promil</span>
                         </a>
                     </li>
                 </ul>
 
-                <ul class="navbar-nav">
+                <ul class="navbar-nav modern-nav-actions">
                     {% if session.user_id %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('profile') }}">
-                            <i class="bi bi-person-circle"></i> Profil
+                    <li class="nav-item dropdown modern-dropdown">
+                        <a class="nav-link modern-nav-link modern-profile-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <span class="profile-avatar">
+                                <i class="bi bi-person-fill"></i>
+                            </span>
+                            <span class="nav-text">Profil</span>
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('logout') }}">
-                            <i class="bi bi-box-arrow-right"></i> Çıkış
-                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end modern-dropdown-menu">
+                            <li><a class="dropdown-item modern-dropdown-item" href="{{ url_for('main.profile') }}">
+                                <i class="bi bi-person-circle"></i> Profilim
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item modern-dropdown-item text-danger" href="{{ url_for('main.logout') }}">
+                                <i class="bi bi-box-arrow-right"></i> Çıkış Yap
+                            </a></li>
+                        </ul>
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('create_profile') }}">
-                            <i class="bi bi-person-plus"></i> Profil Oluştur
+                        <a class="btn modern-btn-nav" href="{{ url_for('main.create_profile') }}">
+                            <i class="bi bi-person-plus-fill"></i>
+                            <span>Profil Oluştur</span>
                         </a>
                     </li>
                     {% endif %}
@@ -299,19 +127,81 @@
     </main>
 
     <!-- Alt Bilgi -->
-    <footer class="bg-dark text-light py-4 mt-5">
-        <div class="container text-center">
-            <div class="row align-items-center">
-                <div class="col-md-4">
-                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Ne Yenir Logo"
-                        style="height: 30px; width: 30px; border-radius: 6px;" class="mb-2">
-                    <p class="mb-0">&copy; 2025 AI Yemek & Alkol Eşleştirme Sistemi</p>
+    <footer class="modern-footer mt-5">
+        <div class="container">
+            <div class="row g-4 py-5">
+                <!-- Logo ve Açıklama -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-brand mb-3">
+                        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Ne Yenir Logo"
+                            class="footer-logo mb-3">
+                        <h5 class="text-white fw-bold">Ne Yenir?</h5>
+                    </div>
+                    <p class="footer-description">
+                        AI ve makine öğrenmesi destekli yemek-içecek eşleştirme platformu. 
+                        Lezzet yolculuğunuzda yanınızdayız! 🍷✨
+                    </p>
+                    <div class="social-links mt-3">
+                        <a href="#" class="social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <p class="mb-0">Ne Yenir? - AI Destekli Eşleştirmeler</p>
+
+                <!-- Hızlı Linkler -->
+                <div class="col-lg-2 col-md-6">
+                    <h6 class="footer-title">Keşfet</h6>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('main.index') }}"><i class="bi bi-chevron-right"></i> Ana Sayfa</a></li>
+                        <li><a href="{{ url_for('main.recommend') }}"><i class="bi bi-chevron-right"></i> Öneriler</a></li>
+                        <li><a href="{{ url_for('main.foods') }}"><i class="bi bi-chevron-right"></i> Yemekler</a></li>
+                        <li><a href="{{ url_for('main.alcohols') }}"><i class="bi bi-chevron-right"></i> İçecekler</a></li>
+                    </ul>
                 </div>
-                <div class="col-md-4">
-                    <p class="mb-0">Gelişmiş AI ve Makine Öğrenmesi ile Destekleniyor 🤖</p>
+
+                <!-- Özellikler -->
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="footer-title">Özellikler</h6>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('main.trending') }}"><i class="bi bi-chevron-right"></i> Trendler</a></li>
+                        <li><a href="{{ url_for('main.cocktails') }}"><i class="bi bi-chevron-right"></i> Kokteyl Önerileri</a></li>
+                        <li><a href="{{ url_for('main.bac_calculator') }}"><i class="bi bi-chevron-right"></i> Promil Hesapla</a></li>
+                        <li><a href="{{ url_for('main.create_profile') }}"><i class="bi bi-chevron-right"></i> Profil Oluştur</a></li>
+                    </ul>
+                </div>
+
+                <!-- İletişim -->
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="footer-title">İletişim</h6>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="bi bi-geo-alt-fill"></i>
+                            <span>Türkiye</span>
+                        </li>
+                        <li>
+                            <i class="bi bi-envelope-fill"></i>
+                            <span>info@neyenir.com</span>
+                        </li>
+                        <li>
+                            <i class="bi bi-robot"></i>
+                            <span>AI Destekli Sistem</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Alt Çizgi -->
+            <div class="footer-bottom py-4">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+                        <p class="mb-0">&copy; 2025 Ne Yenir? Tüm hakları saklıdır.</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <a href="#" class="footer-bottom-link">Gizlilik Politikası</a>
+                        <span class="mx-2">•</span>
+                        <a href="#" class="footer-bottom-link">Kullanım Koşulları</a>
+                    </div>
                 </div>
             </div>
         </div>

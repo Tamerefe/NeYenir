@@ -5,10 +5,10 @@
 {% block content %}
 <div class="container" style="padding-top: 100px;">
     <div class="row">
-        <div class="col-lg-10 mx-auto">
+        <div class="col-lg-12 mx-auto">
             <div class="text-center mb-5">
                 <h1 class="display-4 fw-bold text-white mb-3">
-                    🍽️ Tüm Yemekler
+                    Tüm Yemekler
                 </h1>
                 <p class="lead text-white-50">
                     Geniş yemek koleksiyonumuzu keşfedin ve favorilerinizi bulun
@@ -16,78 +16,232 @@
             </div>
 
             <!-- Yemekler Izgara Düzeni -->
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">
-                        <i class="bi bi-collection"></i> Yemek Koleksiyonu ({{ foods|length }} yemek)
-                    </h4>
+            <div class="card modern-collection-container">
+                <div class="card-header modern-food-header">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="collection-icon-badge food-badge">
+                            <i class="bi bi-egg-fried"></i>
+                        </div>
+                        <div>
+                            <h4 class="mb-0 text-white fw-bold">Yemek Koleksiyonu</h4>
+                            <small class="text-white-50">{{ foods|length }} farklı lezzet</small>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body modern-collection-body">
                     <div class="row g-4" id="foodsGrid">
                         {% for food in foods %}
-                        <div class="col-lg-4 col-md-6">
-                            <div class="card food-card h-100">
+                        <div class="col-lg-4 col-md-6 collection-item" style="animation-delay: {{ (loop.index - 1) * 0.05 }}s">
+                            <div class="modern-food-card">
+                                <div class="food-card-glow"></div>
+
                                 <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-start mb-3">
-                                        <h5 class="card-title mb-1">
-                                            {% if food.cuisine_type == 'Turkish' %}🇹🇷
-                                            {% elif food.cuisine_type == 'French' %}🇫🇷
-                                            {% elif food.cuisine_type == 'Italian' %}🇮🇹
-                                            {% elif food.cuisine_type == 'Japanese' %}🇯🇵
-                                            {% elif food.cuisine_type == 'British' %}🇬🇧
-                                            {% elif food.cuisine_type == 'American' %}🇺🇸
-                                            {% elif food.cuisine_type == 'Chinese' %}🇨🇳
-                                            {% elif food.cuisine_type == 'Indian' %}🇮🇳
-                                            {% elif food.cuisine_type == 'Mexican' %}🇲🇽
-                                            {% elif food.cuisine_type == 'Spanish' %}🇪🇸
-                                            {% elif food.cuisine_type == 'Greek' %}🇬🇷
-                                            {% else %}🌍
-                                            {% endif %}
-                                            {{ food.name }}
-                                        </h5>
-                                        <span class="badge bg-secondary">
-                                            {{ food.cuisine_type|translate_cuisine }}
-                                        </span>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <h6 class="text-muted mb-2">Lezzet Profili:</h6>
-                                        <div class="d-flex flex-wrap gap-1">
-                                            {% for flavor in food.flavor_profile %}
-                                            <span class="badge bg-light text-dark">{{ flavor|translate_flavor }}</span>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-
-                                    <div class="row g-2 mb-3">
-                                        <div class="col-6">
-                                            <small class="text-muted d-block">
-                                                <i class="bi bi-fire text-danger"></i> Yoğunluk
-                                            </small>
-                                            <div class="progress" style="height: 8px;">
-                                                <div class="progress-bar bg-danger"
-                                                    style="width: {{ food.intensity * 10 }}%"></div>
-                                            </div>
-                                            <small>{{ food.intensity }}/10</small>
-                                        </div>
-                                        <div class="col-6">
-                                            <small class="text-muted d-block">
-                                                <i class="bi bi-cash text-success"></i> Fiyat Aralığı
-                                            </small>
-                                            <span class="badge 
-                                                {% if food.price_range == 'budget' %}bg-success
-                                                {% elif food.price_range == 'mid-range' %}bg-warning
-                                                {% else %}bg-danger
-                                                {% endif %}">
-                                                {{ food.price_range|translate_price }}
+                                    <!-- Title & Badge -->
+                                    <div class="food-header mb-4">
+                                        <h5 class="food-title">{{ food.name }}</h5>
+                                        <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap mt-2">
+                                            <span class="cuisine-badge-modern food-cuisine">
+                                                {{ food.cuisine_type|translate_cuisine }}
                                             </span>
                                         </div>
                                     </div>
 
-                                    <div class="d-grid">
-                                        <a href="{{ url_for('recommend') }}#food-{{ food.name|replace(' ', '-') }}"
-                                            class="btn btn-outline-primary">
-                                            <i class="bi bi-search"></i> Öneriler Al
+                                    <!-- Tadım Notları Section -->
+                                    <div class="tasting-notes-section">
+                                        <!-- Lezzet Profili -->
+                                        <div class="tasting-note-item mb-3">
+                                            <div class="tasting-note-header">
+                                                <i class="bi bi-palette"></i>
+                                                <span class="tasting-note-label">Lezzet Profili</span>
+                                            </div>
+                                            <div class="tasting-note-content">
+                                                <div class="flavor-tags-grid">
+                                                    {% for flavor in food.flavor_profile %}
+                                                    <span class="flavor-chip">{{ flavor|translate_flavor }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Özellikler -->
+                                        <div class="tasting-note-item mb-3">
+                                            <div class="tasting-note-header">
+                                                <i class="bi bi-fire-fill"></i>
+                                                <span class="tasting-note-label">Özellikler</span>
+                                            </div>
+                                            <div class="tasting-note-content">
+                                                <!-- Intensity -->
+                                                <div class="tasting-attribute mb-2">
+                                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                                        <span class="attribute-label">Yoğunluk</span>
+                                                        <span class="attribute-value">{{ food.intensity }}/10</span>
+                                                    </div>
+                                                    <div class="tasting-bar">
+                                                        <div class="tasting-bar-fill body-bar" style="width: {{ food.intensity * 10 }}%"></div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Texture -->
+                                                {% if food.texture %}
+                                                <div class="tasting-attribute mb-2">
+                                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                                        <span class="attribute-label">Doku</span>
+                                                        <span class="attribute-value">{{ food.texture|title }}</span>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+
+                                                <!-- Difficulty Level -->
+                                                {% if food.difficulty_level %}
+                                                <div class="tasting-attribute mb-2">
+                                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                                        <span class="attribute-label">Zorluk</span>
+                                                        <span class="attribute-value">{{ food.difficulty_level }}/5</span>
+                                                    </div>
+                                                    <div class="tasting-bar">
+                                                        <div class="tasting-bar-fill sweetness-bar" style="width: {{ (food.difficulty_level / 5 * 100)|round(0) }}%"></div>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                        <!-- Ana Malzemeler -->
+                                        {% if food.main_ingredients and food.main_ingredients|length > 0 %}
+                                        <div class="tasting-note-item mb-3">
+                                            <div class="tasting-note-header">
+                                                <i class="bi bi-basket-fill"></i>
+                                                <span class="tasting-note-label">Ana Malzemeler</span>
+                                            </div>
+                                            <div class="tasting-note-content">
+                                                <div class="flavor-tags-grid">
+                                                    {% for ingredient in food.main_ingredients[:6] %}
+                                                    <span class="flavor-chip">{{ ingredient|title }}</span>
+                                                    {% endfor %}
+                                                    {% if food.main_ingredients|length > 6 %}
+                                                    <span class="flavor-chip-more">+{{ food.main_ingredients|length - 6 }}</span>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+
+                                        <!-- Diyet Etiketleri -->
+                                        {% if food.dietary_tags and food.dietary_tags|length > 0 %}
+                                        <div class="tasting-note-item mb-3">
+                                            <div class="tasting-note-header">
+                                                <i class="bi bi-heart-fill"></i>
+                                                <span class="tasting-note-label">Diyet Bilgileri</span>
+                                            </div>
+                                            <div class="tasting-note-content">
+                                                <div class="flavor-tags-grid">
+                                                    {% for tag in food.dietary_tags %}
+                                                    <span class="flavor-chip">{{ tag|title }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+
+                                        <!-- Teknik Bilgiler Accordion -->
+                                        <div class="accordion accordion-flush" id="accordionTeknik{{ food.id }}">
+                                            <div class="accordion-item tasting-accordion-item">
+                                                <h2 class="accordion-header" id="headingTeknik{{ food.id }}">
+                                                    <button class="accordion-button collapsed tasting-accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTeknik{{ food.id }}" aria-expanded="false" aria-controls="collapseTeknik{{ food.id }}">
+                                                        <i class="bi bi-info-circle me-2"></i>
+                                                        <span>Teknik Bilgiler</span>
+                                                    </button>
+                                                </h2>
+                                                <div id="collapseTeknik{{ food.id }}" class="accordion-collapse collapse" aria-labelledby="headingTeknik{{ food.id }}" data-bs-parent="#accordionTeknik{{ food.id }}">
+                                                    <div class="accordion-body tasting-note-content">
+                                                        <div class="technical-info-grid">
+                                                            <div class="technical-item">
+                                                                <i class="bi bi-fire-fill"></i>
+                                                                <div>
+                                                                    <span class="technical-label">Yoğunluk</span>
+                                                                    <span class="technical-value">{{ food.intensity }}/10</span>
+                                                                </div>
+                                                            </div>
+                                                            {% if food.cooking_method %}
+                                                            <div class="technical-item">
+                                                                <i class="bi bi-stove"></i>
+                                                                <div>
+                                                                    <span class="technical-label">Pişirme</span>
+                                                                    <span class="technical-value">{{ food.cooking_method|title }}</span>
+                                                                </div>
+                                                            </div>
+                                                            {% endif %}
+                                                            {% if food.serving_temp %}
+                                                            <div class="technical-item">
+                                                                <i class="bi bi-thermometer-half"></i>
+                                                                <div>
+                                                                    <span class="technical-label">Servis Sıcaklığı</span>
+                                                                    <span class="technical-value">{{ food.serving_temp|title }}</span>
+                                                                </div>
+                                                            </div>
+                                                            {% endif %}
+                                                            {% if food.preparation_time_minutes and food.preparation_time_minutes > 0 %}
+                                                            <div class="technical-item">
+                                                                <i class="bi bi-clock-fill"></i>
+                                                                <div>
+                                                                    <span class="technical-label">Hazırlık Süresi</span>
+                                                                    <span class="technical-value">{{ food.preparation_time_minutes }} dk</span>
+                                                                </div>
+                                                            </div>
+                                                            {% endif %}
+                                                            {% if food.difficulty_level %}
+                                                            <div class="technical-item">
+                                                                <i class="bi bi-star-fill"></i>
+                                                                <div>
+                                                                    <span class="technical-label">Zorluk</span>
+                                                                    <span class="technical-value">{{ food.difficulty_level }}/5</span>
+                                                                </div>
+                                                            </div>
+                                                            {% endif %}
+                                                            {% if food.origin_country %}
+                                                            <div class="technical-item">
+                                                                <i class="bi bi-geo-alt-fill"></i>
+                                                                <div>
+                                                                    <span class="technical-label">Menşei</span>
+                                                                    <span class="technical-value">{{ food.origin_country|title }}</span>
+                                                                </div>
+                                                            </div>
+                                                            {% endif %}
+                                                            <div class="technical-item">
+                                                                <i class="bi bi-tag-fill"></i>
+                                                                <div>
+                                                                    <span class="technical-label">Fiyat</span>
+                                                                    <span class="technical-value price-value 
+                                                                        {% if food.price_range == 'budget' %}price-budget
+                                                                        {% elif food.price_range == 'mid-range' %}price-mid
+                                                                        {% else %}price-premium
+                                                                        {% endif %}">
+                                                                        {{ food.price_range|translate_price }}
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            {% if food.nutritional_info and food.nutritional_info.calories_per_100g %}
+                                                            <div class="technical-item">
+                                                                <i class="bi bi-activity"></i>
+                                                                <div>
+                                                                    <span class="technical-label">Kalori</span>
+                                                                    <span class="technical-value">{{ food.nutritional_info.calories_per_100g }} kcal/100g</span>
+                                                                </div>
+                                                            </div>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Action Button -->
+                                    <div class="mt-4">
+                                        <a href="{{ url_for('main.recommend') }}#food-{{ food.name|replace(' ', '-') }}"
+                                            class="btn-collection-action food-action">
+                                            <i class="bi bi-lightbulb-fill"></i>
+                                            <span>Öneriler Al</span>
                                         </a>
                                     </div>
                                 </div>
@@ -100,23 +254,4 @@
         </div>
     </div>
 </div>
-
-<style>
-    .food-card {
-        transition: all 0.3s ease;
-    }
-
-    .food-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    }
-
-    .progress {
-        border-radius: 10px;
-    }
-
-    .progress-bar {
-        border-radius: 10px;
-    }
-</style>
 {% endblock %}
