@@ -25,12 +25,30 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-          cache: 'pip'
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          python -m pip install --upgrade pip setuptools wheel
+          pip install --no-cache-dir -r requirements.txt
+
+      - name: Verify Python syntax
+        run: |
+          echo "Checking Python syntax..."
+          python -m py_compile run.py
+          python -m py_compile app/__init__.py
+          python -m py_compile app/routes.py
+          python -m py_compile app/config.py
+          python -m py_compile core/models.py
+          python -m py_compile core/matcher.py
+          echo "✅ Syntax check passed"
+
+      - name: Test imports
+        run: |
+          echo "Testing critical imports..."
+          python -c "from app import create_app; print('✅ Flask app import OK')"
+          python -c "import core.matcher; print('✅ Core matcher import OK')"
+          python -c "import core.models; print('✅ Core models import OK')"
+          echo "✅ All imports successful"
 
       - name: Run tests (optional)
         run: |
